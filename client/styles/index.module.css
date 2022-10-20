@@ -1,0 +1,22 @@
+@use "./color-pallette.module.scss" as color;
+.wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 3fr;
+  grid-template-rows: 1fr 3fr;
+  position: relative;
+}
+
+.main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 2fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  padding: 20px;
+  margin-left: 20rem;
+  position: relative;
+  outline: 2px solid color;
+}
+/*# sourceMappingURL=index.module.css.map */

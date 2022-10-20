@@ -1,0 +1,117 @@
+.banner img {
+  border-radius: 10px;
+}
+.banner {
+  display: grid;
+  place-items: center;
+}
+.profilePhoto img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+.profilePhoto img:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.profilePhoto span {
+  display: none;
+  cursor: pointer;
+}
+.profilePhoto:hover span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.profilePhoto {
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container {
+  display: grid;
+}
+.profileInfo {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  margin: 0 5rem;
+  margin-top: 10rem;
+}
+.profileInfo svg {
+  height: 1rem;
+}
+
+/* .profileInfoItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+} */
+/* .profileMoreInfo{
+    display: flex;
+    flex-direction:row;
+} */
+.followBtn {
+  background-color: #0095f6;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.followBtn:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.followBtn:active {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.follow {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  position: absolute;
+  top: 20rem;
+  right: 4.5rem;
+}
+.moreBtn {
+  border: 1px solid black;
+  border-radius: 50%;
+  /* padding: 0.01rem; */
+}
+.bio,
+.stats {
+  display: flex;
+  flex-direction: column;
+  /* gap: .1rem; */
+  justify-content: center;
+  align-items: center;
+}
+.stats {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.bioWrapper {
+  margin-top: 10rem;
+}
