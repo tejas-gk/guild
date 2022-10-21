@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./modal.module.scss";
 export default function Modal({
   message,
@@ -6,12 +5,8 @@ export default function Modal({
   buttons,
   className,
   onChange,
-  onSubmit,
+  submitForm
 }) {
-  function handleSubmit() {
-    console.log("submit");
-  }
-
   return (
     <div className={`${styles.container} ${className}`}>
       <h1>Modal</h1>
@@ -19,7 +14,7 @@ export default function Modal({
       <div>
         {inputs?.map((input:any, index:number) => {
           return (
-            <form key={index} onSubmit={onSubmit} method="Post">
+            <form key={index} onSubmit={submitForm} method="POST">
               <input
                 key={index}
                 type={input.type}
@@ -27,16 +22,11 @@ export default function Modal({
                 placeholder={input.placeholder}
                 onChange={onChange}
               />
+              <button type="submit">post</button>
             </form>
           );
         })}
-        {buttons?.map((button, index) => {
-          return (
-            <button key={index} onClick={button.onClick} type="submit">
-              {button.text}
-            </button>
-          );
-        })}
+       
       </div>
     </div>
   );

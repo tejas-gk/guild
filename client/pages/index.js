@@ -12,6 +12,7 @@ import Modal from "components/Modal/Modal";
 import Card from "components/Card/Card";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
+import { mutate } from "swr";
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
@@ -47,6 +48,7 @@ export default function Home() {
     currentUser();
   }, []);
 
+  
   return (
     <>
       <NavBar />
@@ -68,15 +70,8 @@ export default function Home() {
       <Modal
         className={`${modal ? styles.modal : styles.hide} ${styles.modals}`}
         message={modal ? "modal is open" : "modal is closed"}
+        submitForm={storePost}
         inputs={[{ type: "text", name: "post", placeholder: "post" }]}
-        buttons={[
-          {
-            text: "submit",
-            type: "submit",
-            onClick: () => console.log("submit"),
-          },
-        ]}
-      onSubmit={storePost}
       />
       <div
         className={styles.posts}
