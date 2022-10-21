@@ -1,0 +1,20 @@
+.container {
+  border: 2px solid black;
+  border-radius: 5%;
+  gap: 10px;
+  margin: 10px;
+}
+
+.card__footer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 10px;
+}
+.card__footer__span:hover {
+  cursor: pointer;
+  border: 2px solid black;
+  padding: 0;
+  border-radius: 50%;
+}/*# sourceMappingURL=Card.module.css.map */

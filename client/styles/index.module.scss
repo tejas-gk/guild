@@ -22,3 +22,11 @@
 .hide {
   display: none;
 }
+
+.posts{
+  width:65%;
+  display:flex;
+  flex-direction:column;
+  justify-item:center;
+  align-items:center;
+}

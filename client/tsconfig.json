@@ -26,6 +26,6 @@
     "lib/axios.js",
     "pages/register.tsx",
     "components/Label/Label.tsx"
-  ],
+, "components/SideBar/SideBar.js"  ],
   "exclude": ["node_modules"]
 }

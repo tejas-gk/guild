@@ -3,41 +3,57 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\TwoFA;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
     public function forgotPassword(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-        if (! $user) {
+        // $user = User::where('email', $request->email)->first();
+        // if (! $user) {
+        //     return response()->json([
+        //         'message' => 'We can\'t find a user with that e-mail address.',
+        //     ], 404);
+        // }
+        // $user->sendPasswordResetNotification($request->token);
+        $status=Password::sendResetLink(
+            $request->only('email')
+        );
+        if($status==Password::RESET_LINK_SENT){
             return response()->json([
-                'message' => 'We can\'t find a user with that e-mail address.',
-            ], 404);
+                'message' => 'Reset password link sent on your email id.',
+            ], 200);
         }
-        $user->sendPasswordResetNotification($request->token);
-
         return response()->json([
-            'message' => 'We have e-mailed your password reset link!',
-        ]);
+            'message' => 'Unable to send password reset link.',
+        ], 500);
     }
 
     public function resetPassword(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-        if (! $user) {
+        $status=Password::reset(
+            $request->only('email','password','token'),
+            function ($user,$password){
+                $user->forceFill([
+                    'password'=>bcrypt($password),
+                ])->save();
+                $user->setRememberToken(Str::random(60));
+                // event(new PasswordReset($user));
+            }
+        );
+        if($status==Password::PASSWORD_RESET){
             return response()->json([
-                'message' => 'We can\'t find a user with that e-mail address.',
-            ], 404);
+                'message' => 'Password reset successfully.',
+            ], 200);
         }
-        $user->password = bcrypt($request->password);
-        $user->save();
-
         return response()->json([
-            'message' => 'Password reset successfully!',
-        ]);
+            'message' => 'Unable to reset password.',
+        ], 500);
     }
 
     public function verifyEmail(Request $request)
@@ -90,23 +106,5 @@ class ForgotPasswordController extends Controller
         ]);
     }
 
-    public function twoFactorAuthentication(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        if (! $user) {
-            return response()->json([
-                'message' => 'We can\'t find a user with that e-mail address.',
-            ], 404);
-        }
-
-        $code = random_int(100000, 999999);
-        $user->two_factor_code = $code;
-        $user->save();
-        //  send email
-        Mail::to($user->email)->send(new \App\Mail\TwoFactorAuthentication($code));
-
-        return response()->json([
-            'message' => 'Two factor authentication code sent on your email id',
-        ]);
-    }
+   
 }

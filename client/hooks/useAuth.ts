@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function useAuth({ middleware }: { middleware?: string } = {}) {
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     if (user || error) {
       setIsLoading(false);
@@ -91,19 +91,15 @@ export default function useAuth({ middleware }: { middleware?: string } = {}) {
     router.push("/login");
   };
 
-  const currentUser = async () => {
-    await axios.get("/current-user").then((response) => {
+  const [authUser, setAuthUser] = useState("");
+  const currentUser = () => {
+    axios.get("current-user").then((response) => {
+      JSON.stringify(response.data);
+      setAuthUser(response.data.name);
       console.log(response.data);
-      return response.data;
     });
   };
 
-  const storePost = async ({ post }: { post: string }) => {
-    await axios.post("/posts", post).then((response) => {
-      console.log(response.data);
-      return response.data;
-    });
-  };
 
   return {
     user,
@@ -113,6 +109,6 @@ export default function useAuth({ middleware }: { middleware?: string } = {}) {
     isLoading,
     register,
     currentUser,
-    storePost,
+    authUser
   };
 }

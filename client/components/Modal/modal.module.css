@@ -1,0 +1,13 @@
+.container {
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center";
+  aspect-ratio: "1/.5";
+  border: "5px solid green";
+  margin-left: "10%";
+  position: "absolute";
+  top: "50%";
+  left: "90%";
+  float: right;
+}/*# sourceMappingURL=modal.module.css.map */

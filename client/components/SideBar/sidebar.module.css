@@ -107,4 +107,19 @@
   min-width: 2rem;
   margin: 0 1.5rem;
 }
+
+.show__navbar{
+  width:16rem;
+}
+.navLink {
+  display: flex;
+  flex-direction: row;
+}
+.linkText {
+  display: block;
+}
+
+.show_arrow {
+  display: none;
+}
 /*# sourceMappingURL=sidebar.module.css.map */

@@ -5,43 +5,29 @@ import useAuth from "hooks/useAuth";
 import { current } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { Axios } from "axios";
-import SideBar from "components/SideBar/SideBar";
+import SideBar from "../components/SideBar/SideBar";
 import NavBar from "components/Navbar/Navbar";
 import styles from "styles/index.module.scss";
 import Modal from "components/Modal/Modal";
-import { mutate } from "swr";
-import { redirect } from "next/dist/server/api-utils";
-// import Post from 'lib/helpers/Post'
+import Card from "components/Card/Card";
+import Post from "lib/helpers/Post";
+import useConvert from "hooks/useConvert";
 export default function Home() {
-  const { logout, isLoading, user, storePost } = useAuth({
+  const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
   });
-  // const {storePost,getAllPost,post}=Post();
+  const {convertToHumanReadable} = useConvert();
+  
+  const {getAllPost,post,storePost}=Post();
 
-  const [authUser, setAuthUser] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [modal, setModal] = useState(false);
 
   const handleModal = () => {
     setModal(!modal);
     console.log("clicked");
-  };
+  };  
 
-  const currentUser = () => {
-    axios.get("current-user").then((response) => {
-      JSON.stringify(response.data);
-      setAuthUser(response.data.name);
-      console.log(response.data);
-    });
-  };
-  const convertDate = (date) => {
-    const newDate = new Date(date);
-    const dateStr = newDate.toString();
-    const dateArr = dateStr.split(" ");
-    const newDateArr = dateArr.slice(0, 5);
-    const newDateStr = newDateArr.join(" ");
-    setCreatedAt(newDateStr);
-  };
 
   const created = () => {
     axios.get("current-user").then((response) => {
@@ -50,16 +36,7 @@ export default function Home() {
     });
     return <div>{createdAt}</div>;
   };
-  const [post, setPost] = useState("");
-
-  const getAllPost = () => {
-    axios.get("/post").then((response) => {
-      setPost(response.data);
-    });
-  };
-  useEffect(() => {
-    getAllPost();
-  }, []);
+  
 
   const logoutUser = async (event) => {
     event.preventDefault();
@@ -99,6 +76,7 @@ export default function Home() {
             onClick: () => console.log("submit"),
           },
         ]}
+      onSubmit={storePost}
       />
       <div
         className={styles.posts}
@@ -111,31 +89,13 @@ export default function Home() {
       >
         {post.posts &&
           post.posts.map((post, index) => {
-            return <div key={index}>{post.post}</div>;
+            return <div key={index} className={styles.posts}>
+              <Card
+              text={post.post}
+              />  
+            </div>;
           })}
       </div>
-
-      <form
-        method="POST"
-        style={{
-          position: "absolute",
-          top: "400px",
-          left: "700px",
-        }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const data = {
-            post: formData.get("post"),
-          };
-          await axios.post("/post", data);
-          mutate("/post");
-        }}
-      >
-        <input type="text" name="post" placeholder="post" />
-        <input type="submit" value="submit" />
-      </form>
-      {console.log(post)}
     </>
   );
 }

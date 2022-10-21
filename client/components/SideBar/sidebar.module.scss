@@ -4,7 +4,17 @@
   height: 100vh;
   background-color: #000;
   position: fixed;
+  // &:hover{
+  //   width: 16rem;
 
+  //   .navLink {
+  //     display: flex;
+  //     flex-direction: row;
+  //     .linkText {
+  //       display: block;
+  //     }
+  //   }
+  // }
   .navbarNav {
     display: flex;
     list-style: none;
@@ -82,4 +92,8 @@
       display: block;
     }
   }
+}
+
+.show_arrow {
+  display: none;
 }

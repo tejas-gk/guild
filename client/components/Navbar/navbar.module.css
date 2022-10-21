@@ -2,26 +2,17 @@
   background-color: #000;
   color: #fff;
   padding: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   gap: 30px;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
-
 .navbar .logo {
   font-size: 1.5rem;
   font-weight: bold;
 }
-
 .navbar .links {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .navbar .links .link {
   margin-left: 10px;
   text-decoration: none;
@@ -29,39 +20,38 @@
 }
 
 .navbar__logo__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   gap: 20px;
   margin: 0;
   padding: 0;
 }
-
 .navbar__logo__list .navbar__logo__list__item {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.navbar__logo__list .navbar__logo__list__item:last-child {
-  margin-left: 64rem;
+.navbar__logo__list__item__right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  margin-left: 130vh;
+  padding: 0;
+  float: right;
+  position: relative;
+  right: 0;
 }
 
-.nav__search__bar .nav__search__bar input[type="text"] {
+.nav__search__bar .nav__search__bar input[type=text] {
   padding: 10px;
   border-radius: 5px;
   border: none;
   outline: none;
   width: 3000px;
 }
-
 .nav__search__bar:active {
   background-color: #fff;
 }
@@ -71,17 +61,14 @@
   margin: 0;
   padding: 3px;
   color: white;
-  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-
 .navbar__logo__list__dropdown li:hover {
   background-color: #fff;
   color: #000;
   border-radius: 5px;
   padding: 3px;
 }
-
 .navbar__logo__list__dropdown ul {
   margin: 0;
   padding: 20px;
@@ -90,7 +77,6 @@
   background-color: #000;
   border-radius: 5px 0px 0px 5px;
 }
-
 .navbar__logo__list__dropdown:hover {
   cursor: pointer;
 }
@@ -100,11 +86,22 @@
   margin: 0;
   padding: 0;
 }
-
 .navbar__logo__list__item:hover {
   cursor: pointer;
   background-color: #fff;
   color: #000;
   border-radius: 10%;
 }
-/*# sourceMappingURL=navbar.module.css.map */
+
+.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+.light_mode {
+  margin-left: 25px;
+}/*# sourceMappingURL=navbar.module.css.map */

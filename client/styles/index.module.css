@@ -1,22 +1,35 @@
-@use "./color-pallette.module.scss" as color;
 .wrapper {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 1fr 3fr;
   grid-template-rows: 1fr 3fr;
   position: relative;
 }
 
 .main {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: 2fr 1fr;
   grid-template-rows: 2fr 1fr;
   padding: 20px;
   margin-left: 20rem;
   position: relative;
-  outline: 2px solid color;
+  outline: 2px solid #0f0f0f;
 }
-/*# sourceMappingURL=index.module.css.map */
+
+.sidebar {
+  position: relative;
+}
+
+.modal {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.posts {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-item: center;
+  align-items: center;
+}/*# sourceMappingURL=index.module.css.map */

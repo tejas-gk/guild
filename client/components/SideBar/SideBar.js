@@ -9,18 +9,21 @@ export default function SideBar() {
 
   const router = useRouter();
 
-  const navbarRef = useRef(null);
-  const sidebarRef = useRef(null);
+  const navbarRef = useRef();
+  const sidebarRef = useRef();
 
   function toggleSidebar() {
     setShowSideBar(!showSideBar);
-    navbarRef.current.classList.toggle(styles.navbar);
+    navbarRef.current.classList.toggle(styles.show__navbar);
+    // document.querySelector(styles.navbar).classList.toggle(styles.show__navbar);
     setShowSideBarBtn(!showSideBarBtn);
     sidebarRef.current.classList.toggle(styles.show_arrow);
+    // document.querySelector(styles.right_arrow).classList.remove(styles.show_arrow);
+    console.log('clicked')
   }
   return (
     <div>
-      <nav className={styles.navbar} ref={navbarRef}>
+      <nav className={`${styles.navbar}`} ref={navbarRef}>
         <ul className={styles.navbarNav}>
           <li className={styles.logo}>
             <div className={styles.logoLink} onClick={toggleSidebar}>
@@ -62,7 +65,7 @@ export default function SideBar() {
           <li className={styles.navItem}>
             <a className={styles.navLink}>
               <Settings className={styles.icon} />
-              <span className={styles.linkText}>Home</span>
+              <span className={styles.linkText}>Settings</span>
             </a>
           </li>
         </ul>

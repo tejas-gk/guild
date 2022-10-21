@@ -6,6 +6,7 @@ export default function Modal({
   buttons,
   className,
   onChange,
+  onSubmit,
 }) {
   function handleSubmit() {
     console.log("submit");
@@ -16,9 +17,9 @@ export default function Modal({
       <h1>Modal</h1>
       {message}
       <div>
-        {inputs?.map((input, index) => {
+        {inputs?.map((input:any, index:number) => {
           return (
-            <form key={index}>
+            <form key={index} onSubmit={onSubmit} method="Post">
               <input
                 key={index}
                 type={input.type}
@@ -31,7 +32,7 @@ export default function Modal({
         })}
         {buttons?.map((button, index) => {
           return (
-            <button key={index} onClick={button.onClick}>
+            <button key={index} onClick={button.onClick} type="submit">
               {button.text}
             </button>
           );

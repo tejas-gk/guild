@@ -5,25 +5,22 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class TwoFactorAuthentication extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
-
-    public function __construct($token)
+    public $twoFA;
+    public $recoverCode;
+    public function __construct($twoFA,$recoverCode)
     {
-        $this->token = $token;
+        $this->twoFA=$twoFA;
+        $this->recoverCode=$recoverCode;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->compact('token')->view('emails.2fa');
+        return $this->view('emails.twoFactorAuthentication',['twoFA'=>$this->twoFA,'recoverCode'=>$this->recoverCode]);
     }
 }
