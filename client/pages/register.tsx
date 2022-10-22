@@ -6,7 +6,7 @@ import Button from "components/Button/Button";
 import Errors from "components/Errors/Errors";
 import { useState } from "react";
 import useAuth from "hooks/useAuth";
-
+import styles from "styles/pages/login/login.module.scss"
 export default function Register() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -26,10 +26,10 @@ export default function Register() {
         <title>ergodnc — Register</title>
       </Head>
 
-      <div className={"w-1/2 mx-auto bg-white p-5 rounded-lg"}>
-        <Errors className="mb-5" errors={errors} />
+      <div className={`${styles.wrapper}`}>
+        <Errors className={styles.errors} errors={errors} />
 
-        <form onSubmit={submitForm} autoComplete="off">
+        <form onSubmit={submitForm} autoComplete="off" className={styles.form}>
           <div>
             <Label htmlFor="email">Name</Label>
 
@@ -37,7 +37,7 @@ export default function Register() {
               id="name"
               type="text"
               value={name}
-              className="block mt-1 w-full"
+              className={`${styles.input}`}
               onChange={(event: any) => setName(event.target.value)}
               required
               autoFocus
@@ -52,7 +52,7 @@ export default function Register() {
               id="email"
               type="email"
               value={email}
-              className="block mt-1 w-full"
+              className={`${styles.input}`}
               onChange={(event: any) => setEmail(event.target.value)}
               required
             />
@@ -65,7 +65,7 @@ export default function Register() {
               id="password"
               type="password"
               value={password}
-              className="block mt-1 w-full"
+              className={`${styles.input}`}
               onChange={(event: any) => setPassword(event.target.value)}
               required
             />
@@ -78,7 +78,7 @@ export default function Register() {
               id="password_confirmation"
               type="password"
               value={password_confirmation}
-              className="block mt-1 w-full"
+              className={`${styles.input}`}
               onChange={(event: any) =>
                 setPasswordConfirmation(event.target.value)
               }
@@ -93,7 +93,7 @@ export default function Register() {
               </a>
             </Link>
 
-            <Button onClick={submitForm} className="ml-3">
+            <Button onClick={submitForm} className={`${styles.btn}`}>
               Register
             </Button>
           </div>

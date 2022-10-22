@@ -1,3 +1,8 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -42,7 +47,7 @@ a {
 
 /* tests */
 
-@import-normalize;
+/* @import-normalize;
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap);
 
 :root {
@@ -209,7 +214,7 @@ button {
   height: 2.5rem;
   margin: 2rem auto 1rem 0;
   background: #101111;
-  /* border: 1px dashed #9a9a9a99; */
+  border: 1px dashed #9a9a9a99;
   color: #ffaa00;
   border-radius: 4px;
   transition: background ease 400ms;
@@ -323,10 +328,10 @@ li {
   button {
     cursor: pointer;
   }
-  /* .modal {
+  .modal {
     width: 750px;
     height: 300px;
-  } */
+  } 
   .input,
   input {
     width: calc(25vw);
@@ -340,4 +345,4 @@ li {
 
 p{
   color:#fff;
-}
+} */

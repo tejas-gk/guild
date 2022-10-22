@@ -6,7 +6,7 @@ import Button from "components/Button/Button";
 import Errors from "components/Errors/Errors";
 import { useState } from "react";
 import useAuth from "hooks/useAuth";
-import "styles/login.module.css";
+import styles from "styles/pages/login/login.module.scss"
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -29,13 +29,13 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>ergodnc — Login</title>
+        <title>Guild — Login</title>
       </Head>
 
-      <div className={"w-1/2 mx-auto bg-white p-5 rounded-lg"}>
-        <Errors className="mb-5" errors={errors} />
+      <div className={`${styles.wrapper}`}>
+        <Errors className={styles.errors} errors={errors} />
 
-        <form onSubmit={submitForm} autoComplete="off" className="login">
+        <form onSubmit={submitForm} autoComplete="off" className={styles.form}>
           <div>
             <Label htmlFor="email">Email</Label>
 
@@ -43,8 +43,8 @@ export default function Login() {
               id="email"
               type="email"
               value={email}
-              className="block mt-1 w-full"
-              onChange={(event) => setEmail(event.target.value)}
+              className={`${styles.input}`}
+              onChange={(event:any) => setEmail(event.target.value)}
               required
               autoFocus
               autoComplete="off"
@@ -58,14 +58,40 @@ export default function Login() {
               id="password"
               type="password"
               value={password}
-              className="block mt-1 w-full"
+              className={`${styles.input}`}
               onChange={(event) => setPassword(event.target.value)}
               required
               autoComplete="current-password"
             />
           </div>
 
-          <Button className="ml-3">Login</Button>
+          <div className={styles.remember_me}>
+                        <label
+                            htmlFor="remember_me"
+                            className={styles.remember_me__checkbox__wrapper}>
+                            <input
+                                id="remember_me"
+                                type="checkbox"
+                                name="remember"
+                                className={styles.remember_me__checkbox}
+                                // onChange={event => setShouldRemember(event.target.checked)}
+                            />
+
+                            <span className={styles.remember_me__text}>
+                                Remember me
+                            </span>
+                        </label>
+                    </div>
+          <div style={{
+            marginTop: "1rem"
+            }}>
+            do not have a account?<Link href="/register">
+              <a>
+                Register
+              </a>
+            </Link>
+            </div>
+          <Button className={`${styles.btn}`}>Login</Button>
         </form>
       </div>
     </>

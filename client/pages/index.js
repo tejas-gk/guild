@@ -87,10 +87,15 @@ export default function Home() {
             return <div key={index} className={styles.posts}>
               <Card
               text={post.post}
+              author={post.users.name}
+              created_at={(post.created_at)}
+              username={post.users.email}
               />  
             </div>;
           })}
       </div>
+          {/* {console.log(post.user.name)} */}
+          
     </>
   );
 }

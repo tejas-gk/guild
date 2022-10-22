@@ -1,3 +1,4 @@
+import styles from './input.module.css';
 export default function Input({
   disabled = false,
   className = "",
@@ -6,7 +7,7 @@ export default function Input({
   return (
     <input
       disabled={disabled}
-      className={`${className} outline-none border rounded border-gray-200 h-10 px-2`}
+      className={`${className} ${styles.input}  outline-none border rounded border-gray-200 h-10 px-2`}
       {...props}
     />
   );

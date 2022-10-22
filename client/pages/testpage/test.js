@@ -25,11 +25,6 @@ export default function test() {
 
     {modalOpen && <Modal handleClose={close} text="Hello World" modalOpen={modalOpen}  />}
     </AnimatePresence>
-         {/* <Modal
-          handleClose={()=>console.log("clicked")}
-          text="hello"
-        />  */}
-        {/* <TrySomeThingNew /> */}
     </div>
   )
 }

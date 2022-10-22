@@ -54,7 +54,7 @@ export default function Navbar() {
           <Circle />
         </div>
         <div className={styles.nav__search__bar}>
-          <input type="text" placeholder="Search" />
+          <input type="search" placeholder="Search" />
         </div>
         <ul className={styles.navbar__logo__list}>
           <li className={styles.navbar__logo__list__item}>

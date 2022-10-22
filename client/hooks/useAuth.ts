@@ -16,7 +16,9 @@ export default function useAuth({ middleware }: { middleware?: string } = {}) {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
-    console.log("token", token);
+    // if(token && currentUser){
+    //   localStorage.removeItem("token");
+    // }
     if (middleware === "guest" && token) {
       router.push("/");
     }

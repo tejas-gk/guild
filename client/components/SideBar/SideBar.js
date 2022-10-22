@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styles from "./sidebar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Home, Settings, ArrowLeft, ArrowRight, User } from "react-feather";
+import { Home, Settings, ArrowLeft, ArrowRight, User, Compass } from "react-feather";
 export default function SideBar() {
   const [showSideBar, setShowSideBar] = useState(false);
   const [showSideBarBtn, setShowSideBarBtn] = useState(true);
@@ -35,30 +35,33 @@ export default function SideBar() {
             </div>
           </li>
           <li className={styles.navItem}>
+            <Link href="/">
             <a
               className={`${styles.navLink} 
                     ${router.pathname === "/" && styles.active}`}
-              href="/"
+      
             >
               <Home className={styles.icon} />
               <span className={styles.linkText}>Home</span>
             </a>
+            </Link>
           </li>
 
           <li className={styles.navItem}>
+            <Link href="/user/profile">
             <a
-              href="user/profile"
               className={`${styles.navLink}
                      ${router.pathname === "/user/profile" && styles.active}`}
             >
               <User className={styles.icon} />
               <span className={styles.linkText}>Profile</span>
             </a>
+            </Link>
           </li>
           <li className={styles.navItem}>
             <a className={styles.navLink}>
-              <Home className={styles.icon} />
-              <span className={styles.linkText}>Home</span>
+              <Compass className={styles.icon} />
+              <span className={styles.linkText}>Discover</span>
             </a>
           </li>
 
