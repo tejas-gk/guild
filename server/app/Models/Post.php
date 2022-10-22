@@ -13,4 +13,15 @@ class Post extends Model
         'post',
         'user_id',
     ];
+    // protected $with = ['user'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

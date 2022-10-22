@@ -8,11 +8,26 @@
     background-color: #000;
     color:#fff;
     padding:10px 0px 0px 25px;
+    max-height: 30%;
+    flex-wrap: wrap;
+    // @if(str-length($post) > 20){
+    //     str-slice($post, 0, 20) + "...";
+    // }
+    
     .info{
         display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-       
+        flex-direction:row;
+        gap:10px;
+        
+        span:nth-child(1){
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        span:nth-child(2),span:nth-child(3){
+            font-size: 1rem;
+            font-weight: 100;
+            margin-top: 5px;
+        }
     }
 }
 

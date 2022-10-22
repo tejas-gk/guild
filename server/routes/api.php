@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,12 +47,13 @@ Route::post('two-factor-authentication', [TwoFaController::class, 'twoFactorAuth
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
- 
+
 Route::get('/auth/callback', function () {
     $user = Socialite::driver('github')->user();
-    
 });
 
 Route::post('verify-email', [VerifyEmailController::class, 'verifyEmail'])->middleware('auth:sanctum');
 Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
 Route::post('resend-verify-email', [VerifyEmailController::class, 'resend'])->middleware('auth:sanctum');
+
+Route::get('comment', [App\Http\Controllers\Post\CommentController::class, 'index'])->middleware('auth:sanctum');

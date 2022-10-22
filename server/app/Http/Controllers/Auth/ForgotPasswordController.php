@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\TwoFA;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -21,14 +20,15 @@ class ForgotPasswordController extends Controller
         //     ], 404);
         // }
         // $user->sendPasswordResetNotification($request->token);
-        $status=Password::sendResetLink(
+        $status = Password::sendResetLink(
             $request->only('email')
         );
-        if($status==Password::RESET_LINK_SENT){
+        if ($status == Password::RESET_LINK_SENT) {
             return response()->json([
                 'message' => 'Reset password link sent on your email id.',
             ], 200);
         }
+
         return response()->json([
             'message' => 'Unable to send password reset link.',
         ], 500);
@@ -36,21 +36,22 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $status=Password::reset(
-            $request->only('email','password','token'),
-            function ($user,$password){
+        $status = Password::reset(
+            $request->only('email', 'password', 'token'),
+            function ($user, $password) {
                 $user->forceFill([
-                    'password'=>bcrypt($password),
+                    'password' => bcrypt($password),
                 ])->save();
                 $user->setRememberToken(Str::random(60));
                 // event(new PasswordReset($user));
             }
         );
-        if($status==Password::PASSWORD_RESET){
+        if ($status == Password::PASSWORD_RESET) {
             return response()->json([
                 'message' => 'Password reset successfully.',
             ], 200);
         }
+
         return response()->json([
             'message' => 'Unable to reset password.',
         ], 500);
@@ -105,6 +106,4 @@ class ForgotPasswordController extends Controller
             'message' => 'Email verified successfully!',
         ]);
     }
-
-   
 }

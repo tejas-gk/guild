@@ -16,8 +16,10 @@ class VerifyEmailController extends Controller
         if ($user->markEmailAsVerified()) {
             event(new \Illuminate\Auth\Events\Verified($user));
         }
+
         return response()->json(['status' => 'success', 'message' => 'Email verified']);
     }
+
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
@@ -25,6 +27,7 @@ class VerifyEmailController extends Controller
         }
 
         $request->user()->sendEmailVerificationNotification();
+
         return back()->with('message', 'Verification link sent!');
     }
 
@@ -33,6 +36,7 @@ class VerifyEmailController extends Controller
         // send email verification link
         $user = auth()->user();
         $user->sendEmailVerificationNotification();
+
         return response()->json(['message' => 'Verification link sent']);
     }
 }

@@ -28,6 +28,7 @@ class TwoFactorAuth
         if ($request->is('logout')) {
             return $next($request);
         }
+
         return redirect()->route('two-factor.login');
     }
 }

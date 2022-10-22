@@ -6,8 +6,11 @@ export default function Card({text,image,author,username,created_at}: CardProps)
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        {author}-@{username}
-        {created_at}
+        <span> {author}</span>
+        <span> -@{username}</span>
+        <span>{created_at}</span>
+      
+        
       </div>  
         <h1>{text}</h1>
         {image && <img src={image} alt={text} />}

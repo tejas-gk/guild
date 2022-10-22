@@ -12,7 +12,6 @@ import Modal from "components/Modal/Modal";
 import Card from "components/Card/Card";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
-import { mutate } from "swr";
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
@@ -85,12 +84,16 @@ export default function Home() {
         {post.posts &&
           post.posts.map((post, index) => {
             return <div key={index} className={styles.posts}>
+              <Link href={`/post/${post.id}`}>
+                <a>
               <Card
               text={post.post}
               author={post.users.name}
-              created_at={(post.created_at)}
+              created_at='12hrs ago'
               username={post.users.email}
-              />  
+              /> 
+              </a>
+              </Link> 
             </div>;
           })}
       </div>

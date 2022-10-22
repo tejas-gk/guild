@@ -3,14 +3,21 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Repositories\Interfaces\PostRepositoryInterface;
+use App\Traits\SortBy;
 use Illuminate\Http\Request;
 
 class PostRepository implements PostRepositoryInterface
 {
+    use SortBy;
+
     public function getAllPosts()
     {
-        return Post::all();
+        // $author = User::with('posts')->get();
+        // return $author;
+        return Post::with('users')->orderBy('created_at', 'desc')->get();
+        // return Post::orderBy('created_at', 'desc')->get();
     }
 
      public function store(Request $request, int $id = null): Post
