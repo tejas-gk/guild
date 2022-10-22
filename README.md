@@ -10,4 +10,6 @@ steps
 - php artisan serve
 - cd client && npm i
 - npm run dev
+- ./vendor/bin/pint
+- npm run lint
 ```
