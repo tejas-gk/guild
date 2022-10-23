@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,9 +37,10 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Post deleted successfully']);
     }
+
     public function show($id): JsonResponse
     {
-        $post = $this->postRepository->getPost($id);
+        $post = Post::whereId($id)->with('users:id,name', 'comments.replies', 'users:id,name', 'comments.user:id,name', 'comments.replies.user:id,name')->first();
 
         return response()->json($post);
     }

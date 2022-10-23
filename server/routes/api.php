@@ -34,7 +34,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 Route::get('/user', function () {
     return \App\Models\User::all();
 });
-Route::get('post/{id}',[PostController::class,'show']);
+Route::get('post/{id}', [PostController::class, 'show']);
 Route::get('/current-user', [LoginController::class, 'currentUser'])->middleware('auth:sanctum');
 Route::post('post', [App\Http\Controllers\Post\PostController::class, 'store'])->middleware('auth:sanctum');
 Route::get('post', [App\Http\Controllers\Post\PostController::class, 'index'])->middleware('auth:sanctum');
@@ -59,3 +59,5 @@ Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])
 Route::post('resend-verify-email', [VerifyEmailController::class, 'resend'])->middleware('auth:sanctum');
 
 Route::get('comment', [App\Http\Controllers\Post\CommentController::class, 'index'])->middleware('auth:sanctum');
+Route::post('comment', [App\Http\Controllers\Post\CommentController::class, 'store'])->middleware('auth:sanctum');
+Route::get('comment/{id}', [App\Http\Controllers\Post\CommentController::class, 'show'])->middleware('auth:sanctum');
