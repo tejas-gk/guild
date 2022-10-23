@@ -36,4 +36,10 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Post deleted successfully']);
     }
+    public function show($id): JsonResponse
+    {
+        $post = $this->postRepository->getPost($id);
+
+        return response()->json($post);
+    }
 }

@@ -24,11 +24,13 @@
 }
 
 .posts{
-  width:70%;
-  // height:30em;
+  width:75%;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   margin-left: 10rem;
+  flex-wrap: wrap;
+  // no overflow
+  overflow: hidden;
 }

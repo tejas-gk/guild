@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\TwoFaController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Post\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -33,6 +34,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 Route::get('/user', function () {
     return \App\Models\User::all();
 });
+Route::get('post/{id}',[PostController::class,'show']);
 Route::get('/current-user', [LoginController::class, 'currentUser'])->middleware('auth:sanctum');
 Route::post('post', [App\Http\Controllers\Post\PostController::class, 'store'])->middleware('auth:sanctum');
 Route::get('post', [App\Http\Controllers\Post\PostController::class, 'index'])->middleware('auth:sanctum');

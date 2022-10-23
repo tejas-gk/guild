@@ -11,4 +11,6 @@ interface PostRepositoryInterface
     public function store(Request $request, int $id);
 
     public function deletePost(int $id);
+
+    public function getPost(int $id);
 }

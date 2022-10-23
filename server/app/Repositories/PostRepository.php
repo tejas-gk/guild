@@ -40,4 +40,9 @@ class PostRepository implements PostRepositoryInterface
 
          return true;
      }
+
+     public function getPost(int $id): Post | User
+     {
+         return Post::with('users')->find($id);
+     }
 }

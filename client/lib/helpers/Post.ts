@@ -20,6 +20,14 @@ export default function Post() {
           await axios.post("/post", data);
           mutate("/post");
   };
+
+  const getAParticularPost:any = async (id) => {
+    axios.get("/post/1").then((response) => {
+      setPost(response.data);
+    });
+  };
+
+
   useEffect(() => {
     getAllPost();
   }, []);
@@ -28,5 +36,7 @@ export default function Post() {
     getAllPost,
     post,
     storePost,
+    getAParticularPost,
+
   };
 }
