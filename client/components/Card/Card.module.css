@@ -1,8 +1,29 @@
 .container {
   border: 2px solid black;
-  border-radius: 5%;
   gap: 10px;
   margin: 10px;
+  width: 80%;
+  height: 30%;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 0px 0px 25px;
+  max-height: 30%;
+  flex-wrap: wrap;
+}
+.container .info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.container .info span:nth-child(1) {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.container .info span:nth-child(2), .container .info span:nth-child(3) {
+  font-size: 1rem;
+  font-weight: 100;
+  margin-top: 5px;
 }
 
 .card__footer {
@@ -11,10 +32,21 @@
   gap: 20px;
   justify-content: space-between;
   padding: 10px;
+  height: 5em;
+  align-items: center;
 }
 .card__footer__span:hover {
   cursor: pointer;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 0;
   border-radius: 50%;
+  aspect-ratio: 1/1;
+  padding: 10px;
+}
+.card__footer__span {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=Card.module.css.map */

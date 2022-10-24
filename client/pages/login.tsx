@@ -7,6 +7,7 @@ import Errors from "components/Errors/Errors";
 import { useState } from "react";
 import useAuth from "hooks/useAuth";
 import styles from "styles/pages/login/login.module.scss"
+import PasswordStrength from "components/PasswordStrength/passwordStrength";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,10 +16,9 @@ export default function Login() {
   const [errors, setErrors] = useState([]);
 
   const { login, isLoading, user } = useAuth({ middleware: "guest" });
-
   const submitForm = async (event) => {
     event.preventDefault();
-
+   
     login({ email, password, remember, setErrors });
   };
 
@@ -93,6 +93,11 @@ export default function Login() {
             </div>
           <Button className={`${styles.btn}`}>Login</Button>
         </form>
+
+        <PasswordStrength 
+          password={password}
+          onChange={setPassword}
+        />
       </div>
     </>
   );

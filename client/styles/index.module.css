@@ -27,9 +27,12 @@
 }
 
 .posts {
-  width: 65%;
+  width: 75%;
   display: flex;
   flex-direction: column;
-  justify-item: center;
+  justify-content: center;
   align-items: center;
+  margin-left: 10rem;
+  flex-wrap: wrap;
+  overflow: hidden;
 }/*# sourceMappingURL=index.module.css.map */

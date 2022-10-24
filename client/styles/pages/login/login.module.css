@@ -1,0 +1,72 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.input {
+  outline: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  display: block;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.input:focus {
+  border: 1px solid #000;
+}
+
+.btn {
+  margin-top: 1rem;
+}
+
+.wrapper {
+  width: 50%;
+  margin: 0 auto;
+  background-color: white;
+  padding: 5rem;
+  border-radius: 0.5rem;
+}
+
+.errors {
+  margin-bottom: 1rem;
+}
+
+.already_registered {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.remember_me {
+  display: block;
+  margin-top: 2rem;
+}
+.remember_me__checkbox__wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+.remember_me__checkbox {
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+.remember_me__checkbox:focus {
+  border: 1px solid #000;
+}
+.remember_me__checkbox:checked {
+  background-color: #000;
+}
+.remember_me__text {
+  margin-left: 0.5rem;
+}/*# sourceMappingURL=login.module.css.map */
