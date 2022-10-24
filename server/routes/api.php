@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\TwoFaController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\Utils\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -34,10 +35,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 Route::get('/user', function () {
     return \App\Models\User::all();
 });
-Route::get('post/{id}', [PostController::class, 'show']);
+Route::get('posts/{id}', [PostController::class, 'show']);
 Route::get('/current-user', [LoginController::class, 'currentUser'])->middleware('auth:sanctum');
 Route::post('post', [App\Http\Controllers\Post\PostController::class, 'store'])->middleware('auth:sanctum');
-Route::get('post', [App\Http\Controllers\Post\PostController::class, 'index'])->middleware('auth:sanctum');
+Route::get('posts', [App\Http\Controllers\Post\PostController::class, 'index'])->middleware('auth:sanctum');
 Route::post('forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('password.reset');
 // Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);
@@ -61,3 +62,14 @@ Route::post('resend-verify-email', [VerifyEmailController::class, 'resend'])->mi
 Route::get('comment', [App\Http\Controllers\Post\CommentController::class, 'index'])->middleware('auth:sanctum');
 Route::post('comment', [App\Http\Controllers\Post\CommentController::class, 'store'])->middleware('auth:sanctum');
 Route::get('comment/{id}', [App\Http\Controllers\Post\CommentController::class, 'show'])->middleware('auth:sanctum');
+
+
+Route::apiResource('guilds', App\Http\Controllers\Guild\GuildController::class)->middleware('auth:sanctum');
+
+Route::post('upvote/{id}',[VoteController::class,'upvote'])->middleware('auth:sanctum');
+Route::post('downvote/{id}',[VoteController::class,'downvote'])->middleware('auth:sanctum');
+Route::post('follow/{id}',[App\Http\Controllers\Utils\FollowController::class,'follow'])->middleware('auth:sanctum');
+Route::get('vote/{id}',[VoteController::class,'getVoteCount'])->middleware('auth:sanctum');
+Route::get('follower/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowersCount'])->middleware('auth:sanctum');
+Route::get('following/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowingsCount'])->middleware('auth:sanctum');
+

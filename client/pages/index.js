@@ -84,7 +84,7 @@ export default function Home() {
         {post.posts &&
           post.posts.map((post, index) => {
             return <div key={index} className={styles.posts}>
-              <Link href={`/post/${post.id}`}>
+              <Link href={`/posts/${post.id}`}>
                 <a>
               <Card
               text={post.post}

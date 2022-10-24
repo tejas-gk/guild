@@ -6,7 +6,7 @@ export default function Post() {
   const [post, setPost] = useState("");
 
   const getAllPost = () => {
-    axios.get("/post").then((response) => {
+    axios.get("/posts").then((response) => {
       setPost(response.data);
     });
   };

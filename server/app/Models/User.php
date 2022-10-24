@@ -51,10 +51,36 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class);
+    }
+
+    public function followed()
+    {
+        return $this->hasMany(Follow::class, 'followed_id');
+    }
+
+    public function guilds()
+    {
+        return $this->belongsToMany(Guild::class);
+    }
+    
 
     public function sendPasswordResetNotification($token)
     {
         $url = config('app.url').'api//reset-password?token='.$token;
         $this->notify(new ResetPasswordNotification($url));
     }
+
 }
