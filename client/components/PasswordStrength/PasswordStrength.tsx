@@ -1,12 +1,14 @@
 import styles from './password-strength.module.scss'
-import { useState } from 'react'
-// import PassStrength from './PassStrength'
-export default function PasswordStrength({ password,onChange }: { password: any,onChange: any }) {
+import { useState ,createContext} from 'react'
+
+export const PasswordStrengthContext = createContext({})
+export default function PasswordStrength({password,onChange}:any) {
+  // const [password,setPassword]=useState("")
   const [strength, setStrength] = useState(0)
   const [validations, setValidations] = useState<Array<string>>([])
 
-    function validatePassword(e){
-      password = e.target.value
+    function validatePassword(e:any){
+      password=e.target.value
       const validations = []
       if (password.length < 8) {
         validations.push('Password must be at least 8 characters')
@@ -25,21 +27,20 @@ export default function PasswordStrength({ password,onChange }: { password: any,
       }
       setValidations(validations)
       setStrength(password.length)
+      console.log(password)
     }
   
-    console.log(validations,strength)
-  console.log('password', password)
-  console.log('strength', strength)
-  console.log('validations', validations)
+    
   return (
+
     <div className={styles.strength}>    
       <input type="password" onChange={validatePassword} />
-        <span className={`${styles.bar} ${strength>=1?styles.bar1:""}`}></span>
-        <span className={`${styles.bar} ${strength>=2?styles.bar2:""}`}></span>
-        <span className={`${styles.bar} ${strength>=3?styles.bar3:""}`}></span>
-        <span className={`${styles.bar} ${strength>=4?styles.bar4:""}`}></span>
+        <span className={`${styles.bar} ${strength>=1? styles.bar1:""}`}></span>
+        <span className={`${styles.bar} ${strength>=2? styles.bar2:""}`}></span>
+        <span className={`${styles.bar} ${strength>=3? styles.bar3:""}`}></span>
+        <span className={`${styles.bar} ${strength>=4? styles.bar4:""}`}></span>
         <br/>
-        <ul className={styles.showValidations}>
+        <ul className={`${styles.showValidations}`}>
           {
             validations.map((validation,index)=>{
               return <li key={index} className={styles.invalid}>{validation}</li>

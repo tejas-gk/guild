@@ -3,7 +3,7 @@ import axios from "../lib/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function useAuth({ middleware }: { middleware?: string } = {}) {
+export default function useAuth({ middleware}: { middleware?: string } = {}) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -103,6 +103,45 @@ export default function useAuth({ middleware }: { middleware?: string } = {}) {
   };
 
 
+
+  // let [passwordValid,setPasswordValid]=useState("")
+  const [strength, setStrength] = useState(0)
+  const [validations, setValidations] = useState<Array<string>>([])
+
+    function validatePassword(e:any,pass){
+        let password = e.target.value;
+        let validations = []
+        let strength = 0
+        if(password.length < 8){
+            validations.push("Password must be at least 8 characters")
+        }else{
+            strength += 1
+        }
+        if(password.match(/[A-Z]/)){
+            strength += 1
+        }else{
+            validations.push("Password must contain at least one uppercase letter")
+        }
+        if(password.match(/[a-z]/)){
+            strength += 1
+        }else{
+            validations.push("Password must contain at least one lowercase letter")
+        }
+        if(password.match(/[0-9]/)){
+            strength += 1
+        }else{
+            validations.push("Password must contain at least one number")
+        }
+        if(password.match(/[!@#$%^&*]/)){
+            strength += 1
+        }else{
+            validations.push("Password must contain at least one special character")
+        }
+        setStrength(strength)
+        setValidations(validations)
+        
+    }
+  
   return {
     user,
     csrf,
@@ -111,6 +150,11 @@ export default function useAuth({ middleware }: { middleware?: string } = {}) {
     isLoading,
     register,
     currentUser,
-    authUser
+    authUser,
+    strength,
+    setStrength,
+    validations,
+    setValidations,
+    validatePassword
   };
 }
