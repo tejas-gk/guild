@@ -22,7 +22,7 @@ jobs:
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install composer
-      run: composer install
+      run: composer install --ignore-platform-reqs
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
