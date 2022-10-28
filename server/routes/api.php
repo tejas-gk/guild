@@ -40,6 +40,7 @@ Route::get('/current-user', [LoginController::class, 'currentUser'])->middleware
 Route::post('post', [App\Http\Controllers\Post\PostController::class, 'store'])->middleware('auth:sanctum');
 Route::get('posts', [App\Http\Controllers\Post\PostController::class, 'index'])->middleware('auth:sanctum');
 Route::post('forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('password.reset');
+Route::delete('delete-post/{id}', [App\Http\Controllers\Post\PostController::class, 'destroy'])->middleware('auth:sanctum');
 // Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);
 

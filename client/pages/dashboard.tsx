@@ -10,8 +10,9 @@ const Dashboard = () => {
         </h2>
       }
     >
+       {/* <script src="https://cdn.tailwindcss.com"></script> */}
       <Head>
-        <title>Laravel - Dashboard</title>
+        <title>Dashboard</title>
       </Head>
 
       <div className="py-12">

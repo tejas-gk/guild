@@ -5,4 +5,5 @@ export interface CardProps {
   date:string,
   username:string,
   created_at:string,
+  id?:string | number,
 }

@@ -46,14 +46,41 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    if (localStorage.getItem("theme") === "dark") {
+      setTheme("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+      lightModeRef.current.style.display = "none";
+      darkModeRef.current.style.display = "block";
+      document.body.classList.add("dark");
+    } else {
+      setTheme("light");
+      document.documentElement.setAttribute("data-theme", "light");
+      darkModeRef.current.style.display = "none";
+      darkModeRef.current.style.outline = "2px solid #fff";
+      lightModeRef.current.style.display = "block";
+      lightModeRef.current.style.outline = "2px solid #fff";
+      document.body.classList.remove("dark");
+    }
+  }, []);
 
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/') {
+        e.preventDefault();
+        document.getElementById('search').focus();
+        console.log('focus on input');
+      }
+    }
+    )
+  },[]);
   return (
     <div>
       <div className={styles.navbar}>
         <div className={styles.navbar__logo}>
           <Circle />
         </div>
-        <div className={styles.nav__search__bar}>
+        <div className={styles.nav__search__bar} id='search'>
           <input type="search" placeholder="Search" />
         </div>
         <ul className={styles.navbar__logo__list}>

@@ -16,9 +16,8 @@ export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
   });
-  const {convertToHumanReadable} = useConvert();
   
-  const {getAllPost,post,storePost}=Post();
+  const {getAllPost,posts,storePost}=Post();
 
   const [createdAt, setCreatedAt] = useState("");
   const [modal, setModal] = useState(false);
@@ -55,17 +54,22 @@ export default function Home() {
         <div className={styles.sidebar}>
           <SideBar />
         </div>
-        <div className={styles.main}>
+        <div className='main flex flex-row justify-center gap-6'>
           <h1>LoggedIN as {authUser}</h1>
           <h1>Created at</h1>
           {created()}
           <div>
-            logout <button onClick={logoutUser}>logout</button>
+           <button onClick={logoutUser} className='bg-black text-white p-1 hover:bg-white hover:text-black hover:p-1 hover:outline hover:outline-black hover:outline-2'>logout</button>
           </div>
         </div>
         <input type="button" value="open modal" onClick={handleModal} />
       </div>
-
+      <div className='post flex flex-row justify-center gap-6 mb-6'>
+        <form method="POST" onSubmit={storePost}>
+          <input type="text" name="post" placeholder="post" className="border border-black rounded" />
+          <input type="submit" value="post" className="btn" />
+        </form>
+      </div>
       <Modal
         className={`${modal ? styles.modal : styles.hide} ${styles.modals}`}
         message={modal ? "modal is open" : "modal is closed"}
@@ -81,24 +85,22 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        {post.posts &&
-          post.posts.map((post, index) => {
-            return <div key={index} className={styles.posts}>
-              <Link href={`/posts/${post.id}`}>
-                <a>
+        {posts.posts &&
+          posts.posts.map((post, index) => {
+            return <div key={index} className='w-full'>
               <Card
               text={post.post}
               author={post.users.name}
               created_at='12hrs ago'
               username={post.users.email}
+              id={post.id}
               /> 
-              </a>
-              </Link> 
             </div>;
           })}
       </div>
-          {/* {console.log(post.user.name)} */}
           
     </>
   );
 }
+
+

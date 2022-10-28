@@ -1,4 +1,4 @@
-@import "./color-pallette.module";
+@import "./abstract/_color-pallette.scss";
 .wrapper {
   display: grid;
   grid-template-rows: 1fr 3fr;

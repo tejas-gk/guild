@@ -1,24 +1,27 @@
 import {useState,useEffect} from 'react'
 import axios from 'lib/axios'
 import {useRouter} from 'next/router'
-export default function Posts() {
-    const [post, setPost] = useState(null)
-    const router = useRouter()
-    let id:any=router.query.post 
-
-    useEffect(() => {
-        axios.get(`/post/${id}`).then(res => {
-        setPost(res.data)
-        })
-        console.log(router.query,id)
-    }, [])
-
-
+export default function Posts({post}) {
     return (
         <div>
-        <h1>Post</h1>
-        
         {post && <p>{post.post}</p>}
+        
+        {
+            post?.comments && post.comments.map((comment,index)=>{
+                return <p key={index}>{comment.comment}</p>
+            })
+        }
         </div>
     )
+}
+
+export const getServerSideProps = async (context) => {
+    const query = context.query
+    const res = await axios.get(`/posts/${query.post}`)
+    const post = res.data
+    return {
+        props: {
+            post
+        }
+    }
 }

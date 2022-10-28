@@ -1,8 +1,6 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 html,
 body {
   padding: 0;
@@ -23,6 +21,16 @@ a {
   box-sizing: border-box;
 }
 
+.card-footer-icon{
+  @apply border-gray-200 rounded-full p-1 pt-2 cursor-pointer border-2 hover:bg-gray-200 
+  dark:hover:text-black;
+}
+.btn{
+  @apply border-gray-200 rounded-sm p-2 pt-2 cursor-pointer border-2 hover:bg-gray-200 dark:hover:text-white dark:hover:bg-dark_mode-800;
+}
+.profile__main__header__stats__item{
+  @apply flex flex-row items-center justify-center text-center;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

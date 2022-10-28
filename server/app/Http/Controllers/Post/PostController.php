@@ -24,17 +24,10 @@ class PostController extends Controller
         return response()->json(['posts' => $posts]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request,int $id=NULL):JsonResponse
     {
-        $post = Post::where('id', $request->post_id)->first();
-        $comment=\App\Models\Comment::create([
-            'user_id' => auth()->user()->id,
-            'comment' => $request->comment,
-            'post_id' => $request->post_id,
-            'parent_id' => $request->parent_id,
-        ]);
-
-        return response()->json(['comment' => $comment,'post'=>$post]);
+        $post=$this->postRepository->store($request,$id);
+        return response()->json(['post' => $post]);
     }
 
     public function destroy($id): JsonResponse
@@ -45,6 +38,15 @@ class PostController extends Controller
     }
 
     public function show($id): JsonResponse
+    {
+        $post = Post::whereId($id)
+        ->with( 'comments.replies', 'comments.user:id,name', 'votes')
+        ->first();
+
+        return response()->json($post);
+    }
+
+    public function delete($id): JsonResponse
     {
         $post = Post::whereId($id)
         ->with('users:id,name', 'comments.replies', 'users:id,name', 'comments.user:id,name', 'comments.replies.user:id,name','votes')

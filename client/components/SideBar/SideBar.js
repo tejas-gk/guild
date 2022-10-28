@@ -17,8 +17,10 @@ export default function SideBar() {
     navbarRef.current.classList.toggle(styles.show__navbar);
     // document.querySelector(styles.navbar).classList.toggle(styles.show__navbar);
     setShowSideBarBtn(!showSideBarBtn);
-    sidebarRef.current.classList.toggle(styles.show_arrow);
+    // sidebarRef.current.classList.toggle(styles.show_arrow);
     // document.querySelector(styles.right_arrow).classList.remove(styles.show_arrow);
+    // document.querySelector(styles.show_right_arrow).classList.toggle(styles.show_arrow);
+    sidebarRef.current.classList.toggle(styles.show_right_arrow);
     console.log('clicked')
   }
   return (
@@ -28,10 +30,10 @@ export default function SideBar() {
           <li className={styles.logo}>
             <div className={styles.logoLink} onClick={toggleSidebar}>
               <ArrowRight
-                className={`${styles.logoIcon} ${styles.show_arrow}`}
+                className={`${styles.logoIcon} ${styles.show_arrow} ${styles.show_right_arrow}`}
                 ref={sidebarRef}
               />
-              <ArrowLeft className={`${styles.logoIcon}`} ref={sidebarRef} />
+              <ArrowLeft className={`${styles.logoIcon}  ${styles.show_left_arrow}`} ref={sidebarRef} />
             </div>
           </li>
           <li className={styles.navItem}>

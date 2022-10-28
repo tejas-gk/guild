@@ -1,13 +1,15 @@
 import axios from "lib/axios";
+import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
+import { NextResponse } from "next/server";
 import { useEffect, useState } from "react";
 import { mutate } from "swr";
 export default function Post() {
-  const [post, setPost] = useState("");
-
+  const [posts, setPosts] = useState("");
+  const router = useRouter();
   const getAllPost = () => {
     axios.get("/posts").then((response) => {
-      setPost(response.data);
+      setPosts(response.data);
     });
   };
 
@@ -23,20 +25,25 @@ export default function Post() {
 
   const getAParticularPost:any = async (id) => {
     axios.get("/post/1").then((response) => {
-      setPost(response.data);
+      setPosts(response.data);
     });
   };
 
-
+ const deletePost = async (id) => {
+  axios.delete(`/delete-post/${id}`).then((response) => {
+    mutate("/delete-post");
+    console.log(response.data);
+  });
+}
   useEffect(() => {
     getAllPost();
   }, []);
 
   return {
     getAllPost,
-    post,
+    posts,
     storePost,
     getAParticularPost,
-
+    deletePost,
   };
 }
