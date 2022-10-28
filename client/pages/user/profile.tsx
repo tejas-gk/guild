@@ -14,13 +14,14 @@ import useAuth from "hooks/useAuth";
 import axios from "lib/axios";
 import { Tab,Transition,Popover} from "@headlessui/react";
 import Image from "next/image";
+import Navbar from "components/Navbar/Navbar";
 export default function profile() {
   /*
   * ! hey
   */
   return (
     <div className="profile">
-     {/* <SideBar /> */}
+     <Navbar />
       <div className="profile__main ">
         <div className="profile__main__header__banner h-1/4 ">
           <img 
@@ -31,7 +32,7 @@ export default function profile() {
         </div>
         <div className="profile__main__header__profile">
           <img 
-          className="profile__main__header__img rounded-full h-32 w-32 object-cover border-4 border-white -mt-16"
+          className="profile__main__header__img rounded-full h-32 w-32 object-cover  -mt-16"
           src="https://images.unsplash.com/photo-1661347333298-26846cec680b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" 
           />
         </div>
@@ -52,7 +53,7 @@ export default function profile() {
             Follow
             </button>
         </div>
-       <div className='profile__main__header__stats flex justify-between w-1/2'>
+       <div className='profile__main__header__stats flex justify-between w-1/2 ml-9'>
           <div className='profile__main__header__stats__item'>
             <Calendar />
             <div className='profile__main__header__stats__item__number text-md font-light'>28th may 2003</div>
