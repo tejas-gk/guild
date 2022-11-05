@@ -15,10 +15,11 @@ import axios from "lib/axios";
 import { Tab,Transition,Popover} from "@headlessui/react";
 import Image from "next/image";
 import Navbar from "components/Navbar/Navbar";
-export default function profile() {
-  /*
-  * ! hey
-  */
+import Card from "components/Card/Card";
+export default function profile({ user }) {
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  console.log(user.name);
   return (
     <div className="profile">
      <Navbar />
@@ -38,11 +39,13 @@ export default function profile() {
         </div>
         <div className="profile__main__header__info  w-1/2">
           <h1 className="profile__main__header__info__name text-2xl font-bold ml-9">
-            User
+            {user.name}
           </h1>
           <h6 className="profile__main__header__info__username text-sm ml-9 font-light">
-            @username
+            {user?.username}
+            {user.email}
           </h6>
+          
           <p className="profile__main__header__info__bio text-sm ml-9">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
             voluptas, quod, quia, voluptates quae voluptatibus quibusdam
@@ -123,8 +126,8 @@ export default function profile() {
               className={({ selected }) =>
                 `w-1/4 py-2.5 text-sm font-medium text-center rounded-md ${
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    ? "bg-white shadow  dark:text-black"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 "
                 }`
               }
             >
@@ -134,8 +137,8 @@ export default function profile() {
               className={({ selected }) =>
                 `w-1/4 py-2.5 text-sm font-medium text-center rounded-md ${
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    ? "bg-white shadow dark:text-black"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 "
                 }`
               }
             >
@@ -145,8 +148,8 @@ export default function profile() {
               className={({ selected }) =>
                 `w-1/4 py-2.5 text-sm font-medium text-center rounded-md ${
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    ? "bg-white shadow dark:text-black"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-black"
                 }`
               }
             >
@@ -156,8 +159,8 @@ export default function profile() {
               className={({ selected }) =>
                 `w-1/4 py-2.5 text-sm font-medium text-center rounded-md ${
                   selected
-                    ? "bg-white shadow"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                    ? "bg-white shadow dark:text-black"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-black"
                 }`
               }
             >
@@ -168,10 +171,17 @@ export default function profile() {
             <Tab.Panel>
               <div className="profile__main__body__posts mt-4 mr-2">
                 <div className="profile__main__body__posts__post">
-                  <img
-                    className="profile__main__body__posts__post__img"
-                    src="https://images.unsplash.com/photo-1662387709820-5ea1c001c67b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=406&q=80"
-                  />
+                 {user?.posts?.map((post,index) => (
+                    <div className="profile__main__body__posts__post__item" key={index}>
+                       <Card
+                        text={post.post}
+                        author={user.name}
+                        created_at='12hrs ago'
+                        username={user.email}
+                        id={post.id}
+              /> 
+                    </div>
+                  ))}
                 </div>
               </div>
             </Tab.Panel>
@@ -202,12 +212,20 @@ export default function profile() {
                 </div>
               </Tab.Panel>
             </Tab.Panels>
-          </Tab.Group>
-        
-
-                
-                  
+          </Tab.Group>          
       </div>
     </div>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  const userId= context.query
+  const res = await axios.get(`/user/12`);
+  const data = await res.data;
+
+  return {
+    props: { user: data },
+  };
+}
+
+

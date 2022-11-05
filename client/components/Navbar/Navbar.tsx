@@ -141,7 +141,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link href="/contact">
-                <a>Contact</a>
+                <a>Logout</a>
               </Link>
             </li>
           </ul>

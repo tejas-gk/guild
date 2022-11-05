@@ -74,3 +74,4 @@ Route::get('vote/{id}',[VoteController::class,'getVoteCount'])->middleware('auth
 Route::get('follower/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowersCount'])->middleware('auth:sanctum');
 Route::get('following/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowingsCount'])->middleware('auth:sanctum');
 
+Route::get('user/{id}',[App\Http\Controllers\User\UserController::class,'show']);

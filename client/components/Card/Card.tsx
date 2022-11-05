@@ -8,7 +8,7 @@ import axios from 'lib/axios';
 import {ThumbsUp,ThumbsDown,Repeat,Flag,MessageSquare,MoreHorizontal} from 'react-feather'
 import MenuItems from 'components/Menu/Menu';
 
-export default function Card({text,image,author,username,created_at,id}: CardProps) {
+export default function Card({text,image,author,username,created_at,id,date}: CardProps) {
     const deletePost=()=>{
         axios.delete(`/delete-post/${id}`).then(res=>{
             console.log(res.data)

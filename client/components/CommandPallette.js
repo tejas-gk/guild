@@ -72,8 +72,8 @@ export default function CommandPallette({projects}) {
             <Combobox.Option key={index} value={project}>
              {({active})=>(
             <div  className={` px-4 py-2 space-x-4 ${active ? 'bg-indigo-600' : 'bg-white'}`}>
-            <span className={`font-medium text-gray-900 ${active ? 'text-white' : 'text-white'}`}>{project.name}</span>
-            <span className={`text-gray-400 ${active ? 'text-white' : 'text-black'}`}>in {project?.url}</span>
+            <span className={`font-medium text-gray-900 ${active ? 'text-white' : 'text-black'}`}>{project.name}</span>
+            <span className={`text-gray-400 ${active ? 'text-white' : 'text-black'}`}>in {project.url!=''?project.url:'/'}</span>
             </div>
               )}
             </Combobox.Option>

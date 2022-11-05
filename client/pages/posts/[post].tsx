@@ -4,8 +4,7 @@ import {useRouter} from 'next/router'
 export default function Posts({post}) {
     return (
         <div>
-        {post && <p>{post.post}</p>}
-        
+        {post && <p>{post.post}</p>}   
         {
             post?.comments && post.comments.map((comment,index)=>{
                 return <p key={index}>{comment.comment}</p>

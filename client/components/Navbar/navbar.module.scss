@@ -54,6 +54,7 @@
   }
   &:active {
     background-color: #fff;
+    width:6000px;
   }
 }
 
@@ -88,12 +89,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  &:hover {
-    cursor: pointer;
-    background-color: #fff;
-    color: #000;
-    border-radius: 10%;
-  }
+  cursor:pointer;
 }
 
 .dark {
