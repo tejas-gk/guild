@@ -4,20 +4,33 @@ import Label from "components/Label/Label";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import Errors from "components/Errors/Errors";
-import { useState,useContext } from "react";
+import { useState,useContext, useEffect } from "react";
 import useAuth from "hooks/useAuth";
 import styles from "styles/pages/login/login.module.scss"
 import style from 'components/PasswordStrength/password-strength.module.scss'
 import PasswordStrength from "components/PasswordStrength/PasswordStrength";
+import { useRouter } from 'next/router'
 export default function Login() {
+  const router = useRouter()
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [errors, setErrors] = useState([]);
   const [strength, setStrength] = useState(0)
   const [validations, setValidations] = useState<Array<string>>([])
+  const [status, setStatus] = useState(null)
 
-  const { login, isLoading, user } = useAuth({ middleware: "guest"});
+  const { login, isLoading, user } = useAuth({ middleware: "guest",  redirectIfAuthenticated: '/dashboard'});
+   
+  useEffect(() => {
+    if (router.query.reset?.length > 0 && errors.length === 0) {
+        setStatus(' You can now login.')
+    } else {
+        setStatus(null)
+    }
+})
 
   function validatePassword(e:any){
     setPassword(e.target.value)
@@ -45,8 +58,14 @@ export default function Login() {
 
   const submitForm = async (event) => {
     event.preventDefault();
-    
-    login({ email, password, remember, setErrors });
+    console.log('email', email)
+    login({
+      email,
+      password,
+      setErrors,
+      setStatus,
+    });
+
   };
   const handleChangePassword = (e:any)=>{
     validatePassword(e)
@@ -75,7 +94,9 @@ export default function Login() {
               type="email"
               value={email}
               className={`${styles.input}`}
-              onChange={(event:any) => setEmail(event.target.value)}
+              onChange={(event:any) => {setEmail(event.target.value) 
+                console.log('email', email)
+              }}
               required
               autoFocus
               autoComplete="off"
@@ -113,6 +134,12 @@ export default function Login() {
                             </span>
                         </label>
                     </div>
+                  
+<div className="mt-4">
+          <Link href="/forgot-password">
+            <a>Forgot password?</a>
+          </Link>
+        </div>
           <div style={{
             marginTop: "1rem"
             }}>
@@ -142,10 +169,6 @@ export default function Login() {
     </div>
 
 
-        {/* <PasswordStrength 
-        password={password}
-        onChange={handleChangePassword}
-        /> */}
       </div>
     </>
   );

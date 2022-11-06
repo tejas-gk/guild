@@ -26,6 +26,8 @@ class LoginService
 
         return response()->json([
             'message' => 'Unauthorized',
+            'email' => $request->email,
+            'password' => $request->password,
         ], 401);
     }
 }

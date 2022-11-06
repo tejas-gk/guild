@@ -13,13 +13,6 @@ class ForgotPasswordController extends Controller
 {
     public function forgotPassword(Request $request)
     {
-        // $user = User::where('email', $request->email)->first();
-        // if (! $user) {
-        //     return response()->json([
-        //         'message' => 'We can\'t find a user with that e-mail address.',
-        //     ], 404);
-        // }
-        // $user->sendPasswordResetNotification($request->token);
         $status = Password::sendResetLink(
             $request->only('email')
         );
@@ -102,8 +95,9 @@ class ForgotPasswordController extends Controller
         }
         $user->markEmailAsVerified();
 
-        return response()->json([
-            'message' => 'Email verified successfully!',
-        ]);
+        // return response()->json([
+        //     'message' => 'Email verified successfully!',
+        // ]);
+        return redirect()->to('http://localhost:3000');
     }
 }

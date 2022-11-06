@@ -14,7 +14,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@/components/*": ["components/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -27,5 +30,6 @@
     "pages/register.tsx",
     "components/Label/Label.tsx"
 , "components/SideBar/SideBar.js", "pages/post/[post].jsx"  ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  
 }

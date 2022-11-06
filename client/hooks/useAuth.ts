@@ -3,10 +3,13 @@ import axios from "../lib/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function useAuth({ middleware}: { middleware?: string } = {}) {
+export default function useAuth({ middleware, redirectIfAuthenticated}: { middleware?: string, redirectIfAuthenticated?:string } = {}) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
+
   useEffect(() => {
     if (user || error) {
       setIsLoading(false);
@@ -16,9 +19,7 @@ export default function useAuth({ middleware}: { middleware?: string } = {}) {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
-    // if(token && currentUser){
-    //   localStorage.removeItem("token");
-    // }
+    if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
     if (middleware === "guest" && token) {
       router.push("/");
     }
@@ -66,22 +67,27 @@ export default function useAuth({ middleware}: { middleware?: string } = {}) {
     });
   };
 
-  const login = async ({ setErrors, ...props }) => {
+  const login = async ({email,password,setStatus, setErrors, ...props }) => {
     setErrors([]);
-
     await csrf();
+    setErrors([])
+    setStatus(null)
 
     axios
-      .post("/login", props)
-      .then(() => mutate())
-      .then((response) => {
-        localStorage.setItem("token", response.data.access_token);
-      })
-      .catch((error) => {
-        if (error.response.status != 422) throw error;
-
-        setErrors(Object.values(error.response.data.errors).flat());
-      });
+        .post('/login',{
+            email,
+            password
+        })
+        .then((response) => {
+            mutate(response.data.data);
+            localStorage.setItem("token", response.data.access_token);
+            console.log(response.data);
+            console.log(localStorage.getItem("token"));
+        })
+        .then(() => console.log('jdei'))
+        .catch(error => {
+            console.log(error)
+        })
   };
 
   const logout = async () => {
@@ -102,7 +108,18 @@ export default function useAuth({ middleware}: { middleware?: string } = {}) {
     });
   };
 
+  const forgotPassword = async ({ email, setErrors,setStatus }) => {
+    await csrf()
 
+    setErrors([])
+    setStatus(null)
+    axios
+      .post("/forgot-password", { email })
+      .then(response => setStatus(response.data.status))
+      .catch((error) => {
+        if (error.response.status != 422) throw error;
+      })
+    };
 
   // let [passwordValid,setPasswordValid]=useState("")
   const [strength, setStrength] = useState(0)
@@ -141,6 +158,31 @@ export default function useAuth({ middleware}: { middleware?: string } = {}) {
         setValidations(validations)
         
     }
+
+    const resetPassword = async ({ setErrors, setStatus, ...props }) => {
+      await csrf()
+
+      setErrors([])
+      setStatus(null)
+
+      axios
+          .post('/reset-password', { token: router.query.token, ...props })
+          .then(response => router.push('/login?reset=' + btoa(response.data.status)))
+          .catch(error => {
+              if (error.response.status !== 422) throw error
+
+              setErrors(error.response.data.errors)
+          })
+     
+  }
+
+
+  const resendEmailVerification = ({ setStatus }) => {
+    axios
+        .post('/verify-email')
+        .then(response => setStatus(response.data.status))
+}
+
   
   return {
     user,
@@ -155,6 +197,10 @@ export default function useAuth({ middleware}: { middleware?: string } = {}) {
     setStrength,
     validations,
     setValidations,
-    validatePassword
+    validatePassword,
+    forgotPassword,
+    resetPassword,
+    resendEmailVerification
   };
 }
+

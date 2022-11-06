@@ -12,12 +12,13 @@ import Modal from "components/Modal/Modal";
 import Card from "components/Card/Card";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
+import Button from "@/components/Button/Button";
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
   });
   
-  const {getAllPost,posts,storePost}=Post();
+  const {posts,storePost}=Post();
 
   const [createdAt, setCreatedAt] = useState("");
   const [modal, setModal] = useState(false);
@@ -39,6 +40,7 @@ export default function Home() {
 
   const logoutUser = async (event) => {
     event.preventDefault();
+    console.log("logout");
     logout();
   };
 
@@ -59,7 +61,7 @@ export default function Home() {
           <h1>Created at</h1>
           {created()}
           <div>
-           <button onClick={logoutUser} className='bg-black text-white p-1 hover:bg-white hover:text-black hover:p-1 hover:outline hover:outline-black hover:outline-2'>logout</button>
+           <Button onClick={logoutUser} >logout</Button>
           </div>
         </div>
         <input type="button" value="open modal" onClick={handleModal} />
