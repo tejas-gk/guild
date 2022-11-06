@@ -8,6 +8,7 @@ import { useState } from "react";
 import useAuth from "hooks/useAuth";
 import styles from "styles/pages/login/login.module.scss"
 import style from 'components/PasswordStrength/password-strength.module.scss'
+import GuestLayout from "@/components/Layouts/GuestLayout";
 export default function Register() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -59,7 +60,7 @@ export default function Register() {
       <Head>
         <title>ergodnc — Register</title>
       </Head>
-
+      <GuestLayout>
       <div className={`${styles.wrapper}`}>
         <Errors className={styles.errors} errors={errors} />
 
@@ -150,7 +151,7 @@ export default function Register() {
       </div>
 
 
-
+      </GuestLayout>
      
 
     </>

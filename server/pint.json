@@ -3,6 +3,9 @@
     "exclude": [
         "storage",
         "vendor"
-    ]
+    ],
+    "rules":{
+  
+    }
     
 }

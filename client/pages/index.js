@@ -8,16 +8,16 @@ import { Axios } from "axios";
 import SideBar from "../components/SideBar/SideBar";
 import NavBar from "components/Navbar/Navbar";
 import styles from "styles/index.module.scss";
-import Modal from "components/Modal/Modal";
+// import Modal from "components/Modal/Modal";
 import Card from "components/Card/Card";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
 import Button from "@/components/Button/Button";
+import {Modal} from '@headlessui/react'
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
   });
-  
   const {posts,storePost}=Post();
 
   const [createdAt, setCreatedAt] = useState("");
@@ -56,6 +56,15 @@ export default function Home() {
         <div className={styles.sidebar}>
           <SideBar />
         </div>
+        {/* email verified or not */}
+        {authUser?.email_verified_at ? (
+          <div className='bg-green-100 mt-10'>
+            verify your email
+            </div>
+        ):(
+         ""
+        )}
+
         <div className='main flex flex-row justify-center gap-6'>
           <h1>LoggedIN as {authUser}</h1>
           <h1>Created at</h1>
@@ -72,12 +81,13 @@ export default function Home() {
           <input type="submit" value="post" className="btn" />
         </form>
       </div>
-      <Modal
+      {/* <Modal
         className={`${modal ? styles.modal : styles.hide} ${styles.modals}`}
         message={modal ? "modal is open" : "modal is closed"}
         submitForm={storePost}
         inputs={[{ type: "text", name: "post", placeholder: "post" }]}
-      />
+      /> */}
+
       <div
         className={styles.posts}
         style={{
@@ -104,6 +114,8 @@ export default function Home() {
     </>
   );
 }
+
+
 
 
 

@@ -3,15 +3,25 @@ import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import { NextResponse } from "next/server";
 import { useEffect, useState } from "react";
-import { mutate } from "swr";
+import useSWR, { mutate } from "swr";
 export default function Post() {
   const [posts, setPosts] = useState("");
   const router = useRouter();
+
+  const { data: user, error, mutate } = useSWR("/user", () =>
+    axios.get("/user").then((response) => response.data.data)
+  );
+
   const getAllPost = () => {
+    let timeTakenToFetch;
+
     axios.get("/posts").then((response) => {
       setPosts(response.data);
+      timeTakenToFetch = response.headers["x-response-time"];
     });
+    console.log("timeTakenToFetch", timeTakenToFetch);
   };
+
 
   const storePost = async (e) => {
     e.preventDefault();
