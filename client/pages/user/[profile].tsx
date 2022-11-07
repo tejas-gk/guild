@@ -16,10 +16,7 @@ import { Tab,Transition,Popover} from "@headlessui/react";
 import Image from "next/image";
 import Navbar from "components/Navbar/Navbar";
 import Card from "components/Card/Card";
-export default function profile({ user }) {
-  const [isFollowing, setIsFollowing] = useState(false);
-
-  console.log(user.name);
+export default function profile({ user,userId }) {
   return (
     <div className="profile">
      <Navbar />
@@ -220,11 +217,11 @@ export default function profile({ user }) {
 
 export const getServerSideProps = async (context) => {
   const userId= context.query
-  const res = await axios.get(`/user/12`);
+  const res = await axios.get(`/user/${userId.profile}`);
   const data = await res.data;
 
   return {
-    props: { user: data },
+    props: { user: data},
   };
 }
 
