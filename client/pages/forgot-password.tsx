@@ -15,7 +15,7 @@ export default function forgot_password() {
 
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState([])
-    const [status, setStatus] = useState(false)
+    const [status, setStatus] = useState<boolean>(false)
 
     const submitForm = event => {
         event.preventDefault()

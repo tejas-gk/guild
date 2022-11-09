@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import CommandPallette from 'components/CommandPallette';
+import CommandPallette from '@/components/CommendPallette/CommandPallette';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>

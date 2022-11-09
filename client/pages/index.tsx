@@ -13,15 +13,27 @@ import Card from "components/Card/Card";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
 import Button from "@/components/Button/Button";
-import {Modal} from '@headlessui/react'
+// import headlessui
+import { Disclosure } from "@headlessui/react";
+
+interface Post {
+  id?: number;
+  post?: string;
+  created_at?:string;
+  user?: {
+    id: number;
+    username: string;
+  };
+}
+
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
     middleware: "auth",
   });
   const {posts,storePost}=Post();
 
-  const [createdAt, setCreatedAt] = useState("");
-  const [modal, setModal] = useState(false);
+  const [createdAt, setCreatedAt] = useState<string | null>("");
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleModal = () => {
     setModal(!modal);
@@ -56,7 +68,7 @@ export default function Home() {
         <div className={styles.sidebar}>
           <SideBar />
         </div>
-        {/* email verified or not */}
+         {/* @ts-ignore */}
         {authUser?.email_verified_at ? (
           <div className='bg-green-100 mt-10'>
             verify your email
@@ -97,7 +109,9 @@ export default function Home() {
           alignItems: "center",
         }}
       >
+        {/* @ts-ignore */}
         {posts.posts &&
+        // @ts-ignore
           posts.posts.map((post, index) => {
             return <div key={index} className='w-full'>
               <Card

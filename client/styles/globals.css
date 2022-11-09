@@ -42,9 +42,19 @@ a {
 }
 
 
+.thread{
 
+}
 
-
+.thread::after {
+  content: "";
+  width: 2px;
+  height: 28%;
+  position: absolute;
+  margin-left: 20rem;
+  background-color: hsl(235, 50%, 74%);
+  /* transition: background-color 100ms ease-in-out;  */
+}
 
 
 

@@ -1,0 +1,10 @@
+.container::before{
+    content:"";
+    position:absolute;
+    left:-10px;
+    background-color:#fefef;
+    width:10px;
+    height:100%;
+    z-index:1;
+    
+}

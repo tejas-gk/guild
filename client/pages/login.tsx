@@ -16,9 +16,9 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [remember, setRemember] = useState<boolean>(false);
   const [errors, setErrors] = useState([]);
-  const [strength, setStrength] = useState(0)
+  const [strength, setStrength] = useState<number>(0)
   const [validations, setValidations] = useState<Array<string>>([])
   const [status, setStatus] = useState(null)
 

@@ -1,19 +1,20 @@
 import axios from "lib/axios";
 import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { NextResponse } from "next/server";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
+import { commonInterface } from "Interface/Common";
 export default function Post() {
-  const [posts, setPosts] = useState("");
-  const router = useRouter();
+  const [posts, setPosts] = useState<string>("");
+  const router:NextRouter = useRouter();
 
   const { data: user, error, mutate } = useSWR("/user", () =>
     axios.get("/user").then((response) => response.data.data)
   );
 
   const getAllPost = () => {
-    let timeTakenToFetch;
+    let timeTakenToFetch:string | number;
 
     axios.get("/posts").then((response) => {
       setPosts(response.data);
@@ -39,7 +40,7 @@ export default function Post() {
     });
   };
 
- const deletePost = async (id) => {
+ const deletePost = async (id:commonInterface) => {
   axios.delete(`/delete-post/${id}`).then((response) => {
     mutate("/delete-post");
     console.log(response.data);
