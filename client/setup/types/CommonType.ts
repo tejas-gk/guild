@@ -1,0 +1,13 @@
+export type numberOrString = number | string; 
+export type stringOrNumberOrBoolean = string | number | boolean;
+export type stringOrNumberOrBooleanOrArray = string | number | boolean | Array<any>;
+export type stringOrNumberOrBooleanOrArrayOrObject = string | number | boolean | Array<any> | Object;
+export type stringOrNumberOrBooleanOrArrayOrObjectOrNull = string | number | boolean | Array<any> | Object | null;
+export type stringOrNumberOrBooleanOrArrayOrObjectOrUndefined = string | number | boolean | Array<any> | Object | undefined;
+export type numberOrNull = number | null;
+export type stringOrNull = string | null;
+export type stringOrNumberOrNull = string | number | null;
+export type stringOrNumberOrUndefined = string | number | undefined;
+export type stringOrNumberOrUndefinedOrNull = string | number | undefined | null;
+export type stringOrNumberOrUndefinedOrNullOrBoolean = string | number | undefined | null | boolean;
+export type booleanOrNull = boolean | null;

@@ -51,9 +51,12 @@ a {
   width: 2px;
   height: 28%;
   position: absolute;
-  margin-left: 20rem;
+  margin-left: 24rem;
   background-color: hsl(235, 50%, 74%);
   /* transition: background-color 100ms ease-in-out;  */
+}
+.reply::after {
+  content: "";
 }
 
 

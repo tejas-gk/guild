@@ -27,20 +27,20 @@ export default function Posts({post}) {
             post?.comments && post.comments.map((comment,index)=>{
                 return(
                     <div key={index}>
-                    <p className='thread ml-24'>
+                    <div className='thread ml-24'>
                     <h1 className='font-bold'>comments</h1><Card
                     text={comment.comment}
                     created_at={comment.created_at}
                     />
-                    </p>
+                    </div>
                      {comment.replies && comment.replies.map((reply,index)=>{
                         return(
                             <div key={index}>
-                            <p className='thread font-bold ml-36'>replies 
+                            <div className='reply font-bold ml-36'>replies 
                             <Card
                             text={reply.comment}
                             created_at={reply.created_at}
-                            /></p>
+                            /></div>
                             </div>
                         )
                     })}

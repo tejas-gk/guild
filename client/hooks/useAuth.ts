@@ -2,7 +2,7 @@ import useSWR from "swr";
 import axios from "../lib/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AuthInterface } from "Interface/AuthInterface";
+import { AuthInterface } from "@/setup/Interfaces/AuthInterface";
 export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInterface = {}) {
   const router = useRouter();
 

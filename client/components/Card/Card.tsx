@@ -1,5 +1,5 @@
 import styles from './Card.module.scss';
-import {CardProps} from 'Interface/CardInterface';
+import {CardProps} from '@/setup/Interfaces/CardInterface';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -20,7 +20,7 @@ export default function Card({text,image,author,username,created_at,id,date}: Ca
     <div className='flex items-center justify-center space-y-10 mb-4'>
     <div className='card border border-slate-200 shadow-lg w-3/6 p-7 h-44 dark:bg-dark_mode-800 dark:shadow-lg'>
        
-        <div className='card-header flex flex-row gap-3 '>
+        <div className='card-header flex flex-row gap-3'>
             <span className='profile-header-user truncate'>{author}</span>
             <span className='profile-header-username truncate'>@{username}</span>
             <span className='profile-header-time truncate'>1 hr ago</span>

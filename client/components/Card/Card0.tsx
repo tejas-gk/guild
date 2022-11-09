@@ -6,14 +6,23 @@ import Card from '@/components/Card/Card';
 import { Edit, Trash, Repeat } from 'react-feather';
 import styles from './style.module.css';
 import VoteBtn from '@/components/Button/VoteBtn';
-export default function Posts() {
+export default function Card0({
+  id,
+  text,
+  count,
+  user,
+  createdAt,
+  updatedAt,
+  isOwner,
+  parent
+}) {
   return (
     <div className="ml-96">
   
 
       <div className="comments-with-replies flex flex-row relative">
         {/* comments */}
-           <VoteBtn />
+          <VoteBtn count={0} />
         <div className="comments flex gap-4">
           <div className="comment shadow-md p-4 w-96">
             <div className="comment-header flex gap-4">
@@ -25,7 +34,7 @@ export default function Posts() {
                 />
               </div>
               <div className="comment-info flex flex-row gap-2">
-                <div className="comment-user-name">User Name</div>
+                <div className="comment-user-name">{user}</div>
                 <div className="comment-date">Date</div>
               </div>
               <div className="comment-actions flex flex-row gap-2  ml-auto">
