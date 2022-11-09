@@ -3,44 +3,42 @@ import axios from 'lib/axios'
 import {useRouter} from 'next/router'
 import {useAsync} from 'hooks/useAsync'
 import Card from '@/components/Card/Card'
-export default function Posts({post}) {
-    const getParentId = () => {
-        const {query} = useRouter()
-        return query.post
-    }
-    const [parentId,setParentId] = useState(getParentId())
-    const [comments,setComments] = useState([])
-    const [comment,setComment] = useState('')
-    // const {data,loading,error,run} = useAsync()
-
-    
+import Card0 from '@/components/Card/Card0'
+import ThreadLine from '@/components/Card/Thread/ThreadLine'
+export default function Posts({ post }) {
+    console.log(post)
     return (
         <div className='relative'>
         
-        {post && <div className='thread'>
-            <Card
-            text={post.post}
-            created_at={post.created_at}
+        {post && <div className=''>
+                <Card0
+                    id={post.id}
+                    text={post.post}
+                    createdAt={post.created_at}
+                    updatedAt={post.updated_at}
+                    user='tejas'
+                    isOwner={true}
+                    // comments={post.comments}
             />
             </div>}   
         {
             post?.comments && post.comments.map((comment,index)=>{
                 return(
                     <div key={index}>
-                    <div className='thread ml-24'>
-                    <h1 className='font-bold'>comments</h1><Card
-                    text={comment.comment}
-                    created_at={comment.created_at}
-                    />
+                    <div className='ml-[60vh]'>
+                            <ThreadLine
+                                comment={comment.comment}
+                            />
+                           
                     </div>
                      {comment.replies && comment.replies.map((reply,index)=>{
                         return(
                             <div key={index}>
-                            <div className='reply font-bold ml-36'>replies 
-                            <Card
-                            text={reply.comment}
-                            created_at={reply.created_at}
-                            /></div>
+                            <div className='ml-[70vh]'>
+                                    <ThreadLine
+                                        comment={reply.comment}
+                                    />
+                                </div>
                             </div>
                         )
                     })}
