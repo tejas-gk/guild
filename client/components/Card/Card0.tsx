@@ -9,27 +9,16 @@ import VoteBtn from '@/components/Button/VoteBtn';
 import { Card0Props } from '@/setup/Interfaces/CardInterface';
 import Icon from './Icon/Icon';
 export default function Card0({
-  id,
   text,
-  count,
   user,
-  createdAt,
-  updatedAt,
-  isOwner,
-  comments,
-  isVoted,
-  isVotedCount,
-  isVotedUser,
 }:Card0Props) {
   return (
-    <div className="ml-96">
-  
-
-      <div className="comments-with-replies flex flex-row relative">
+    <div className=" w-[56rem]">
+  <div className="comments-with-replies flex flex-row relative  w-[56rem]">
         {/* comments */}
           <VoteBtn count={0} />
         <div className="comments flex gap-4">
-          <div className="comment shadow-md p-4 w-96">
+          <div className="comment shadow-md p-4 w-[56rem]">
             <div className="comment-header flex gap-4">
               <div className="comment-user">
                 <img

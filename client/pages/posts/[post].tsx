@@ -8,16 +8,16 @@ import ThreadLine from '@/components/Card/Thread/ThreadLine'
 export default function Posts({ post }) {
     console.log(post)
     return (
-        <div className='relative'>
+        <div className='relative '>
         
-        {post && <div className=''>
+        {post && <div className='ml-96'>
                 <Card0
                     id={post.id}
                     text={post.post}
-                    createdAt={post.created_at}
-                    updatedAt={post.updated_at}
+                    // createdAt={post.created_at}
+                    // updatedAt={post.updated_at}
                     user='tejas'
-                    isOwner={true}
+                    // isOwner={true}
                     // comments={post.comments}
             />
             </div>}   

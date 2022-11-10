@@ -1,14 +1,14 @@
 import Navbar from 'components/Navbar/Navbar';
-import ProfileLeft from 'components/Profile/ProfileLeft';
-import ProfileRight from 'components/Profile/ProfileRight';
+import ProfileLeft from '../../../components/trySomethingNew/ProfileLeft';
+import ProfileRight from '../../../components/trySomethingNew/ProfileRight';
 import axios from 'lib/axios';
-// import Sidebar from '../../SideBar/Sidebar';
+import Sidebar from 'components/Sidebar/Sidebar';
 export default function profile({ user, userId }) {
     console.log(user);
     console.log(userId);
   return (
       <div className="profile">
-          {/* <Sidebar /> */}
+          <Sidebar />
       <Navbar />
       <div className="flex flex-row">
         <div
@@ -28,7 +28,6 @@ export default function profile({ user, userId }) {
       ">
           <ProfileRight 
             posts={user.posts}
-            user={user.name}
                   />
         </div>
       </div>
@@ -37,13 +36,11 @@ export default function profile({ user, userId }) {
 }
 
 export const getServerSideProps = async (context) => {
-  const userId= context.query
-  const res = await axios.get(`/user/${userId.profile}`);
+  const userId = context.query.test;
+  const res = await axios.get(`/user/${userId}`);
   const data = await res.data;
 
   return {
-    props: { user: data},
+    props: { user: data, userId },
   };
-}
-
-
+};

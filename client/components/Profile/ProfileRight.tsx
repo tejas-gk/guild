@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import {motion} from 'framer-motion'
-import Card0 from 'components/Card/Card0'
-export default function ProfileRight({posts}) {
+import axios from 'lib/axios'
+import Card0 from '../Card/Card0'
+export default function ProfileRight({posts,user}) {
   const [isClicked, setIsClicked] = useState(false)
+  console.log(posts)
   return (
     <div
       className="profile-right px-2 py-16 sm:px-0
@@ -78,10 +80,14 @@ export default function ProfileRight({posts}) {
             <Tab.Panel>
               <div className="profile__main__body__photos mt-4 mr-2">
                 <div className="profile__main__body__photos__photo">
-                  {posts.map((post) => (
-                    <div>
-                      <Card0 text={post} />
-                       {/* {post?.post} */}
+                  {posts.map((post,index) => (
+                      <div key={index} className='mr-96'>
+                          {/* {post?.post} */}
+                          <Card0
+                              text={post?.post}
+                        id={post?._id} 
+                        user={user}
+                          />
                     </div>
                   ))}
 
