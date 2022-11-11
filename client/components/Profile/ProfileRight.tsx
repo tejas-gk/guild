@@ -3,9 +3,9 @@ import { Tab } from '@headlessui/react'
 import {motion} from 'framer-motion'
 import axios from 'lib/axios'
 import Card0 from '../Card/Card0'
-export default function ProfileRight({posts,user}) {
+export default function ProfileRight({posts,user,votes}) {
   const [isClicked, setIsClicked] = useState(false)
-  console.log(posts)
+  console.log('votes',votes)
   return (
     <div
       className="profile-right px-2 py-16 sm:px-0
@@ -85,11 +85,11 @@ export default function ProfileRight({posts,user}) {
                           {/* {post?.post} */}
                           <Card0
                               text={post?.post}
-                        id={post?._id} 
+                          id={post?._id} 
                         user={user}
                           />
                     </div>
-                  ))}
+                  ))} 
 
                 </div>
               </div>
@@ -122,8 +122,13 @@ export const getServerSideProps = async (context) => {
   const userId = context.query;
   const res = await axios.get(`/user/${userId.profile}`);
   const data = await res.data;
-
+  const votes = await axios.get(`/vote/9`);
+  const votesData = await votes.data;
   return {
-    props: { user: data },
+    props: {
+      user: data,
+      votes:votesData,
+      
+    },
   };
 };
