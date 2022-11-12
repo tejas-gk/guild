@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import axios from 'lib/axios';
 import { useRouter } from 'next/router';
 import { useAsync } from 'hooks/useAsync';
@@ -11,7 +11,17 @@ import Icon from './Icon/Icon';
 export default function Card0({
   text,
   user,
-}:Card0Props) {
+  id=59,
+}: Card0Props) {
+  const [isUpvoted, setIsUpvoted] = useState(false)
+  const [isDownvoted, setIsDownvoted] = useState(false)
+  
+  const followRequest = async () => {
+      const res = await axios.post(`/follow/${id}`);
+      const data = await res.data;
+      console.log(data);
+  }
+
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">

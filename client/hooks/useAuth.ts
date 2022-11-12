@@ -7,9 +7,6 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-
-
   useEffect(() => {
     if (user || error) {
       setIsLoading(false);
@@ -39,20 +36,20 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
   );
 
   const csrf = () => axios.get("/sanctum/csrf-cookie");
-  const register = ({
+  const register =async  ({
     name,
     email,
     password,
-    password_confirmation,
     setErrors,
   }) => {
-    csrf().then(() => {
+    await csrf();
+    setErrors([])
+    
       axios
         .post("/register", {
           name,
           email,
           password,
-          password_confirmation,
         })
         .then((response) => {
           mutate(response.data.data);
@@ -62,9 +59,10 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
         })
         .then(() => router.push("/"))
         .catch((error) => {
-          // setErrors(error.response.data.errors)
+          if(error.response.status !== 422)  throw error
+          setErrors(error.response.data.errors)
         });
-    });
+    
   };
 
   const login = async ({email,password,setStatus, setErrors, ...props }) => {
@@ -108,9 +106,12 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
     });
   };
 
-  const forgotPassword = async ({ email, setErrors,setStatus }) => {
+  const forgotPassword = async ({
+    email, 
+    setErrors, 
+    setStatus
+  }) => {
     await csrf()
-
     setErrors([])
     setStatus(null)
     axios
@@ -121,47 +122,8 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
       })
     };
 
-  // let [passwordValid,setPasswordValid]=useState("")
-  const [strength, setStrength] = useState(0)
-  const [validations, setValidations] = useState<Array<string>>([])
-
-    function validatePassword(e:any,pass){
-        let password = e.target.value;
-        let validations = []
-        let strength = 0
-        if(password.length < 8){
-            validations.push("Password must be at least 8 characters")
-        }else{
-            strength += 1
-        }
-        if(password.match(/[A-Z]/)){
-            strength += 1
-        }else{
-            validations.push("Password must contain at least one uppercase letter")
-        }
-        if(password.match(/[a-z]/)){
-            strength += 1
-        }else{
-            validations.push("Password must contain at least one lowercase letter")
-        }
-        if(password.match(/[0-9]/)){
-            strength += 1
-        }else{
-            validations.push("Password must contain at least one number")
-        }
-        if(password.match(/[!@#$%^&*]/)){
-            strength += 1
-        }else{
-            validations.push("Password must contain at least one special character")
-        }
-        setStrength(strength)
-        setValidations(validations)
-        
-    }
-
     const resetPassword = async ({ setErrors, setStatus, ...props }) => {
       await csrf()
-
       setErrors([])
       setStatus(null)
 
@@ -193,11 +155,6 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
     register,
     currentUser,
     authUser,
-    strength,
-    setStrength,
-    validations,
-    setValidations,
-    validatePassword,
     forgotPassword,
     resetPassword,
     resendEmailVerification

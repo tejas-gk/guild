@@ -9,52 +9,29 @@ import useAuth from "hooks/useAuth";
 import styles from "styles/pages/login/login.module.scss"
 import style from 'components/PasswordStrength/password-strength.module.scss'
 import GuestLayout from "@/components/Layouts/GuestLayout";
+import PasswordStrength from "@/components/PasswordStrength/PasswordStrength";
+import InputError from "@/components/Errors/InputErrors";
 export default function Register() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password_confirmation, setPasswordConfirmation] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]);
-  const { register, isLoading, user } = useAuth({ middleware: "guests" });
-
-  const [strength, setStrength] = useState(0)
-  const [validations, setValidations] = useState<Array<string>>([])
-
+  const { register, isLoading, user } = useAuth({
+    middleware: "guests",
+    redirectIfAuthenticated: "/",
+  });
 
   const submitForm = async (event: any) => {
     event.preventDefault();
-    register({ name, email, password, password_confirmation, setErrors });
+    console.log('errors',errors)
+    register({ name, email, password,setErrors });
   };
-   
-
-  function validatePassword(e:any){
-    setPassword(e.target.value)
-    const validations = []
-    if (password.length < 8) {
-      validations.push('Password must be at least 8 characters')
-    }
-    if (password.length > 20) {
-      validations.push('Password must be less than 20 characters')
-    } 
-    if (password.search(/[a-z]/i) < 0) {
-      validations.push('Password must contain at least one letter.')
-    }
-    if (password.search(/[0-9]/) < 0) {
-      validations.push('Password must contain at least one digit.')
-    }
-    if (password.search(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/) < 0) {
-      validations.push('Password must contain at least one special character.')
-    }
-    setValidations(validations)
-    setStrength(password.length)
-    console.log(password)
-  }
 
   const handleChangePassword = (e:any)=>{
-    validatePassword(e)
-    // console.log('password', password,strength,validations)
     setPassword(e.target.value)
   }
+  
   return (
     <>
       <Head>
@@ -77,7 +54,8 @@ export default function Register() {
               required
               autoFocus
               autoComplete="off"
-            />
+              />
+              <InputError errors={errors.name} className="mt-2"  />
           </div>
 
           <div className="mt-4">
@@ -90,7 +68,8 @@ export default function Register() {
               className={`${styles.input}`}
               onChange={(event: any) => setEmail(event.target.value)}
               required
-            />
+              />
+              <InputError messages={errors.email} className="mt-2" />
           </div>
 
           <div className="mt-4">
@@ -100,10 +79,13 @@ export default function Register() {
               id="password"
               type="password"
               value={password}
-              className={`${styles.input}`}
+              className='block mt-1 w-full'
               onChange={handleChangePassword}
-              required
-            />
+                required
+                
+              />
+              <InputError messages={errors.password} className="mt-2"/>
+
           </div>
 
           <div className="mt-4">
@@ -133,24 +115,11 @@ export default function Register() {
             </Button>
           </div>
         </form>
-        <div className={style.strength}>
-        <span className={`${style.bar} ${strength>=1?style.bar1:""}`}></span>
-        <span className={`${style.bar} ${strength>=2?style.bar2:""}`}></span>
-        <span className={`${style.bar} ${strength>=3?style.bar3:""}`}></span>
-        <span className={`${style.bar} ${strength>=4?style.bar4:""}`}></span>
-        <br/>
-        <ul className={`${style.showValidations} ${style.for_registration}`}>
-          {
-            validations.map((validation,index)=>{
-              return <li key={index} className={style.invalid}>{validation}</li>
-            })
-          }
-      
-        </ul>
-    </div>
+        
+          <PasswordStrength
+            password={password}
+          />
       </div>
-
-
       </GuestLayout>
      
 
