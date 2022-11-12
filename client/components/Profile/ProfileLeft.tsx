@@ -1,10 +1,14 @@
 import {GitHub,Twitter,Twitch,Linkedin, Plus} from 'react-feather'
-
+import { useState } from 'react';
 export default function ProfileLeft({
   name,
   username,
   bio,
 }) {
+  const [followIsClicked, setFollowIsClicked] = useState(false);
+  const toggleFollow = () => {
+    setFollowIsClicked(!followIsClicked);
+  };
   return (
     <div>
       <div className="profile-left">
@@ -31,8 +35,16 @@ export default function ProfileLeft({
             className="rounded-md border border-transparent bg-gray-900 py-3 px-8 text-center font-medium
              text-white hover:bg-gray-700 flex flex-row divide-gray-600 divide-x
              ">
-                      <span className='pr-4'>Follow</span>
-                      <span className='pl-4'><Plus /></span>
+            {followIsClicked ? (
+              <p className="mr-2" onClick={toggleFollow}>Following</p>
+            ) : (
+                <>
+              <span className='pr-4' onClick={toggleFollow}>Follow</span>
+              <span className='pl-4'><Plus /></span>
+                </>
+            )}
+
+                     
           </a>
         </div>
 

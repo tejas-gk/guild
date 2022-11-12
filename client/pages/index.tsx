@@ -3,18 +3,19 @@ import Link from "next/link";
 import axios from "lib/axios";
 import useAuth from "hooks/useAuth";
 import { current } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
+import { useEffect, useState,createContext } from "react";
 import { Axios } from "axios";
 import SideBar from "../components/SideBar/SideBar";
 import NavBar from "components/Navbar/Navbar";
 import styles from "styles/index.module.scss";
 // import Modal from "components/Modal/Modal";
-import Card from "components/Card/Card";
+import Card0 from "components/Card/Card0";
 import Post from "lib/helpers/Post";
 import useConvert from "hooks/useConvert";
 import Button from "@/components/Button/Button";
 // import headlessui
 import { Disclosure } from "@headlessui/react";
+import Modal0 from "@/components/Modal/Modal0";
 
 interface Post {
   id?: number;
@@ -25,6 +26,9 @@ interface Post {
     username: string;
   };
 }
+
+// create context
+export const AuthUserContext = createContext(null);
 
 export default function Home() {
   const { logout, isLoading, user,currentUser,authUser } = useAuth({
@@ -63,6 +67,9 @@ export default function Home() {
   
   return (
     <>
+      <Head>
+        <title>Home</title>
+      </Head>
       <NavBar />
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
@@ -85,21 +92,14 @@ export default function Home() {
            <Button onClick={logoutUser} >logout</Button>
           </div>
         </div>
-        <input type="button" value="open modal" onClick={handleModal} />
+    
       </div>
       <div className='post flex flex-row justify-center gap-6 mb-6'>
-        <form method="POST" onSubmit={storePost}>
-          <input type="text" name="post" placeholder="post" className="border border-black rounded" />
-          <input type="submit" value="post" className="btn" />
-        </form>
+          <Modal0
+          Submit={storePost}
+        />
       </div>
-      {/* <Modal
-        className={`${modal ? styles.modal : styles.hide} ${styles.modals}`}
-        message={modal ? "modal is open" : "modal is closed"}
-        submitForm={storePost}
-        inputs={[{ type: "text", name: "post", placeholder: "post" }]}
-      /> */}
-
+    
       <div
         className={styles.posts}
         style={{
@@ -113,13 +113,11 @@ export default function Home() {
         {posts.posts &&
         // @ts-ignore
           posts.posts.map((post, index) => {
-            return <div key={index} className='w-full'>
-              <Card
+            return <div key={index} className='w-full ml-24'>
+              <Card0
               text={post.post}
-              author={post.users.name}
-              created_at='12hrs ago'
-              username={post.users.email}
-              id={post.id}
+                user={post.users.name}
+                id={post.id}
               /> 
             </div>;
           })}
@@ -128,6 +126,7 @@ export default function Home() {
     </>
   );
 }
+
 
 
 

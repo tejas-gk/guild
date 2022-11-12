@@ -10,6 +10,7 @@ export default function profile({ user, userId }) {
       <div className="profile">
           {/* <Sidebar /> */}
       <Navbar />
+      
       <div className="flex flex-row">
         <div
           className="banner w-full -z-30 

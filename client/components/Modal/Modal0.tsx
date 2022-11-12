@@ -1,8 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import Button from '../Button/Button';
 
-export default function MyModal() {
-  let [isOpen, setIsOpen] = useState(true);
+export default function Modal0({Submit}) {
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -14,13 +15,8 @@ export default function MyModal() {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-          Open dialog
-        </button>
+      <div className="inset-0 flex items-center justify-center">
+        <Button onClick={openModal}>Create Post</Button>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -51,24 +47,30 @@ export default function MyModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900">
                     Post
-                  </Dialog.Title>
+                                  </Dialog.Title>
+                                  <form method='POST' onSubmit={Submit}>
+                                      
                   <div className="mt-2">
                     <textarea
                       className="
-                        w-full h-full p-2 border border-gray-300 rounded-md resize-none overflow-scroll-x  caret-blue-500 
-                        focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md
+                      w-full h-full p-2 border border-gray-300 rounded-md resize-none overflow-scroll-x  caret-blue-500 
+                      focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md
                       "
-                    />
+                                              placeholder="What's on your mind?"
+                                              name='post'
+                      />
                   </div>
 
                   <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}>
-                      Post
-                    </button>
+                                          <Button
+                                              type='submit'
+                                              onClick={closeModal}
+                                          >
+                                              Post
+                                          </Button>
+                                          
                   </div>
+                          </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

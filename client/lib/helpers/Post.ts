@@ -26,14 +26,19 @@ export default function Post() {
 
   const storePost = async (e) => {
     e.preventDefault();
-          const formData = new FormData(e.target);
-          const data = {
-            post: formData.get("post"),
-          };
-          await axios.post("/post", data);
-          mutate("/post");
+    const formData = new FormData(e.target);
+    const data = {
+      post: formData.get("post"),
+    };
+    await axios.post("/post", data);
+    mutate("/post");
+    refreshData();
+    console.log("data", data);
   };
-
+  
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
   const getAParticularPost:any = async (id) => {
     axios.get("/post/1").then((response) => {
       setPosts(response.data);

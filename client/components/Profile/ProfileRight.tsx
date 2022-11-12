@@ -3,7 +3,7 @@ import { Tab } from '@headlessui/react'
 import {motion} from 'framer-motion'
 import axios from 'lib/axios'
 import Card0 from '../Card/Card0'
-export default function ProfileRight({posts,user,votes}) {
+export default function ProfileRight({posts,user,votes=1}) {
   const [isClicked, setIsClicked] = useState(false)
   console.log('votes',votes)
   return (
