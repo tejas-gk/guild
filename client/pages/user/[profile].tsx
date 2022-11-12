@@ -1,11 +1,15 @@
 import Navbar from 'components/Navbar/Navbar';
 import ProfileLeft from 'components/Profile/ProfileLeft';
 import ProfileRight from 'components/Profile/ProfileRight';
+import useAuth from 'hooks/useAuth';
 import axios from 'lib/axios';
-// import Sidebar from '../../SideBar/Sidebar';
+import {useEffect,useRef} from 'react';
 export default function profile({ user, userId }) {
-    console.log(user);
-    console.log(userId);
+  const { authUser}=useAuth({middleware: 'auth'});
+  
+
+  
+
   return (
       <div className="profile">
           {/* <Sidebar /> */}
@@ -21,6 +25,7 @@ export default function profile({ user, userId }) {
                       name={user.name}
                       username={user.email}
                       bio='hello world'
+                      id={user.id}
                   />
         </div>
         <div
@@ -41,7 +46,7 @@ export const getServerSideProps = async (context) => {
   const userId= context.query
   const res = await axios.get(`/user/${userId.profile}`);
   const data = await res.data;
-
+  
   return {
     props: { user: data},
   };

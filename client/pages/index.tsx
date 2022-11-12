@@ -31,7 +31,7 @@ interface Post {
 export const AuthUserContext = createContext(null);
 
 export default function Home() {
-  const { logout, isLoading, user,currentUser,authUser } = useAuth({
+  const { logout, isLoading, user,authUser } = useAuth({
     middleware: "auth",
   });
   const {posts,storePost}=Post();
@@ -60,9 +60,6 @@ export default function Home() {
     logout();
   };
 
-  useEffect(() => {
-    currentUser();
-  }, []);
 
   
   return (

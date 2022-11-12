@@ -17,12 +17,15 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
   const [password_confirmation, setPasswordConfirmation] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]);
-  const { register, isLoading, user } = useAuth({ middleware: "guests" });
+  const { register, isLoading, user } = useAuth({
+    middleware: "guests",
+    redirectIfAuthenticated: "/",
+  });
 
   const submitForm = async (event: any) => {
     event.preventDefault();
     console.log('errors',errors)
-    register({ name, email, password, password_confirmation, setErrors });
+    register({ name, email, password,setErrors });
   };
 
   const handleChangePassword = (e:any)=>{
@@ -51,7 +54,8 @@ export default function Register() {
               required
               autoFocus
               autoComplete="off"
-            />
+              />
+              <InputError errors={errors.name} className="mt-2"  />
           </div>
 
           <div className="mt-4">
@@ -64,7 +68,8 @@ export default function Register() {
               className={`${styles.input}`}
               onChange={(event: any) => setEmail(event.target.value)}
               required
-            />
+              />
+              <InputError messages={errors.email} className="mt-2" />
           </div>
 
           <div className="mt-4">
@@ -74,14 +79,12 @@ export default function Register() {
               id="password"
               type="password"
               value={password}
-              className={`${styles.input}`}
+              className='block mt-1 w-full'
               onChange={handleChangePassword}
-              required
+                required
+                
               />
-              <InputError
-                messages={errors.password}
-                className="mt-2"
-              />
+              <InputError messages={errors.password} className="mt-2"/>
 
           </div>
 

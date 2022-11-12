@@ -1,12 +1,33 @@
 import {GitHub,Twitter,Twitch,Linkedin, Plus} from 'react-feather'
-import { useState } from 'react';
+import { useState, useRef ,useEffect} from 'react';
+import axios from 'lib/axios';
 export default function ProfileLeft({
   name,
   username,
   bio,
+  id
 }) {
   const [followIsClicked, setFollowIsClicked] = useState(false);
+  const followRef = useRef(null);
+    const followRequest = async () => {
+      const res = await axios.post(`/follow/${id}`);
+      const data = await res.data;
+      console.log(data);
+  }
+  const isAlreadyFollowing = async () => {
+    const res = await axios.get(`/following/${id}`);
+    const data = await res.data;
+    console.log(data);
+    if (data == 'already following') {
+      setFollowIsClicked(true);
+    }
+  }
+  useEffect(() => {
+    isAlreadyFollowing();
+  },[followIsClicked])
   const toggleFollow = () => {
+    followRequest()
+    console.log(followIsClicked);
     setFollowIsClicked(!followIsClicked);
   };
   return (
@@ -35,11 +56,18 @@ export default function ProfileLeft({
             className="rounded-md border border-transparent bg-gray-900 py-3 px-8 text-center font-medium
              text-white hover:bg-gray-700 flex flex-row divide-gray-600 divide-x
              ">
-            {followIsClicked ? (
-              <p className="mr-2" onClick={toggleFollow}>Following</p>
+            { (followIsClicked ) ? (
+              <p className="mr-2"
+                onClick={toggleFollow}
+                ref={followRef}
+                >Following</p>
             ) : (
                 <>
-              <span className='pr-4' onClick={toggleFollow}>Follow</span>
+                  <span className='pr-4'
+                    onClick={toggleFollow}
+                    ref={followRef}
+                  >
+                    Follow</span>
               <span className='pl-4'><Plus /></span>
                 </>
             )}
@@ -101,3 +129,13 @@ export default function ProfileLeft({
     </div>
   );
 }
+
+// export const getServerSideProps = async (context) => {
+//   const userId= context.query
+//   const res = await axios.post(`/follow/${userId.profile}`);
+//   const data = await res.data;
+  
+//   return {
+//     props: { follow: data},
+//   };
+// }

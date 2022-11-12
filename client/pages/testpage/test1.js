@@ -1,12 +1,8 @@
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import Prism from 'prismjs'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import ReactMarkdown from 'react-markdown'
 export default function test1() {
-  const [mds, setMds] = useState('')
+  const [md, setMd] = useState('')
 
   const parse = (md) => {
     //ul
@@ -64,23 +60,40 @@ export default function test1() {
 
     //strip p from pre
     md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
+    
 
     return md;
   };
+
+  const syntaxHighlight = (md) => {
+    // if starts with ``` and ends with ``` then it is code
+    if (md.startsWith('```') && md.endsWith('```')) {
+      // if consists function then it is javascript and color it
+      if (md.includes('function')) {
+        md.replace('function', '<span class="text-red-500">function</span>');
+      }
+      // if consists return then it is javascript and color it
+      if (md.includes('return')) {
+        md.replace('return', '<span class="text-red-500">return</span>');
+      }
+    }
+    return md;
+  };
+
+
 
   return (
     <div>
       ff
       <textarea
         className='border border-black'
-        onChange={(e) => setMds(e.target.value)}
-        value={mds}
+        onChange={(e) => setMd(e.target.value)}
+        value={md}
       />
-      {/* <div className='border border-black' dangerouslySetInnerHTML={{ __html: parse(md) }} /> */}
-      <ReactMarkdown
-        className='border border-black'
-        children={mds}
-      />
+      <div className='border border-black' dangerouslySetInnerHTML={{
+        __html: syntaxHighlight(parse(
+        md
+      )) }} />
     </div>
   )
 } 

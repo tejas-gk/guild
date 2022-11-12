@@ -15,13 +15,12 @@ export default function forgot_password() {
 
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState([])
-    const [status, setStatus] = useState<boolean>(false)
+    const [status, setStatus] = useState(null)
 
     const submitForm = event => {
         event.preventDefault()
-        setStatus(true)
+        console.log(status)
         forgotPassword({ email, setErrors, setStatus })
-        console.log('status', status)
     }
 
   return (
@@ -30,7 +29,7 @@ export default function forgot_password() {
                 logo={
                     <Link href="/">
                         <a>
-                            yay
+                            Guild
                         </a>
                     </Link>
                 }>
@@ -41,8 +40,8 @@ export default function forgot_password() {
                     that will allow you to choose a new one.
                 </div>
 
-                {/* Session Status */}
-                <AuthSessionStatus className="mb-4" status='Email sent' />
+               {/* Session Status */}
+                <AuthSessionStatus className="mb-4" status={status} />
 
                 <form onSubmit={submitForm}>
                     {/* Email Address */}
@@ -59,7 +58,7 @@ export default function forgot_password() {
                             autoFocus
                         />
 
-                        {/* <InputError messages={errors.email} className="mt-2" /> */}
+                        <InputError messages={errors.email} className="mt-2" />
                     </div>
 
                     <div className="flex items-center justify-end mt-4">

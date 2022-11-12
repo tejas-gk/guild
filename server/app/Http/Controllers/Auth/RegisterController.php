@@ -13,17 +13,13 @@ class RegisterController extends Controller
 {
     public function register(RegisterService $registerService, Request $request): JsonResponse
     {
-        $validateUser=Validator::make($request->all(), [
+        // validate
+        $validator =$request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-        if ($validateUser->fails()) {
-            return response()->json([
-                'message' => 'Validation Error.',
-                'errors' => $validateUser->errors()
-            ], 422);
-        }
+
 
         $user = $registerService->createUser($request);
         $avatar = $registerService->uploadAvatar($request);
