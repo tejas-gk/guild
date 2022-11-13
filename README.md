@@ -12,7 +12,7 @@
 - git clone this repo
 - add envs
 - cd server && composer install
-- php artisan generate:key
+- php artisan key:generate
 - php artisan migrate:fresh --seed
 - php artisan serve
 - cd client && npm i
