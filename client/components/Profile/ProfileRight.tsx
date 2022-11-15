@@ -122,12 +122,12 @@ export const getServerSideProps = async (context) => {
   const userId = context.query;
   const res = await axios.get(`/user/${userId.profile}`);
   const data = await res.data;
-  const votes = await axios.get(`/vote/9`);
-  const votesData = await votes.data;
+  // const votes = await axios.get(`/vote/9`);
+  // const votesData = await votes.data;
   return {
     props: {
       user: data,
-      votes:votesData,
+      // votes:votesData,
       
     },
   };

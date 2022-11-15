@@ -1,4 +1,4 @@
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'lib/axios';
 import { useRouter } from 'next/router';
 import { useAsync } from 'hooks/useAsync';
@@ -8,25 +8,20 @@ import styles from './style.module.css';
 import VoteBtn from '@/components/Button/VoteBtn';
 import { Card0Props } from '@/setup/Interfaces/CardInterface';
 import Icon from './Icon/Icon';
+import Link from 'next/link';
 export default function Card0({
   text,
   user,
-  id=59,
-}: Card0Props) {
-  const [isUpvoted, setIsUpvoted] = useState(false)
-  const [isDownvoted, setIsDownvoted] = useState(false)
-  
-  const followRequest = async () => {
-      const res = await axios.post(`/follow/${id}`);
-      const data = await res.data;
-      console.log(data);
-  }
-
+  id
+}:Card0Props) {
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">
         {/* comments */}
-          <VoteBtn count={0} />
+        <VoteBtn
+        count={0}
+        id={59}
+        />
         <div className="comments flex gap-4">
           <div className="comment shadow-md p-4 w-[56rem]">
             <div className="comment-header flex gap-4">
@@ -47,11 +42,15 @@ export default function Card0({
                 <Repeat size={16} />
               </div>
             </div>
+            <Link href={`/posts/${id}`}>
+              <a>
             <div className="comment-body">
               <p>
                 {text}
               </p>
-            </div>
+              </div>
+              </a>
+              </Link>
             
             <div className="comment-footer flex flex-row gap-4 mt-4 justify-between">
               <Icon icon={<Flag size={16} />} size={0} />

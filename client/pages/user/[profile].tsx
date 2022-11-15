@@ -3,17 +3,21 @@ import ProfileLeft from 'components/Profile/ProfileLeft';
 import ProfileRight from 'components/Profile/ProfileRight';
 import useAuth from 'hooks/useAuth';
 import axios from 'lib/axios';
+import { log } from 'lib/log';
 import {useEffect,useRef} from 'react';
 export default function profile({ user, userId }) {
-  const { authUser}=useAuth({middleware: 'auth'});
-  
+  const { authUser,currentUser } = useAuth({ middleware: 'auth' });
 
-  
+  useEffect(() => {
+    log(user);
+    log('authUser', authUser,currentUser.name)
+  }, [])
+
 
   return (
       <div className="profile">
           {/* <Sidebar /> */}
-      <Navbar />
+      {/* <Navbar /> */}
       
       <div className="flex flex-row">
         <div
@@ -25,7 +29,8 @@ export default function profile({ user, userId }) {
                       name={user.name}
                       username={user.email}
                       bio='hello world'
-                      id={user.id}
+            id={user.id}
+            
                   />
         </div>
         <div

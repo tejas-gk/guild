@@ -1,35 +1,71 @@
 import {GitHub,Twitter,Twitch,Linkedin, Plus} from 'react-feather'
 import { useState, useRef ,useEffect} from 'react';
 import axios from 'lib/axios';
+import Follows from 'lib/helpers/Follows';
+import  useAuth  from 'hooks/useAuth';
 export default function ProfileLeft({
   name,
   username,
   bio,
-  id
+  id,
 }) {
+  
   const [followIsClicked, setFollowIsClicked] = useState(false);
+  const [followers, setFollowers] = useState();
+  const [followings, setFollowings] = useState();
+  const [followD, setFollowD] = useState({});
+  const [isFollowing, setIsFollowing] = useState(false);
+
+
   const followRef = useRef(null);
     const followRequest = async () => {
       const res = await axios.post(`/follow/${id}`);
       const data = await res.data;
       console.log(data);
   }
-  const isAlreadyFollowing = async () => {
-    const res = await axios.get(`/following/${id}`);
-    const data = await res.data;
-    console.log(data);
-    if (data == 'already following') {
-      setFollowIsClicked(true);
-    }
+
+  const getFollowers = async () => {
+    const res = await axios.get(`/follower/${id}`)
+    console.log(res.data)
+    setFollowers(res.data.followerCount)
+    setFollowD(res.data)
+    console.log(followD, 'followD')
+    console.log(followers,'j')
   }
-  useEffect(() => {
-    isAlreadyFollowing();
-  },[followIsClicked])
+  const following = async () => {
+    const res = await axios.get(`/following/${id}`)
+    console.log(res.data)
+    setFollowings(res.data.following)
+  }
   const toggleFollow = () => {
     followRequest()
     console.log(followIsClicked);
     setFollowIsClicked(!followIsClicked);
   };
+  
+  const isAuthUserFollowing = () => {
+    const { authUser } = useAuth({ middleware: 'auth' });
+    const { followingData } = Follows();
+    console.log(followingData, 'followingData');
+    if (followingData) {
+      const isFollowing = followingData.find(
+        (following) => following.id === id
+      );
+      console.log(isFollowing, 'isFollowing');
+      setIsFollowing(isFollowing);
+    }
+  };
+
+
+  useEffect(() => {
+    getFollowers()
+    following()
+    
+    console.log(followD,'l')
+
+    console.log(followings,'k')
+  },[]);
+
   return (
     <div>
       <div className="profile-left">
@@ -79,11 +115,13 @@ export default function ProfileLeft({
         <div className="follows mt-8 ml-32 flex flex-row gap-5">
           <div className="following">
             <h2 className="font-semibold">Following</h2>
-            <p>100</p>
+            <p>{
+              followings
+            }</p>
           </div>
           <div className="followers">
             <h2 className="font-semibold">Followers</h2>
-            <p>100</p>
+            <p>{followers}</p>
           </div>
         </div>
 
@@ -130,12 +168,21 @@ export default function ProfileLeft({
   );
 }
 
-// export const getServerSideProps = async (context) => {
-//   const userId= context.query
-//   const res = await axios.post(`/follow/${userId.profile}`);
-//   const data = await res.data;
+export const getServerSideProps = async (context) => {
+  const userId= context.query
+  const res = await axios.post(`/follow/${userId.profile}`);
+  const data = await res.data;
+
+  const followerData = await axios.get(`/follower/${userId.profile}`);
+  const follower = await followerData.data;
+
   
-//   return {
-//     props: { follow: data},
-//   };
-// }
+  return {
+    props: {
+      follow: data,
+      follower: follower
+
+    },
+  };
+}
+

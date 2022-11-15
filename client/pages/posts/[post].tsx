@@ -5,6 +5,7 @@ import {useAsync} from 'hooks/useAsync'
 import Card from '@/components/Card/Card'
 import Card0 from '@/components/Card/Card0'
 import ThreadLine from '@/components/Card/Thread/ThreadLine'
+import PostComment from '@/components/Input/PostComment/PostComment'
 export default function Posts({ post }) {
     console.log(post)
     return (
@@ -21,6 +22,7 @@ export default function Posts({ post }) {
                     // comments={post.comments}
             />
             </div>}   
+            <PostComment />
         {
             post?.comments && post.comments.map((comment,index)=>{
                 return(
@@ -30,7 +32,7 @@ export default function Posts({ post }) {
                                 comment={comment.comment}
                             />
                            
-                    </div>
+                        </div>
                      {comment.replies && comment.replies.map((reply,index)=>{
                         return(
                             <div key={index}>

@@ -31,12 +31,12 @@ class FollowController extends Controller
         $followers = Follow::where('followed_id', $id)
         ->with('follower:id,name')
         ->get();
-        return response()->json(['message' => $followers->count(),'followers' => $followers]);
+        return response()->json(['followerCount' => $followers->count(),'followers' => $followers]);
     }
     public function getFollowingsCount($id){
         $followings = Follow::where('follower_id', $id)
         ->with('followed:id,name')
         ->get();
-        return response()->json(['message' => $followings->count(),'followings'=>$followings]);
+        return response()->json(['following' => $followings->count(),'followings'=>$followings]);
     }
 }
