@@ -38,12 +38,12 @@ export default function Register() {
         <title>ergodnc — Register</title>
       </Head>
       <GuestLayout>
-      <div className={`${styles.wrapper}`}>
+      <div className={`${styles.wrapper} dark:bg-gray-800`}>
         <Errors className={styles.errors} errors={errors} />
 
         <form onSubmit={submitForm} autoComplete="off" className={styles.form}>
           <div>
-            <Label htmlFor="email">Name</Label>
+            <Label htmlFor="email" className='dark:text-white'>Name</Label>
 
             <Input
               id="name"
@@ -59,7 +59,7 @@ export default function Register() {
           </div>
 
           <div className="mt-4">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className='dark:text-white'>Email</Label>
 
             <Input
               id="email"
@@ -73,7 +73,7 @@ export default function Register() {
           </div>
 
           <div className="mt-4">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className='dark:text-white'>Password</Label>
 
             <Input
               id="password"
@@ -89,7 +89,7 @@ export default function Register() {
           </div>
 
           <div className="mt-4">
-            <Label htmlFor="password">Confirm Password</Label>
+            <Label htmlFor="password" className='dark:text-white'>Confirm Password</Label>
 
             <Input
               id="password_confirmation"
@@ -105,12 +105,14 @@ export default function Register() {
 
           <div className="flex items-center justify-end mt-4">
             <Link href="/login">
-              <a className="underline text-sm text-gray-600 hover:text-gray-900">
+              <a className="underline text-sm text-gray-600 hover:text-gray-900 dark:text-white">
                 Already registered?
               </a>
             </Link>
 
-            <Button onClick={submitForm} className={`${styles.btn} ml-8 mb-2`}>
+              <Button onClick={submitForm} className={`${styles.btn} ml-8 mb-2 dark:border dark:border-gray-100 
+              dark:text-white
+            `}>
               Register
             </Button>
           </div>

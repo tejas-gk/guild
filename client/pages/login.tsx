@@ -60,12 +60,14 @@ export default function Login() {
         <title>Guild — Login</title>
       </Head>
 
-      <div className={`${styles.wrapper}`}>
+      <div className={`${styles.wrapper}
+       dark:bg-gray-800 
+      `}>
         <Errors className={styles.errors} errors={errors} />
 
         <form onSubmit={submitForm} autoComplete="off" className={styles.form}>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className='dark:text-white'>Email</Label>
 
             <Input
               id="email"
@@ -83,7 +85,7 @@ export default function Login() {
               <InputError messages={errors.email} className="mt-2" />
           </div>
           <div className="mt-4">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className='dark:text-white'>Password</Label>
 
             <Input
               id="password"
@@ -120,11 +122,9 @@ export default function Login() {
             <a>Forgot password?</a>
           </Link>
         </div>
-          <div style={{
-            marginTop: "1rem"
-            }}>
+          <div className="mt-2">
             do not have a account?<Link href="/register">
-              <a>
+              <a className="ml-2">
                 Register
               </a>
             </Link>

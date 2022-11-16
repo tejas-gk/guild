@@ -9,11 +9,13 @@ import VoteBtn from '@/components/Button/VoteBtn';
 import { Card0Props } from '@/setup/Interfaces/CardInterface';
 import Icon from './Icon/Icon';
 import Link from 'next/link';
+import Post from 'lib/helpers/Post';
 export default function Card0({
   text,
   user,
   id
-}:Card0Props) {
+}: Card0Props) {
+  const {deletePost} = Post()
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">
@@ -36,10 +38,13 @@ export default function Card0({
                 <div className="comment-user-name">{user}</div>
                 <div className="comment-date">Date</div>
               </div>
-              <div className="comment-actions flex flex-row gap-2  ml-auto">
-                <Edit size={16} />
-                <Trash size={16} />
-                <Repeat size={16} />
+              <div className="comment-actions flex flex-row gap-2  ml-auto cursor-pointer">
+                <span className='cursor-pointer hover:text-yellow-500'><Edit size={16} /></span>
+                <span className='cursor-pointer hover:text-red-500'>
+                <Trash size={16}
+                  onClick={() => deletePost(id)}
+                />
+                </span>
               </div>
             </div>
             <Link href={`/posts/${id}`}>
@@ -56,10 +61,19 @@ export default function Card0({
               </Link>
             
             <div className="comment-footer flex flex-row gap-4 mt-14 justify-between">
-              <Icon icon={<Flag size={16} />} size={0} />
-              <Icon icon={<Repeat size={16} />} size={0} />
-              <Icon icon={<Bookmark size={16} />} size={0} />
-              <Icon icon={<MessageSquare size={16} />} size={0} />
+              <span
+                className='cursor-pointer hover:text-blue-500 
+              '>
+                <Icon icon={<Flag size={16} />} size={0} /></span>
+              <span
+              className='cursor-pointer hover:text-green-500'
+              ><Icon icon={<Repeat size={16} />} size={0} /></span>
+              <span
+              className='cursor-pointer hover:text-red-500'
+              ><Icon icon={<Bookmark size={16} />} size={0} /></span>
+              <span
+              className='cursor-pointer hover:text-purple-500'
+              ><Icon icon={<MessageSquare size={16} />} size={0} /></span>
             </div>
             
           </div>
