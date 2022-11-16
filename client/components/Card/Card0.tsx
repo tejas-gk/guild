@@ -45,14 +45,17 @@ export default function Card0({
             <Link href={`/posts/${id}`}>
               <a>
             <div className="comment-body">
-              <p>
+                  <p className='
+                  line-clamp-4 break-words 
+
+              '>
                 {text}
               </p>
               </div>
               </a>
               </Link>
             
-            <div className="comment-footer flex flex-row gap-4 mt-4 justify-between">
+            <div className="comment-footer flex flex-row gap-4 mt-14 justify-between">
               <Icon icon={<Flag size={16} />} size={0} />
               <Icon icon={<Repeat size={16} />} size={0} />
               <Icon icon={<Bookmark size={16} />} size={0} />

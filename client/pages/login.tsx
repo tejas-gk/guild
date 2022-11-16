@@ -80,7 +80,7 @@ export default function Login() {
               autoComplete="off"
             />
 
-              {/* <InputError messages={errors.email} className="mt-2" /> */}
+              <InputError messages={errors.email} className="mt-2" />
           </div>
           <div className="mt-4">
             <Label htmlFor="password">Password</Label>
@@ -94,6 +94,7 @@ export default function Login() {
               required
               autoComplete="current-password"
             />
+            <InputError messages={errors.password} className="mt-2" />
           </div>
 
           <div className={styles.remember_me}>

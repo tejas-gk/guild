@@ -6,6 +6,8 @@ import Card from '@/components/Card/Card';
 import { Edit, Trash, Repeat } from 'react-feather';
 import styles from './style.module.css';
 import VoteBtn from '@/components/Button/VoteBtn';
+import log from 'lib/log';
+
 export default function Posts() {
   return (
     <div className="ml-96">

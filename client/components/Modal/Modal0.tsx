@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 
 export default function Modal0({Submit}) {
   let [isOpen, setIsOpen] = useState(false);
@@ -15,8 +16,21 @@ export default function Modal0({Submit}) {
 
   return (
     <>
-      <div className="inset-0 flex items-center justify-center">
-        <Button onClick={openModal}>Create Post</Button>
+      <div className="inset-0 flex items-center justify-center w-[50%] mt-6">
+        <Input
+          type="text"
+          placeholder="Create a post"
+          onClick={openModal}
+          className="
+          w-full h-10 rounded-sm border border-gray-300 focus:outline-none dark:focus:border-gray-500 focus:ring-1
+          dark:dark:focus:ring-gray-500 bg-white
+
+          "
+        />
+        <Button
+          onClick={openModal}
+          className="ml-2 w-36"
+          >Create Post</Button>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -54,7 +68,7 @@ export default function Modal0({Submit}) {
                     <textarea
                       className="
                       w-full h-full p-2 border border-gray-300 rounded-md resize-none overflow-scroll-x  caret-blue-500 
-                      focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md
+                      focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm  text-black
                       "
                                               placeholder="What's on your mind?"
                                               name='post'

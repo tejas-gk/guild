@@ -21,8 +21,11 @@ export default function Posts({ post }) {
                     // isOwner={true}
                     // comments={post.comments}
             />
-            </div>}   
+            </div>}  
+            <div className='mx-[50%]'>
+
             <PostComment />
+            </div>
         {
             post?.comments && post.comments.map((comment,index)=>{
                 return(

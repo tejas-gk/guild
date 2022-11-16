@@ -67,10 +67,13 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <NavBar />
+      {/* <NavBar /> */}
+      <div className="
+      
+      ">
       <div className={styles.wrapper}>
-        <div className={styles.sidebar}>
-          <SideBar />
+        <div>
+          {/* <SideBar /> */}
         </div>
          {/* @ts-ignore */}
         {authUser?.email_verified_at ? (
@@ -119,7 +122,8 @@ export default function Home() {
             </div>;
           })}
       </div>
-          
+      </div>
+      
     </>
   );
 }

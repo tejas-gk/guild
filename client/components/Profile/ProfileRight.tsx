@@ -97,7 +97,8 @@ export default function ProfileRight({posts,user,votes=1}) {
             <Tab.Panel>
               <div className="profile__main__body__videos mt-4 mr-2">
                 <div className="profile__main__body__videos__video">
-                  <img src="https://images.unsplash.com/photo-1662387709820-5ea1c001c67b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=406&q=80" />
+                  <img
+                    src="https://images.unsplash.com/photo-1662387709820-5ea1c001c67b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=406&q=80" />
                 </div>
               </div>
             </Tab.Panel>

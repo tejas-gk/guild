@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import CommandPallette from '@/components/CommendPallette/CommandPallette';
 import {useContext,useState} from 'react';
+import SideBar from "@/components/SideBar/SideBar";
+import Navbar from "@/components/Navbar/Navbar";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -18,7 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           },
         ]}
       />
-  
+      <Navbar />
+  <SideBar />
   <Component {...pageProps} />
     </>
   );

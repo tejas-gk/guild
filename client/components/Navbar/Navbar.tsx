@@ -2,7 +2,8 @@ import { Fragment, useState, useRef, useEffect } from 'react';
 import { Disclosure, Menu, Transition, Switch } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Toggle from 'components/Switch/Toggle';
-import {log} from 'lib/log';
+import { log } from 'lib/log';
+import useAuth from 'hooks/useAuth';
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
@@ -31,6 +32,10 @@ export default function Navbar() {
     log('isDark', isDark);
   }, []);
 
+
+  const { logout, isLoading, user, authUser } = useAuth({
+    middleware: 'auth',
+  });
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -104,14 +109,19 @@ export default function Navbar() {
                     leave="transition ease-in duration-75"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95">
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right 
+                    rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5
+                    font-medium text-sm 
+                    dark:bg-gray-900  dark:ring-gray-800 
+                    
+                    focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              active ? 'bg-gray-100 dark:text-white' : '',
+                              'block px-4 py-2 text-sm text-gray-700 dark:text-white dark:hover:bg-gray-700',
                             )}>
                             Your Profile
                           </a>
@@ -123,7 +133,7 @@ export default function Navbar() {
                             href="#"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              'block px-4 py-2 text-sm text-gray-700  dark:text-white dark:hover:bg-gray-700'
                             )}>
                             Settings
                           </a>
@@ -135,9 +145,11 @@ export default function Navbar() {
                             href="#"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}>
-                            Sign out
+                              'block px-4 py-2 text-sm text-gray-700 dark:text-white dark:hover:bg-gray-700'
+                            )}
+                            onClick={() => logout()}
+                          >
+                            Log out
                           </a>
                         )}
                       </Menu.Item>
