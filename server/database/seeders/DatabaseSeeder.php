@@ -23,5 +23,21 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
+        \App\Models\Comment::factory(10)->create([
+            'user_id' => 1,
+            'post_id' => 1,
+        ]);
+        \App\Models\Profile::create([
+            'user_id' => 1,
+            'reputation' => 0,
+            'bio' => 'This is a test user.',
+            'banner' => null,
+            'readme' => '
+                # Test User
+                * hey there*
+            ',
+        ]);
+
+
     }
 }

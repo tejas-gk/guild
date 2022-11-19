@@ -76,6 +76,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Guild::class);
     }
     
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 
     public function sendPasswordResetNotification($token)
     {

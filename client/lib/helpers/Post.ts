@@ -13,15 +13,6 @@ export default function Post() {
     axios.get("/user").then((response) => response.data.data)
   );
 
-  const getAllPost = () => {
-    let timeTakenToFetch:numberOrString;
-
-    axios.get("/posts").then((response) => {
-      setPosts(response.data);
-      timeTakenToFetch = response.headers["x-response-time"];
-    });
-    console.log("timeTakenToFetch", timeTakenToFetch);
-  };
 
 
   const storePost = async (e) => {
@@ -51,12 +42,9 @@ export default function Post() {
     console.log(response.data);
   });
 }
-  useEffect(() => {
-    getAllPost();
-  }, []);
+
 
   return {
-    getAllPost,
     posts,
     storePost,
     getAParticularPost,

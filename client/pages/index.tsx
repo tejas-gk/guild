@@ -11,12 +11,13 @@ import styles from "styles/index.module.scss";
 // import Modal from "components/Modal/Modal";
 import Card0 from "components/Card/Card0";
 import Post from "lib/helpers/Post";
-import useConvert from "hooks/useConvert";
+import { useAuthStore } from "store/AuthStore";
 import Button from "@/components/Button/Button";
 // import headlessui
 import { Disclosure } from "@headlessui/react";
 import Modal0 from "@/components/Modal/Modal0";
-
+import useSWR from "swr";
+import { log } from "lib/log";
 interface Post {
   id?: number;
   post?: string;
@@ -34,16 +35,17 @@ export default function Home() {
   const { logout, isLoading, user,authUser } = useAuth({
     middleware: "auth",
   });
-  const {posts,storePost}=Post();
-
+  const { storePost } = Post();
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  const { data, error } = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts", fetcher, {
+    refreshInterval: 1000, // 1 second
+});
+  // let posts = data
   const [createdAt, setCreatedAt] = useState<string | null>("");
   const [modal, setModal] = useState<boolean>(false);
-
-  const handleModal = () => {
-    setModal(!modal);
-    console.log("clicked");
-  };  
-
+  log(data, 'p', error)
+  log('u', user)
+  log('a', user)
 
   const created = () => {
     axios.get("current-user").then((response) => {
@@ -56,7 +58,7 @@ export default function Home() {
 
   const logoutUser = async (event) => {
     event.preventDefault();
-    console.log("logout");
+    log("logout");
     logout();
   };
 
@@ -85,7 +87,12 @@ export default function Home() {
         )}
 
         <div className='main flex flex-row justify-center gap-6'>
-          <h1>LoggedIN as {authUser}</h1>
+            <h1>LoggedIN as   
+
+              <span className='text-blue-500'>
+                Tejas
+              </span>
+          </h1>
           <h1>Created at</h1>
           {created()}
           <div>
@@ -109,17 +116,16 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        {/* @ts-ignore */}
-        {posts.posts &&
-        // @ts-ignore
-          posts.posts.map((post, index) => {
-            return <div key={index} className='w-full ml-24'>
-              <Card0
-              text={post.post}
-                user={post.users.name}
-                id={post.id}
-              /> 
-            </div>;
+          {data?.posts?.map((post:any, index:number) => {
+            return (
+              <div key={index} className='flex flex-row justify-center gap-6 mb-6'>
+                <Card0
+                  id={post.id}
+                  text={post.post}
+                  user={post.users.name}
+                />
+              </div>
+            );
           })}
       </div>
       </div>

@@ -1,8 +1,10 @@
 import useSWR from "swr";
 import axios from "../lib/axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback} from "react";
 import { AuthInterface } from "@/setup/Interfaces/AuthInterface";
+import { useAuthStore } from "store/AuthStore";
+import { log } from "lib/log";
 export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInterface = {}) {
   const router = useRouter();
 
@@ -12,13 +14,13 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
       setIsLoading(false);
     }
     let token = localStorage.getItem("token");
-
+        console.log(useAuthStore.getState(),'z')
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
     if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
     if (middleware === "guest" && token) {
-      router.push("/");
+    router.push("/");
     }
     if (middleware === "auth" && !token) {
       router.push("/login");
@@ -45,19 +47,21 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
     await csrf();
     setErrors([])
     
-      axios
-        .post("/register", {
-          name,
-          email,
-          password,
-        })
-        .then((response) => {
-          mutate(response.data.data);
-          localStorage.setItem("token", response.data.access_token);
-          console.log(response.data);
-          console.log(localStorage.getItem("token"));
-        })
-        .then(() => router.push("/"))
+    axios
+      .post("/register", {
+        name,
+        email,
+        password,
+      })
+      .then((response) => {
+        mutate(response.data.data);
+        localStorage.setItem("token", response.data.access_token);
+        log(response.data)
+        log(localStorage.getItem("token"));
+        useAuthStore.setState({ users: response.data})
+
+      })
+        .then(() => router.push("/")) 
         .catch((error) => {
           if(error.response.status !== 422)  throw error
           setErrors(error.response.data.errors)
@@ -79,8 +83,8 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
         .then((response) => {
             mutate(response.data.data);
             localStorage.setItem("token", response.data.access_token);
-            console.log(response.data);
-            console.log(localStorage.getItem("token"));
+            log(response.data);
+            log(localStorage.getItem("token"));
         })
         .then(() => console.log('jdei'))
         .catch(error => {
@@ -88,21 +92,20 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
         })
   };
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await axios.post("/logout");
-
     mutate(null);
-
     localStorage.removeItem("token");
     router.push("/login");
-  };
+  }, []);
+
 
   const [authUser, setAuthUser] = useState("");
   const currentUser = () => {
     axios.get("current-user").then((response) => {
       JSON.stringify(response.data);
       setAuthUser(response.data.name);
-      console.log(response.data);
+      log(response.data);
     });
   };
 

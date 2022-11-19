@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\TwoFaController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Utils\VoteController;
@@ -75,3 +77,5 @@ Route::get('follower/{id}',[App\Http\Controllers\Utils\FollowController::class,'
 Route::get('following/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowingsCount'])->middleware('auth:sanctum');
 
 Route::get('user/{id}',[App\Http\Controllers\User\UserController::class,'show']);
+
+

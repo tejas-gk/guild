@@ -1,4 +1,5 @@
+declare type middleware = 'auth' | 'guest'
 export interface AuthInterface {
-    middleware?: string;
+    middleware?: middleware,
     redirectIfAuthenticated?: string;
 }
