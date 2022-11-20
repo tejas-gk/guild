@@ -55,8 +55,9 @@ class VoteController extends Controller
             return response()->json(['message' => 'Vote deleted']);      
     }
 
-    public function getVoteCount($id){
-        $votes = Vote::where('post_id', $id)->get();
+    public function getVoteCount(int |string $id){
+        $post = Post::find($id);
+        $votes = $post->votes;
         $upvotes = 0;
         $downvotes = 0;
         foreach($votes as $vote){
@@ -67,7 +68,7 @@ class VoteController extends Controller
                 $downvotes++;
             }
         }
-        return response()->json(['message' => $upvotes-$downvotes]);
+        return response()->json(['upvotes' => $upvotes, 'downvotes' => $downvotes]);
     }
     
 
