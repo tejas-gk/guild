@@ -68,15 +68,9 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
         $hasUser = $user ? true : false;
         $this->assertTrue($hasUser);
-        $response = $this->post('/api/forgot-password', [
-            'email' => $user->email,
-        ]);
-        $response->assertStatus(200);
         $response = $this->post('/api/reset-password', [
             'email' => $user->email,
             'password' => 'password',
-            'password_confirmation' => 'password',
-            'token' => $user->token,
         ]);
         $response->assertStatus(200);
     }
@@ -86,9 +80,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
         $hasUser = $user ? true : false;
         $this->assertTrue($hasUser);
-        $response = $this->post('/api/verify-email', [
-            'email' => $user->email,
-        ]);
+        $response=$this->get('/api/verify-email/'.$user->id.'/'.$user->email_verification_token);
         $response->assertStatus(200);
     }
 

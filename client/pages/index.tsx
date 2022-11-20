@@ -28,8 +28,6 @@ interface Post {
   };
 }
 
-// create context
-export const AuthUserContext = createContext(null);
 
 export default function Home() {
   const { logout, isLoading, user,authUser } = useAuth({
@@ -45,7 +43,6 @@ export default function Home() {
   const [modal, setModal] = useState<boolean>(false);
   log(data, 'p', error)
   log('u', user)
-  log('a', user)
 
   const created = () => {
     axios.get("current-user").then((response) => {
@@ -61,8 +58,10 @@ export default function Home() {
     log("logout");
     logout();
   };
-
-
+    
+  const token = useAuthStore((state) => state.token);
+  // const tU=useAuthStore((state) => state.users.user.name);
+  console.warn(token);
   
   return (
     <>
@@ -90,7 +89,7 @@ export default function Home() {
             <h1>LoggedIN as   
 
               <span className='text-blue-500'>
-                Tejas
+                {token}
               </span>
           </h1>
           <h1>Created at</h1>
