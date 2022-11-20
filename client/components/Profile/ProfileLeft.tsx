@@ -2,7 +2,12 @@ import {GitHub,Twitter,Twitch,Linkedin, Plus} from 'react-feather'
 import { useState, useRef ,useEffect} from 'react';
 import axios from 'lib/axios';
 import Follows from 'lib/helpers/Follows';
-import  useAuth  from 'hooks/useAuth';
+import useAuth from 'hooks/useAuth';
+import useSWR from 'swr';
+import { log } from 'lib/log';
+
+
+
 export default function ProfileLeft({
   name,
   username,
@@ -21,49 +26,59 @@ export default function ProfileLeft({
     const followRequest = async () => {
       const res = await axios.post(`/follow/${id}`);
       const data = await res.data;
-      console.log(data);
+      log(data);
   }
 
   const getFollowers = async () => {
     const res = await axios.get(`/follower/${id}`)
-    console.log(res.data)
+    log(res.data)
     setFollowers(res.data.followerCount)
     setFollowD(res.data)
-    console.log(followD, 'followD')
-    console.log(followers,'j')
   }
   const following = async () => {
     const res = await axios.get(`/following/${id}`)
-    console.log(res.data)
+    log(res.data)
     setFollowings(res.data.following)
   }
   const toggleFollow = () => {
     followRequest()
-    console.log(followIsClicked);
+    log(followIsClicked);
     setFollowIsClicked(!followIsClicked);
   };
   
-  const isAuthUserFollowing = () => {
-    const { authUser } = useAuth({ middleware: 'auth' });
-    const { followingData } = Follows();
-    console.log(followingData, 'followingData');
-    if (followingData) {
-      const isFollowing = followingData.find(
-        (following) => following.id === id
-      );
-      console.log(isFollowing, 'isFollowing');
-      setIsFollowing(isFollowing);
-    }
-  };
+  // const isAuthUserFollowing = () => {
+  //   const { authUser } = useAuth({ middleware: 'auth' });
+  //   const { followingData } = Follows();
+  //   log(followingData, 'followingData');
+  //   if (followingData) {
+  //     const isFollowing = followingData.find(
+  //       (following) => following.id === id
+  //     );
+  //     console.log(isFollowing, 'isFollowing');
+  //     setIsFollowing(isFollowing);
+  //   }
+  // };
 
+  const { } = useAuth({ middleware: 'auth' });
 
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  const { data: isflwing, error } = useSWR(`/is-following/${id}`, fetcher)
+  log(isflwing, 'isflwing');
+  // if isflwing is true, then set isFollowing to true
+  // if isflwing is false, then set isFollowing to false
+
+  if (isflwing === true) {
+    setIsFollowing(true)
+    log(isFollowing, 'isFollowing')
+  }
+  
   useEffect(() => {
     getFollowers()
     following()
     
-    console.log(followD,'l')
+    log(followD,'l')
 
-    console.log(followings,'k')
+    log(followings,'k')
   },[]);
 
   return (

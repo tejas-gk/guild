@@ -25,7 +25,7 @@ class FollowController extends Controller
         if($follow==NULL){
             return response()->json(['message' => 'Not following']);
         }
-        return response()->json(['message' => 'Following']);
+        return response()->json(['message' => 'Following',"idi"=>1]);
     }
     public function getFollowersCount($id){
         $followers = Follow::where('followed_id', $id)
