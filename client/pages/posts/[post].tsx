@@ -24,7 +24,7 @@ export default function Posts({ post }) {
             </div>}  
             <div className='mx-[50%]'>
 
-            <PostComment />
+            {/* <PostComment /> */}
             </div>
         {
             post?.comments && post.comments.map((comment,index)=>{
@@ -47,7 +47,6 @@ export default function Posts({ post }) {
                             </div>
                         )
                     })}
-                    <hr />
                     </div>
                 )
             })

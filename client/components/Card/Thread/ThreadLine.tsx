@@ -5,7 +5,6 @@ import styles from './style.module.css';
 import VoteBtn from '@/components/Button/VoteBtn';
 export default function ThreadLine({
   comment,
-
 }) {
   return (
     <>

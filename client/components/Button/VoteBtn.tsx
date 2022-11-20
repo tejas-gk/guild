@@ -3,10 +3,10 @@ import { numberOrNull, numberOrString } from '@/setup/types/CommonType';
 import { useState, useEffect } from 'react';
 import axios from 'lib/axios';
 import useAuth from 'hooks/useAuth';
-export default function VoteBtn({ count = 0,id }: { count: number ,id:numberOrString}) {
+export default function VoteBtn({ ucount = 0,id,dcount=0}: { ucount: number ,id:numberOrString,dcount:number}) {
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-  const [voteCount, setVoteCount] = useState<numberOrNull>(count);
+  const [voteCount, setVoteCount] = useState<numberOrNull>(ucount);
   
   const { }=useAuth({middleware:'auth'});
     const voteRequest = async () => {
@@ -31,7 +31,7 @@ export default function VoteBtn({ count = 0,id }: { count: number ,id:numberOrSt
         </button>
          </form>
         <span className={`${styles.voteCount}`}>
-          {voteCount === null ? 0 : voteCount}
+          {ucount-dcount}
         </span>
         <button
           className={`btn btn-primary btn-sm ${styles.voteBtn}`}

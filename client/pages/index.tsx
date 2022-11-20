@@ -37,6 +37,7 @@ export default function Home() {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
   const { data, error } = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts", fetcher, {
     refreshInterval: 1000, // 1 second
+    revalidateOnFocus: false, 
 });
   // let posts = data
   const [createdAt, setCreatedAt] = useState<string | null>("");

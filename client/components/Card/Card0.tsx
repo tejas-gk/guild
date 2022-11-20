@@ -10,18 +10,27 @@ import { Card0Props } from '@/setup/Interfaces/CardInterface';
 import Icon from './Icon/Icon';
 import Link from 'next/link';
 import Post from 'lib/helpers/Post';
+import useSWR from 'swr';
+import { log } from 'lib/log';
 export default function Card0({
   text,
   user,
   id
 }: Card0Props) {
-  const {deletePost} = Post()
+  const { deletePost } = Post()
+  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  const { data:vote, error } = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/vote/"+id, fetcher, {
+    refreshInterval: 1000, // 1 second
+    revalidateOnFocus: false, 
+  });
+  log(vote, 'p', error)
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">
         {/* comments */}
         <VoteBtn
-        count={0}
+          ucount={vote?.upvotes}
+          dcount={vote?.downvotes}
         id={59}
         />
         <div className="comments flex gap-4">
