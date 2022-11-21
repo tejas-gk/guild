@@ -59,10 +59,8 @@ export default function Home() {
     log("logout");
     logout();
   };
-    
-  const token = useAuthStore((state) => state.token);
-  // const tU=useAuthStore((state) => state.users.user.name);
-  console.warn(token);
+  // @ts-ignore
+  const token = useAuthStore((state) => state.users.user.name);
   
   return (
     <>

@@ -61,25 +61,23 @@ export default function ProfileLeft({
 
   const { } = useAuth({ middleware: 'auth' });
 
-  const fetcher = (url) => axios.get(url).then((res) => res.data);
+  const fetcher = ((url) => axios.get(url).then((res) => res.data.message));
   const { data: isflwing, error } = useSWR(`/is-following/${id}`, fetcher)
-  log(isflwing, 'isflwing');
-  // if isflwing is true, then set isFollowing to true
-  // if isflwing is false, then set isFollowing to false
 
-  if (isflwing === true) {
-    setIsFollowing(true)
-    log(isFollowing, 'isFollowing')
-  }
-  
   useEffect(() => {
     getFollowers()
     following()
-    
-    log(followD,'l')
-
-    log(followings,'k')
   },[]);
+  log(isflwing, 'isflwing',isFollowing)
+  
+  useEffect(() => {
+    log(isflwing, 'isflwing')
+    if (isflwing === 'Following') {
+      setIsFollowing(true)
+    }
+    // setIsFollowing(true)
+  }, [followIsClicked])
+  
 
   return (
     <div>
@@ -107,23 +105,16 @@ export default function ProfileLeft({
             className="rounded-md border border-transparent bg-gray-900 py-3 px-8 text-center font-medium
              text-white hover:bg-gray-700 flex flex-row divide-gray-600 divide-x
              ">
-            { (followIsClicked ) ? (
-              <p className="mr-2"
-                onClick={toggleFollow}
-                ref={followRef}
-                >Following</p>
-            ) : (
-                <>
-                  <span className='pr-4'
-                    onClick={toggleFollow}
-                    ref={followRef}
-                  >
-                    Follow</span>
-              <span className='pl-4'><Plus /></span>
-                </>
-            )}
-
-                     
+            {
+              (isflwing=="Following" || followIsClicked) ? <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
+                <p className="px-2">Following</p>
+                <p className="px-2">{followings}</p>
+              </button> : <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
+                  <p className="px-2">Follow</p>
+                  <p className="px-2">{followings}</p>
+              </button>
+              
+            }         
           </a>
         </div>
 
