@@ -41,7 +41,6 @@ export default function Home() {
 });
   // let posts = data
   const [createdAt, setCreatedAt] = useState<string | null>("");
-  const [modal, setModal] = useState<boolean>(false);
   log(data, 'p', error)
   log('u', user)
 
@@ -53,15 +52,19 @@ export default function Home() {
     return <div>{createdAt}</div>;
   };
   
-
+ 
   const logoutUser = async (event) => {
     event.preventDefault();
     log("logout");
     logout();
   };
+  const suggestedUser = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/suggest-users", fetcher, {
+    refreshInterval: 1000, // 1 second
+    revalidateOnFocus: false,
+  });
   // @ts-ignore
-  const token = useAuthStore((state) => state.users.user.name);
-  
+  const token = useAuthStore((state) => state?.users?.user?.name);
+   log(suggestedUser?.data?.suggestions,'suggestions')
   return (
     <>
       <Head>
@@ -113,7 +116,29 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
+        >
+          <div className="
+          ">
+          {/* <div className="shadow-lg px-4 ml-[80rem]">
+              {
+                suggestedUser.data.suggestions.map((user) => (
+            <div key={user.id} className='
+            flex flex-row justify-start  gap-6 mb-6
+            '>
+              <div
+              className=""
+              >
+                <Link href={`/profile/${user.id}`}>
+                  <a>
+                   {user.name}
+                    </a>
+                  </Link>
+              </div>
+            </div>
+          ))
+              }
+</div> */}
+
           {data?.posts?.map((post:any, index:number) => {
             return (
               <div key={index} className='flex flex-row justify-center gap-6 mb-6'>
@@ -125,6 +150,8 @@ export default function Home() {
               </div>
             );
           })}
+          </div>
+          
       </div>
       </div>
       

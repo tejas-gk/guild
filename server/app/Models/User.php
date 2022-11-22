@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function followees()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $url ='http://localhost:3000/password-reset/'.$token;

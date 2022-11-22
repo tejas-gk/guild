@@ -77,5 +77,5 @@ Route::get('follower/{id}',[App\Http\Controllers\Utils\FollowController::class,'
 Route::get('following/{id}',[App\Http\Controllers\Utils\FollowController::class,'getFollowingsCount'])->middleware('auth:sanctum');
 Route::get('is-following/{id}',[App\Http\Controllers\Utils\FollowController::class,'isFollowing'])->middleware('auth:sanctum');
 Route::get('user/{id}',[App\Http\Controllers\User\UserController::class,'show']);
-
+Route::get('suggest-users',[App\Http\Controllers\User\UserController::class,'suggestUsers']);
 

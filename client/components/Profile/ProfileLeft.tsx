@@ -5,7 +5,7 @@ import Follows from 'lib/helpers/Follows';
 import useAuth from 'hooks/useAuth';
 import useSWR from 'swr';
 import { log } from 'lib/log';
-
+import { useAuthStore } from 'store/AuthStore';
 
 
 export default function ProfileLeft({
@@ -46,25 +46,17 @@ export default function ProfileLeft({
     setFollowIsClicked(!followIsClicked);
   };
   
-  // const isAuthUserFollowing = () => {
-  //   const { authUser } = useAuth({ middleware: 'auth' });
-  //   const { followingData } = Follows();
-  //   log(followingData, 'followingData');
-  //   if (followingData) {
-  //     const isFollowing = followingData.find(
-  //       (following) => following.id === id
-  //     );
-  //     console.log(isFollowing, 'isFollowing');
-  //     setIsFollowing(isFollowing);
-  //   }
-  // };
-
+  // @ts-ignore
+  const userId = useAuthStore((state) => state.users);
+  let uId = userId?.user.id
   const { } = useAuth({ middleware: 'auth' });
-
+  
   const fetcher = ((url) => axios.get(url).then((res) => res.data.message));
   const { data: isflwing, error } = useSWR(`/is-following/${id}`, fetcher)
-
+  
   useEffect(() => {
+    console.log(userId.user.id, 'authuser')
+    console.warn('flff')
     getFollowers()
     following()
   },[]);
@@ -106,6 +98,11 @@ export default function ProfileLeft({
              text-white hover:bg-gray-700 flex flex-row divide-gray-600 divide-x
              ">
             {
+              (uId === id) ? (
+                <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
+                  <p className="px-2">Edit</p>
+                </button>
+              ):(
               (isflwing=="Following" || followIsClicked) ? <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
                 <p className="px-2">Following</p>
                 <p className="px-2">{followings}</p>
@@ -113,7 +110,7 @@ export default function ProfileLeft({
                   <p className="px-2">Follow</p>
                   <p className="px-2">{followings}</p>
               </button>
-              
+              )
             }         
           </a>
         </div>
