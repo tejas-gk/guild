@@ -14,6 +14,9 @@ class Profile extends Model
         'bio',
         'banner',
         'readme',
+        'github',
+        'twitter',
+        'linkedin',
     ];
     public function user()
     {

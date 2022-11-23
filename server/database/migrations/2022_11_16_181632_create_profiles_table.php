@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('bio')->nullable();
             $table->text('banner')->nullable();
             $table->longText('readme')->nullable();
-            
+            $table->string('github')->nullable();
             $table->timestamps();
         });
     }

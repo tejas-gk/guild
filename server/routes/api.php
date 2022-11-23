@@ -12,7 +12,7 @@ use App\Http\Controllers\Utils\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
-
+use App\Models\Profile;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,13 +50,23 @@ Route::post('verify-email', [ForgotPasswordController::class, 'verifyEmail'])->m
 Route::get('email/verify/{id}/{hash}', [ForgotPasswordController::class, 'verifyEmailLink'])->name('verification.verify')->middleware('auth:sanctum');
 Route::post('two-factor-authentication', [TwoFaController::class, 'twoFactorAuthentication'])->middleware('auth:sanctum');
 
-Route::get('/auth/redirect', function () {
+Route::get('/sign-in/github', function () {
     return Socialite::driver('github')->redirect();
-});
+})->name('gh')->middleware('web');
 
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('github')->user();
-});
+Route::get('/sign-in/github/redirect', function () {
+    $user = Socialite::driver( 'github' )->stateless()->user();
+    // dd($user);
+    $user = \App\Models\User::firstOrCreate([
+        'email' => $user->getEmail()
+    ], [
+        'name' => $user->getName(),
+        'password' => bcrypt('password'),
+        'email_verified_at' => now()
+    ]);
+    return redirect('http://localhost:8000');
+
+})->middleware(['web']);
 
 Route::post('verify-email', [VerifyEmailController::class, 'verifyEmail'])->middleware('auth:sanctum');
 Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
@@ -78,4 +88,5 @@ Route::get('following/{id}',[App\Http\Controllers\Utils\FollowController::class,
 Route::get('is-following/{id}',[App\Http\Controllers\Utils\FollowController::class,'isFollowing'])->middleware('auth:sanctum');
 Route::get('user/{id}',[App\Http\Controllers\User\UserController::class,'show']);
 Route::get('suggest-users',[App\Http\Controllers\User\UserController::class,'suggestUsers']);
-
+Route::post('update-profile',[App\Http\Controllers\User\ProfileController::class,'update'])->middleware('auth:sanctum');
+Route::get('profile/{id}',[App\Http\Controllers\User\ProfileController::class,'show']);
