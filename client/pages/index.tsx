@@ -58,10 +58,7 @@ export default function Home() {
     log("logout");
     logout();
   };
-  // const suggestedUser = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/suggest-users", fetcher, {
-  //   refreshInterval: 1000, // 1 second
-  //   revalidateOnFocus: false,
-  // });
+  
   // @ts-ignore
   const authenticatedUser = useAuthStore((state) => state?.token?.user?.name);
   const [token, setToken] = useState<string | null>("");
@@ -143,11 +140,14 @@ export default function Home() {
 
           {data?.posts?.map((post:any, index:number) => {
             return (
+              log(post.users.id, 'p'),
               <div key={index} className='flex flex-row justify-center gap-6 mb-6'>
                 <Card0
                   id={post.id}
                   text={post.post}
                   user={post.users.name}
+                  date={post.created_at}
+                  uid={post.users.id}
                 />
               </div>
             );

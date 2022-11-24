@@ -114,7 +114,7 @@ export default function ProfileRight({posts,user,votes=1,profileData,uid}) {
                       <button
                         type="button"
                         onClick={openModal}
-                        className="rounded-md bg-purple-100 bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
+                        className="rounded-md  bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
                         hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 
                         focus-visible:ring-white focus-visible:ring-opacity-75
                         ml-[90%]
@@ -226,6 +226,8 @@ export default function ProfileRight({posts,user,votes=1,profileData,uid}) {
                               text={post?.post}
                           id={post?._id} 
                         user={user}
+                          uid={uid}
+                          date={post?.created_at}
                           />
                     </div>
                   ))} 

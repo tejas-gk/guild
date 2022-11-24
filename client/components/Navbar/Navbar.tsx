@@ -47,8 +47,6 @@ export default function Navbar() {
   useLayoutEffect(() => {
     setToken(authenticatedUser);
     setName(authenticatedUserName);
-    console.warn(token)
-    log('tokennnnnnnnnnnnnn', token);
   }, []);
 
   let sprite='bottts'

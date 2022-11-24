@@ -12,10 +12,14 @@ import Link from 'next/link';
 import Post from 'lib/helpers/Post';
 import useSWR from 'swr';
 import { log } from 'lib/log';
+import { formatDistance,subDays,subHours,subMinutes,subYears } from 'date-fns'
+
 export default function Card0({
   text,
   user,
-  id
+  id,
+  date,
+  uid
 }: Card0Props) {
   const { deletePost } = Post()
   const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -23,7 +27,7 @@ export default function Card0({
     refreshInterval: 1000, // 1 second
     revalidateOnFocus: false, 
   });
-  log(vote, 'p', error)
+  let sprite = 'bottts'
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">
@@ -38,15 +42,26 @@ export default function Card0({
             <div className="comment-header flex gap-4">
               <div className="comment-user">
                 <img
-                  src="https://picsum.photos/200"
+                  src={`https://avatars.dicebear.com/api/${sprite}/${name}.svg`}
                   alt="user"
                   className="rounded-full w-8 h-8"
                 />
               </div>
+                {/* @ts-ignore */}
+                <Link href={`/user/${uid}`}>
+                  <a>
               <div className="comment-info flex flex-row gap-2">
                 <div className="comment-user-name">{user}</div>
-                <div className="comment-date">Date</div>
+                <div className="comment-date">
+                  {
+                  formatDistance(
+                    new Date(date),
+                    new Date()
+                  )
+                    }</div>
               </div>
+                    </a>
+                </Link>
               <div className="comment-actions flex flex-row gap-2  ml-auto cursor-pointer">
                 <span className='cursor-pointer hover:text-yellow-500'><Edit size={16} /></span>
                 <span className='cursor-pointer hover:text-red-500'>

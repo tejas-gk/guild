@@ -85,7 +85,8 @@ export default function ProfileLeft({
     
   }
   const [isEdit, setIsEdit] = useState(false)
-  const editableRef= useRef(null)
+  const editableRef = useRef(null)
+  const displayUserDataRef = useRef(null)
   const editProfileBtn = (e) => {
     e.preventDefault()
     setIsEdit(!isEdit)
@@ -93,8 +94,12 @@ export default function ProfileLeft({
     log(isEdit)
     if (isEdit) {
       editableRef.current.classList.add('hidden')
+      displayUserDataRef.current.classList.remove('hidden')
     }
-    else editableRef.current.classList.remove('hidden') 
+    else {
+      editableRef.current.classList.remove('hidden')
+      displayUserDataRef.current.classList.add('hidden')
+    }
 
   }
 
@@ -120,24 +125,38 @@ export default function ProfileLeft({
                   <input type="text" name="bio" defaultValue={bio} /><br/>
                   <button
                     type="submit"
-                    className='rounded-md bg-purple-100 bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
+                    className='rounded-md  bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
                         hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 
                         focus-visible:ring-white focus-visible:ring-opacity-75'
                   >Update</button>
                 </form>
                 </div>
-            ): (
+            ) : (
+                // make this better somehow idk how so i wrote same thing twice
                 <div>
-                
-                </div>
+                  {
+                    (!uId==userId)?(
+                    <div className='mt-0 ml-0'>
+                      <h1>{name}</h1>
+                      <p className='font-thin'>{username}</p>
+                      <div className="profile-left__bio  w-64 overflow-hidden">
+                        <h1>Bio</h1>
+                        <p>{bio}</p>
+                      </div>
+                      </div>
+                    ) : (
+                      <div className='mt-0 ml-0'>
+                      </div>
+                    )
+                  }
+              </div>
             )
-          }
-        
-          <h1>{name}</h1> 
-          <p className='font-thin'>{username}</p>
+          }  
         </div>
 
-        <div className="profile-left__bio mt-8 ml-32 w-64 overflow-hidden">
+        <div className="profile-left__bio mt-8 ml-32 w-64 overflow-hidden" ref={displayUserDataRef}>
+          <h1 ref={displayUserDataRef} >{name}</h1> 
+          <p className='font-thin' ref={displayUserDataRef} >{username}</p>
           <h1>Bio</h1>
           <p>{bio}</p>
         </div>
