@@ -1,9 +1,7 @@
-import React from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-export default function test1() {
-  const [md, setMd] = useState('')
+import {useState} from 'react'
+
+export default function Markdown() {
+    const [md, setMd] = useState('')
 
   const parse = (md) => {
     //ul
@@ -61,60 +59,11 @@ export default function test1() {
 
     //strip p from pre
     md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
-    
-
     return md;
-  };
-
-  const syntaxHighlight = (md) => {
-    // if starts with ``` and ends with ``` then it is code
-    if (md.startsWith('```') && md.endsWith('```')) {
-      // if consists function then it is javascript and color it
-      if (md.includes('function')) {
-        md.replace('function', '<span class="text-red-500">function</span>');
-      }
-      // if consists return then it is javascript and color it
-      if (md.includes('return')) {
-        md.replace('return', '<span class="text-red-500">return</span>');
-      }
+    };
+    return {
+        md,
+        parse,
+        setMd
     }
-    return md;
-  };
-
-
-
-  return (
-    <div className='ml-96'>
-      ff
-      <textarea
-        className='border border-black'
-        onChange={(e) => setMd(e.target.value)}
-        value={md}
-      />
-      <div className='border border-black' dangerouslySetInnerHTML={{
-        __html: syntaxHighlight(parse(
-        md
-        ))
-      }} />
-      {parse(md)}
-      {md}
-      <ReactMarkdown
-        children={md}
-        components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '')
-            return !inline && match ? (
-              <pre {...props}>
-                <code className={className}>{children}</code>
-              </pre>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            )
-          },
-        }}
-      />
-    </div>
-  )
-} 
+}

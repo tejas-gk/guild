@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('reputation')->default(0);
             $table->string('bio')->nullable();
             $table->text('banner')->nullable();
-            $table->longText('readme')->nullable();
+         
+            $table->longText('readme',2048)->nullable();
             $table->string('github')->nullable();
             $table->timestamps();
         });

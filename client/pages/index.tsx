@@ -3,7 +3,7 @@ import Link from "next/link";
 import axios from "lib/axios";
 import useAuth from "hooks/useAuth";
 import { current } from "@reduxjs/toolkit";
-import { useEffect, useState,createContext } from "react";
+import { useEffect, useState,createContext,useRef,useCallback } from "react";
 import { Axios } from "axios";
 import SideBar from "../components/SideBar/SideBar";
 import NavBar from "components/Navbar/Navbar";
@@ -58,22 +58,24 @@ export default function Home() {
     log("logout");
     logout();
   };
-  const suggestedUser = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/suggest-users", fetcher, {
-    refreshInterval: 1000, // 1 second
-    revalidateOnFocus: false,
-  });
+  // const suggestedUser = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL + "/suggest-users", fetcher, {
+  //   refreshInterval: 1000, // 1 second
+  //   revalidateOnFocus: false,
+  // });
   // @ts-ignore
-  const token = useAuthStore((state) => state?.users?.user?.name);
-   log(suggestedUser?.data?.suggestions,'suggestions')
+  const authenticatedUser = useAuthStore((state) => state?.token?.user?.name);
+  const [token, setToken] = useState<string | null>("");
+  useEffect(() => {
+    setToken(authenticatedUser);
+  }, []);
+
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
       {/* <NavBar /> */}
-      <div className="
-      
-      ">
+      <div>
       <div className={styles.wrapper}>
         <div>
           {/* <SideBar /> */}
@@ -90,12 +92,12 @@ export default function Home() {
         <div className='main flex flex-row justify-center gap-6'>
             <h1>LoggedIN as   
 
-              <span className='text-blue-500'>
-                {token}
+              <span className='text-blue-500 ml-4'>
+                    {token}
               </span>
           </h1>
           <h1>Created at</h1>
-          {created()}
+          {/* {created()} */}
           <div>
            <Button onClick={logoutUser} >logout</Button>
           </div>

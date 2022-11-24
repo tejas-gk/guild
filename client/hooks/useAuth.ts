@@ -58,7 +58,7 @@ export default function useAuth({ middleware, redirectIfAuthenticated}:AuthInter
         localStorage.setItem("token", response.data.access_token);
         log(response.data)
         log(localStorage.getItem("token"));
-        useAuthStore.setState({token:response.data.access_token})
+        useAuthStore.setState({token:response.data})
 
       })
         .then(() => router.push("/")) 

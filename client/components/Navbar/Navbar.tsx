@@ -1,9 +1,11 @@
-import { Fragment, useState, useRef, useEffect } from 'react';
+import { Fragment, useState, useRef, useEffect,useLayoutEffect } from 'react';
 import { Disclosure, Menu, Transition, Switch } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Toggle from 'components/Switch/Toggle';
 import { log } from 'lib/log';
 import useAuth from 'hooks/useAuth';
+import { useAuthStore } from "store/AuthStore";
+import Link from 'next/link';
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
@@ -20,8 +22,8 @@ export default function Navbar() {
 
   const toggleEnabled = () => setEnabled(!enabled);
   const handleModeAction = (e) => {
-    // log('handleModeAction', e);
     document.body.classList.toggle('dark', enabled);
+    // @ts-ignore
     localStorage.setItem('dark', enabled);
     toggleEnabled();
   };
@@ -36,6 +38,20 @@ export default function Navbar() {
   const { logout, isLoading, user, authUser } = useAuth({
     middleware: 'auth',
   });
+  // @ts-ignore
+  const authenticatedUser = useAuthStore((state) => state.token.user?.id);
+  // @ts-ignore
+  const authenticatedUserName = useAuthStore((state) => state.token.user?.name);
+  const [token, setToken] = useState<string | null>("");
+  const [name, setName] = useState<string | null>("");
+  useLayoutEffect(() => {
+    setToken(authenticatedUser);
+    setName(authenticatedUserName);
+    console.warn(token)
+    log('tokennnnnnnnnnnnnn', token);
+  }, []);
+
+  let sprite='bottts'
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -96,7 +112,9 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={
+                           `https://avatars.dicebear.com/api/${sprite}/${name}.svg`
+                        }
                         alt=""
                       />
                     </Menu.Button>
@@ -118,12 +136,12 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href={`/user/${token}`}
                             className={classNames(
                               active ? 'bg-gray-100 dark:text-white' : '',
                               'block px-4 py-2 text-sm text-gray-700 dark:text-white dark:hover:bg-gray-700',
                             )}>
-                            Your Profile
+                              Profile 
                           </a>
                         )}
                       </Menu.Item>

@@ -5,7 +5,8 @@ namespace App\Services\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Laravolt\Avatar\Facade as Avatar;
+use Laravolt\Avatar\Avatar as AvatarAvatar;
 /**
  * Class registerService.
  */
@@ -27,6 +28,6 @@ class registerService
         {
             return ($request->hasFile('avatar'))
                 ? $request->file('avatar')->store('avatars')
-                : null;
+                :null;
         }
 }

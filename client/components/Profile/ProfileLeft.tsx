@@ -1,11 +1,12 @@
 import {GitHub,Twitter,Twitch,Linkedin, Plus} from 'react-feather'
-import { useState, useRef ,useEffect} from 'react';
+import { useState, useRef ,useEffect,useLayoutEffect} from 'react';
 import axios from 'lib/axios';
 import Follows from 'lib/helpers/Follows';
 import useAuth from 'hooks/useAuth';
 import useSWR from 'swr';
 import { log } from 'lib/log';
 import { useAuthStore } from 'store/AuthStore';
+import Button from '../Button/Button';
 
 
 export default function ProfileLeft({
@@ -13,6 +14,7 @@ export default function ProfileLeft({
   username,
   bio,
   id,
+  avatar=null
 }) {
   
   const [followIsClicked, setFollowIsClicked] = useState(false);
@@ -47,15 +49,18 @@ export default function ProfileLeft({
   };
   
   // @ts-ignore
-  const userId = useAuthStore((state) => state.users);
-  let uId = userId?.user.id
+  const uId = useAuthStore((state) => state.token.user?.id);
+  const [userId, setUserId] = useState()
+  useLayoutEffect(() => {
+    setUserId(uId)
+  },[])
+  // let uId = userId?.user.id
   const { } = useAuth({ middleware: 'auth' });
-  
+  // log(uId,'uid')
   const fetcher = ((url) => axios.get(url).then((res) => res.data.message));
   const { data: isflwing, error } = useSWR(`/is-following/${id}`, fetcher)
-  
+
   useEffect(() => {
-    console.log(userId.user.id, 'authuser')
     console.warn('flff')
     getFollowers()
     following()
@@ -70,24 +75,70 @@ export default function ProfileLeft({
     // setIsFollowing(true)
   }, [followIsClicked])
   
+  const editProfile = (e) => {
+    e.preventDefault()
+     axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/update-profile`, {
+       name:e.target.name.value,
+       bio: e.target.bio.value
+     })
+    log('submitted', name, bio)
+    
+  }
+  const [isEdit, setIsEdit] = useState(false)
+  const editableRef= useRef(null)
+  const editProfileBtn = (e) => {
+    e.preventDefault()
+    setIsEdit(!isEdit)
+    // @ts-ignore
+    log(isEdit)
+    if (isEdit) {
+      editableRef.current.classList.add('hidden')
+    }
+    else editableRef.current.classList.remove('hidden') 
+
+  }
+
+  let sprite='bottts'
 
   return (
     <div>
       <div className="profile-left">
         <div className="profile-left__image mt-24 ml-24">
           <img
-            src="https://picsum.photos/200"
+            src={
+              `https://avatars.dicebear.com/api/${sprite}/${name}.svg`}
             alt="user"
             className="rounded-full w-64 h-64"
           />
         </div>
         <div className="profile-left__name mt-8 ml-32">
-          <h1 className="font-bold text-xl">{name}</h1>
-          <p>{username}</p>
+          {
+            userId == id ? (
+              <div className='edit-profile hidden' ref={editableRef}>
+              <form onSubmit={editProfile}>
+                  <input type="text" name="name" defaultValue={name} />
+                  <input type="text" name="bio" defaultValue={bio} /><br/>
+                  <button
+                    type="submit"
+                    className='rounded-md bg-purple-100 bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
+                        hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 
+                        focus-visible:ring-white focus-visible:ring-opacity-75'
+                  >Update</button>
+                </form>
+                </div>
+            ): (
+                <div>
+                
+                </div>
+            )
+          }
+        
+          <h1>{name}</h1> 
+          <p className='font-thin'>{username}</p>
         </div>
 
         <div className="profile-left__bio mt-8 ml-32 w-64 overflow-hidden">
-          <h2 className="font-semibold">Bio</h2>
+          <h1>Bio</h1>
           <p>{bio}</p>
         </div>
 
@@ -98,10 +149,18 @@ export default function ProfileLeft({
              text-white hover:bg-gray-700 flex flex-row divide-gray-600 divide-x
              ">
             {
-              (uId === id) ? (
-                <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
-                  <p className="px-2">Edit</p>
-                </button>
+              (userId === id) ? (
+              <div>
+                  {
+                    isEdit ? (
+                      <div>
+                        <button onClick={editProfileBtn}>Cancel</button>
+                      </div>
+                    ) : (
+                      <button onClick={editProfileBtn}>Edit</button>
+                    )
+                  }
+                </div>
               ):(
               (isflwing=="Following" || followIsClicked) ? <button onClick={toggleFollow} className="flex flex-row divide-gray-600 divide-x">
                 <p className="px-2">Following</p>

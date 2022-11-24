@@ -5,6 +5,7 @@ import useAuth from 'hooks/useAuth';
 import axios from 'lib/axios';
 import { log } from 'lib/log';
 import {useEffect,useRef} from 'react';
+import useSWR from 'swr';
 export default function profile({ user, userId }) {
   const { authUser,currentUser } = useAuth({ middleware: 'auth' });
 
@@ -13,7 +14,9 @@ export default function profile({ user, userId }) {
     log('authUser', authUser,currentUser.name)
   }, [])
 
-
+  const fetcher = ((url) => axios.get(url).then((res) => res.data.message));
+  const { data: bio, error } = useSWR(process.env.NEXT_PUBLIC_BACKEND_URL +`/profile/6`, fetcher)
+  log(bio?.profile?.bio, 'bio')
   return (
       <div className="profile">
           {/* <Sidebar /> */}
@@ -28,8 +31,8 @@ export default function profile({ user, userId }) {
                   <ProfileLeft
                       name={user.name}
                       username={user.email}
-                      bio='hello world'
-            id={user.id}
+                      bio={bio?.profile?.bio}
+                      id={user.id}
             
                   />
         </div>
@@ -40,6 +43,8 @@ export default function profile({ user, userId }) {
           <ProfileRight 
             posts={user.posts}
             user={user.name}
+            uid={user.id}
+            profileData={user}
                   />
         </div>
       </div>

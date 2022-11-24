@@ -28,8 +28,16 @@ class ProfileController extends Controller
                 'bio' => $request->bio,
             'banner' => $request->banner,
             'readme'=>$request->readme,
-        ],
-        );
+            
+        ],);
+        $user=new User();
+        $user->updateOrCreate(
+            ['id' => auth()->user()->id],
+            [
+                'name' => $request->name,
+                'password' => Hash::make($request->password),
+            ]
+            );   
         return response()->json([
             'message' => 'Profile updated successfully',
             'profile' => $profile,
