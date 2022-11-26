@@ -14,14 +14,9 @@ export default function VoteBtn({ ucount = 0,id,dcount=0}: { ucount: number ,id:
     const upvoteRequest = async () => {
       const res = await axios.post(`upvote/${id}`);
       const data = await res.data;
-      mutate(`/upvote/${id}`, data);
-      console.log(data);
+      // mutate(`upvote/${id}`, { upvote: true, downvote: false });
       log(upvote)
   }
-  
-
-
-   
     return (
       <div className={`vote-btn ${styles.voteBtnContainer}`}>
         <form  method="post">

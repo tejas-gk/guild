@@ -11,6 +11,8 @@ import style from 'components/PasswordStrength/password-strength.module.scss'
 import GuestLayout from "@/components/Layouts/GuestLayout";
 import PasswordStrength from "@/components/PasswordStrength/PasswordStrength";
 import InputError from "@/components/Errors/InputErrors";
+import { GitHub } from "react-feather";
+import axios from "lib/axios";
 export default function Register() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -114,7 +116,17 @@ export default function Register() {
               dark:text-white
             `}>
               Register
-            </Button>
+              </Button>
+              <span>
+              <a href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/sign-in/github`}>
+              <GitHub
+                className="Oauth github ml-4 dark:text-white"
+                size={24}
+                strokeWidth={1.5}
+                color="currentColor"
+                  />
+             </a>
+        </span>
           </div>
         </form>
         

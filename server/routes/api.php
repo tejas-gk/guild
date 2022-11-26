@@ -64,8 +64,9 @@ Route::get('/sign-in/github/redirect', function () {
         'password' => bcrypt('password'),
         'email_verified_at' => now(),
     ]);
-
-    return redirect('http://localhost:8000');
+    $token=$user->createToken('authToken')->plainTextToken;
+    auth()->login($user, true);
+    return redirect('http://localhost:3000');
 })->middleware(['web']);
 
 Route::post('verify-email', [VerifyEmailController::class, 'verifyEmail'])->middleware('auth:sanctum');
