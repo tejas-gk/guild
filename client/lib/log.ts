@@ -7,7 +7,17 @@ const log = (function (environment) {
   }
 })(process.env.NODE_ENV);
 
+const alrt = (function (environment) {
+  if (environment === "production") {
+    return () => { }
+  }
+  return (...args) => {
+    alert(...args)
+  }
+})(process.env.NODE_ENV);
+
 
 export {
-  log
+  log,
+  alrt
 }

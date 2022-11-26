@@ -4,7 +4,7 @@ import axios from 'lib/axios';
 import Follows from 'lib/helpers/Follows';
 import useAuth from 'hooks/useAuth';
 import useSWR from 'swr';
-import { log } from 'lib/log';
+import { log ,alrt} from 'lib/log';
 import { useAuthStore } from 'store/AuthStore';
 import Button from '../Button/Button';
 
@@ -22,7 +22,7 @@ export default function ProfileLeft({
   const [followings, setFollowings] = useState();
   const [followD, setFollowD] = useState({});
   const [isFollowing, setIsFollowing] = useState(false);
-
+  const [image, setImage] = useState();
 
   const followRef = useRef(null);
     const followRequest = async () => {
@@ -76,13 +76,23 @@ export default function ProfileLeft({
   
   const editProfile = (e) => {
     e.preventDefault()
+    let formData = new FormData()
+    formData.append('avatar', avatar)
+
      axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/update-profile`, {
        name:e.target.name.value,
        bio: e.target.bio.value,
-        avatar: e.target.avatar.value
+      avatar: formData
+     }).then((res) => {
+       useAuthStore.setState({ token: res.data.token.user.name })
+
+       // image = res.data.user.avatar
+        log(res.data)
      })
-    log('submitted',avatar)
     
+    if(avatar) {
+      alrt('Profile updated successfully')
+    }
   }
   const [isEdit, setIsEdit] = useState(false)
   const editableRef = useRef(null)

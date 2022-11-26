@@ -34,6 +34,7 @@ class ProfileController extends Controller
                 'bio' => $request->bio,
                 'banner' => $request->banner,
                 'readme' => $request->readme,
+                'avatar' => $avatar,
             ],
         );
         // upload avatar
