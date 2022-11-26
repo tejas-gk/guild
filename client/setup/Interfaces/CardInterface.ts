@@ -11,8 +11,8 @@ export interface CardProps {
 export interface Card0Props {
   id: string | number;
   text: string;
-  date: string;
+  date?: string;
   user: string;
-  uid: string | number;
+  uid?: string | number;
 
 }

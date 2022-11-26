@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Guild;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Guild;
+use Illuminate\Http\Request;
+
 class GuildController extends Controller
 {
     public function index()
@@ -13,6 +16,7 @@ class GuildController extends Controller
 
         return response()->json($guilds);
     }
+
     public function store(Request $request)
     {
         $guild = new Guild();
@@ -21,11 +25,11 @@ class GuildController extends Controller
 
         return response()->json($guild);
     }
+
     public function show($id)
     {
         $guild = Guild::whereId($id)->with('users:id,name')->first();
 
         return response()->json($guild);
     }
-    
 }

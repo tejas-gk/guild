@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -11,7 +13,7 @@ class TwoFactorAuthenticationController extends Controller
     public function twoFactorAuthentication(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (! $user) {
+        if ( ! $user) {
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.',
             ], 404);

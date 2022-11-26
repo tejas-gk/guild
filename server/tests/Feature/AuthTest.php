@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Models\User;
@@ -80,7 +82,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
         $hasUser = $user ? true : false;
         $this->assertTrue($hasUser);
-        $response=$this->get('/api/verify-email/'.$user->id.'/'.$user->email_verification_token);
+        $response = $this->get('/api/verify-email/'.$user->id.'/'.$user->email_verification_token);
         $response->assertStatus(200);
     }
 

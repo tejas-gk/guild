@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,17 +15,19 @@ class Follow extends Model
         'user_id',
         'followed_id',
     ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
+
     public function followed()
     {
         return $this->belongsTo('App\Models\User');
     }
+
     public function follower()
     {
         return $this->belongsTo('App\Models\User');
     }
-    
 }

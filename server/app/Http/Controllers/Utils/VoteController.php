@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Utils;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Vote;
 use App\Models\Post;
+use App\Models\Vote;
+use Illuminate\Http\Request;
+
 class VoteController extends Controller
 {
     public function index()
@@ -14,62 +17,65 @@ class VoteController extends Controller
 
         return response()->json($votes);
     }
+
     public function upvote(Request $request)
     {
-        $vote = Vote::where('user_id',auth()->user()->id)->where('post_id', $request->post_id)->first();
-        if($vote==NULL){
+        $vote = Vote::where('user_id', auth()->user()->id)->where('post_id', $request->post_id)->first();
+        if ($vote == null) {
             $vote = new Vote();
             $vote->user_id = auth()->user()->id;
             $vote->post_id = $request->post_id;
-            $vote->vote=1;
+            $vote->vote = 1;
             $vote->save();
+
             return response()->json(['message' => 'Vote created']);
-        }
-
-        else if($vote->vote == 0){
-            $vote->vote=1;
+        } elseif ($vote->vote == 0) {
+            $vote->vote = 1;
             $vote->save();
-            return response()->json(['message' => 'Vote',$vote]);
-        }
-            $vote->delete();
-            return response()->json(['message' => 'Vote deleted']);
 
+            return response()->json(['message' => 'Vote', $vote]);
+        }
+        $vote->delete();
+
+        return response()->json(['message' => 'Vote deleted']);
     }
 
-    public function downvote(Request $request){
-        $vote = Vote::where('user_id',auth()->user()->id)->where('post_id', $request->post_id)->first();
-        if($vote==NULL){
+    public function downvote(Request $request)
+    {
+        $vote = Vote::where('user_id', auth()->user()->id)->where('post_id', $request->post_id)->first();
+        if ($vote == null) {
             $vote = new Vote();
             $vote->user_id = auth()->user()->id;
             $vote->post_id = $request->post_id;
-            $vote->vote=-1;
+            $vote->vote = -1;
             $vote->save();
+
             return response()->json(['message' => 'Vote created']);
-        }
-        else if($vote->vote == 1){
-            $vote->vote=0;
+        } elseif ($vote->vote == 1) {
+            $vote->vote = 0;
             $vote->save();
-            return response()->json(['message' => 'Vote',$vote]);
+
+            return response()->json(['message' => 'Vote', $vote]);
         }
-            $vote->delete();
-            return response()->json(['message' => 'Vote deleted']);      
+        $vote->delete();
+
+        return response()->json(['message' => 'Vote deleted']);
     }
 
-    public function getVoteCount(int |string $id){
+    public function getVoteCount(int|string $id)
+    {
         $post = Post::find($id);
         $votes = $post->votes;
         $upvotes = 0;
         $downvotes = 0;
-        foreach($votes as $vote){
-            if($vote->vote == 1){
+        foreach ($votes as $vote) {
+            if ($vote->vote == 1) {
                 $upvotes++;
-            }
-            else if($vote->vote == -1){
+            } elseif ($vote->vote == -1) {
                 $downvotes++;
             }
         }
+
         return response()->json(['upvotes' => $upvotes, 'downvotes' => $downvotes]);
     }
-    
-
 }

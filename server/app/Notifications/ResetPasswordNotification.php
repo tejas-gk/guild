@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -42,9 +44,9 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('password reset link')
-                    ->action('Reset Password', $this->url)
-                    ->line('Thank you for using our application!');
+            ->line('password reset link')
+            ->action('Reset Password', $this->url)
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,7 +58,7 @@ class ResetPasswordNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -16,7 +18,7 @@ class TwoFactorAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (! $request->user() || ! $request->user()->two_factor_secret) {
+        if ( ! $request->user() || ! $request->user()->two_factor_secret) {
             return $next($request);
         }
         if ($request->user()->two_factor_recovery_codes) {

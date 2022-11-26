@@ -61,7 +61,6 @@ export default function ProfileLeft({
   const { data: isflwing, error } = useSWR(`/is-following/${id}`, fetcher)
 
   useEffect(() => {
-    console.warn('flff')
     getFollowers()
     following()
   },[]);
@@ -79,9 +78,10 @@ export default function ProfileLeft({
     e.preventDefault()
      axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/update-profile`, {
        name:e.target.name.value,
-       bio: e.target.bio.value
+       bio: e.target.bio.value,
+        avatar: e.target.avatar.value
      })
-    log('submitted', name, bio)
+    log('submitted',avatar)
     
   }
   const [isEdit, setIsEdit] = useState(false)
@@ -120,7 +120,8 @@ export default function ProfileLeft({
           {
             userId == id ? (
               <div className='edit-profile hidden' ref={editableRef}>
-              <form onSubmit={editProfile}>
+                <form onSubmit={editProfile} encType='multipart/form-data'>
+                  <input type="file" name="avatar" />
                   <input type="text" name="name" defaultValue={name} />
                   <input type="text" name="bio" defaultValue={bio} /><br/>
                   <button

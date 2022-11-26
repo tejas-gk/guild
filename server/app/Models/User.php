@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,11 +53,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-    
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
     public function votes()
     {
         return $this->hasMany(Vote::class);
@@ -75,7 +78,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Guild::class);
     }
-    
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -88,8 +91,7 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $url ='http://localhost:3000/password-reset/'.$token;
+        $url = 'http://localhost:3000/password-reset/'.$token;
         $this->notify(new ResetPasswordNotification($url));
     }
-
 }

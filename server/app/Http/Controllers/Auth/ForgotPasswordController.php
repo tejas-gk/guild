@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -53,7 +54,7 @@ class ForgotPasswordController extends Controller
     public function verifyEmail(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (! $user) {
+        if ( ! $user) {
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.',
             ], 404);
@@ -68,7 +69,7 @@ class ForgotPasswordController extends Controller
     public function resendEmail(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (! $user) {
+        if ( ! $user) {
             return response()->json([
                 'message' => 'We can\'t find a user with that e-mail address.',
             ], 404);
@@ -83,7 +84,7 @@ class ForgotPasswordController extends Controller
     public function verifyEmailLink($id, $hash)
     {
         $user = User::findOrFail($id);
-        if (! $user || ! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        if ( ! $user || ! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
             return response()->json([
                 'message' => 'Email verification link is invalid.',
             ], 404);

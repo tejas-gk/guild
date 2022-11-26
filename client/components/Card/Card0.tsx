@@ -42,7 +42,7 @@ export default function Card0({
             <div className="comment-header flex gap-4">
               <div className="comment-user">
                 <img
-                  src={`https://avatars.dicebear.com/api/${sprite}/${name}.svg`}
+                  src={`https://avatars.dicebear.com/api/${sprite}/${user}.svg`}
                   alt="user"
                   className="rounded-full w-8 h-8"
                 />

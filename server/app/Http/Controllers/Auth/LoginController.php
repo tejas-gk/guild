@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -35,8 +37,8 @@ class LoginController extends Controller
          $token = $request->bearerToken();
          // dd($token);
 
-         $token = $request->user()->where('id',
-
+         $token = $request->user()->where(
+             'id',
          )->first();
          dd($token);
          $loggedUser = User::whereHas('tokens', function ($query) use ($token) {

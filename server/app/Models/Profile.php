@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravolt\Avatar\Facade as Avatar;
+
 class Profile extends Model
 {
     use HasFactory;
@@ -19,6 +22,7 @@ class Profile extends Model
         'linkedin',
         'avatar',
     ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -30,5 +34,4 @@ class Profile extends Model
     //     }
     //     return Avatar::create($this->user->name)->toBase64();
     // }
-
 }

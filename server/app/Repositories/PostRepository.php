@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\Post;
@@ -41,7 +43,7 @@ class PostRepository implements PostRepositoryInterface
          return true;
      }
 
-     public function getPost(int $id): Post | User
+     public function getPost(int $id): Post|User
      {
          return Post::find($id);
      }

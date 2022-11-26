@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +14,7 @@ class Post extends Model
     protected $fillable = [
         'post',
         'user_id',
-        
+
     ];
     // protected $with = ['user'];
 
@@ -25,9 +27,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function votes()
     {
         return $this->hasMany(Vote::class);
     }
-    
 }

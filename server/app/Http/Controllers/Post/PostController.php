@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
@@ -24,9 +26,10 @@ class PostController extends Controller
         return response()->json(['posts' => $posts]);
     }
 
-    public function store(Request $request,int $id=NULL):JsonResponse
+    public function store(Request $request, int $id = null): JsonResponse
     {
-        $post=$this->postRepository->store($request,$id);
+        $post = $this->postRepository->store($request, $id);
+
         return response()->json(['post' => $post]);
     }
 
@@ -40,8 +43,8 @@ class PostController extends Controller
     public function show($id): JsonResponse
     {
         $post = Post::whereId($id)
-        ->with( 'comments.replies', 'comments.user:id,name', 'votes')
-        ->first();
+            ->with('comments.replies', 'comments.user:id,name', 'votes')
+            ->first();
 
         return response()->json($post);
     }
@@ -49,8 +52,8 @@ class PostController extends Controller
     public function delete($id): JsonResponse
     {
         $post = Post::whereId($id)
-        ->with('users:id,name', 'comments.replies', 'users:id,name', 'comments.user:id,name', 'comments.replies.user:id,name','votes')
-        ->first();
+            ->with('users:id,name', 'comments.replies', 'users:id,name', 'comments.user:id,name', 'comments.replies.user:id,name', 'votes')
+            ->first();
 
         return response()->json($post);
     }

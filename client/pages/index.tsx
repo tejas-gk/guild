@@ -66,6 +66,7 @@ export default function Home() {
     setToken(authenticatedUser);
   }, []);
 
+  if(!data && !error) return <div>Loading...</div>
   return (
     <>
       <Head>
@@ -137,6 +138,7 @@ export default function Home() {
           ))
               }
 </div> */}
+          
 
           {data?.posts?.map((post:any, index:number) => {
             return (

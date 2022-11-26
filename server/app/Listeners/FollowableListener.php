@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\Followable;
 class FollowableListener
 {
     /**
@@ -14,9 +13,9 @@ class FollowableListener
      */
     public function __construct()
     {
-        //
+
     }
- 
+
     /**
      * Handle the event.
      *
@@ -25,6 +24,6 @@ class FollowableListener
      */
     public function handle($event)
     {
-        //
+
     }
 }

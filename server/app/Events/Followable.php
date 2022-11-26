@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use App\Models\Follow;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Follow;
 
 class Followable
 {
@@ -34,12 +33,11 @@ class Followable
     {
         return new PrivateChannel('channel-name');
     }
-   
+
     public function broadcastWith()
     {
         return [
             'follow' => $this->follow,
         ];
     }
-
 }

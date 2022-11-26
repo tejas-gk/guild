@@ -7,7 +7,7 @@ import Card0 from '@/components/Card/Card0'
 import ThreadLine from '@/components/Card/Thread/ThreadLine'
 import PostComment from '@/components/Input/PostComment/PostComment'
 export default function Posts({ post }) {
-    console.log(post)
+
     return (
         <div className='relative '>
         
@@ -15,9 +15,9 @@ export default function Posts({ post }) {
                 <Card0
                     id={post.id}
                     text={post.post}
-                    // createdAt={post.created_at}
-                    // updatedAt={post.updated_at}
-                    user='tejas'
+                    date={post.created_at}
+                    user={post.users?.name}
+                    uid={post.usersid}
                     // isOwner={true}
                     // comments={post.comments}
             />
