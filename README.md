@@ -1,22 +1,50 @@
-# guild
+# Guild
+A social media platform for everyone.
+ 
+Table of contents
+=================
+ 
+  * [Guild](#guild)
+    * [Table of contents](#table-of-contents)
+    * [Introduction](#introduction)
+    * [Features](#features)
+    * [Screenshots](#screenshots)
+    * [Installation](#steps)
+      * [Requirements](#requirements)
+      * [Installation](#steps)
+    * [Contributing](#contributing)
 
-# screenshots
+## Introduction
+
+* back to [Table of contents](#table-of-contents)
+## Features
+- [x] User Authentication
+- [x] User Profiles
+- [x] User Posts
+- [x] User Comments
+- [x] User Votes
+- [x] User Follows
+* back to [Table of contents](#table-of-contents)
+
+## Screenshots
 ![index page](assets/guildproj6.png)
 ![dark mode](assets/guildproj4.png)
 ![register page](assets/guildproj7.png)
 ![user profile page](assets/guildproj2.png)
 ![profile page](assets/guildproj0.png)
 ![posts with comments page](assets/guildproj3.png)
+* back to [Table of contents](#table-of-contents)
 
 
 
 
-
-## needed
+## Requirements
 - [ ] composer
 - [ ] node
 - [ ] xampp
 - [ ] mailtrap or similar
+
+* back to [Table of contents](#table-of-contents)
 
 ## steps
 ```
@@ -33,4 +61,6 @@
 - npm run lint
 ```
 
+* back to [Table of contents](#table-of-contents)
 
+###### I use this repo for shaktipradarshana
