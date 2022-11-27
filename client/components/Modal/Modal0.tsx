@@ -56,10 +56,12 @@ export default function Modal0({Submit}) {
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95">
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white
+                 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-800
+                 ">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900">
+                    className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                     Post
                                   </Dialog.Title>
                                   <form method='POST' onSubmit={Submit}>
@@ -68,17 +70,18 @@ export default function Modal0({Submit}) {
                     <textarea
                       className="
                       w-full h-full p-2 border border-gray-300 rounded-md resize-none overflow-scroll-x  caret-blue-500 
-                      focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm  text-black
+                      focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm  text-black 
+                       dark:text-white dark:bg-gray-800
                       "
                                               placeholder="What's on your mind?"
                                               name='post'
                       />
                   </div>
 
-                  <div className="mt-4">
+                       <div className="mt-4">
                                           <Button
                                               type='submit'
-                                              onClick={closeModal}
+                        onClick={closeModal}
                                           >
                                               Post
                                           </Button>

@@ -8,12 +8,10 @@ import { Axios } from "axios";
 import SideBar from "../components/SideBar/SideBar";
 import NavBar from "components/Navbar/Navbar";
 import styles from "styles/index.module.scss";
-// import Modal from "components/Modal/Modal";
 import Card0 from "components/Card/Card0";
 import Post from "lib/helpers/Post";
 import { useAuthStore } from "store/AuthStore";
 import Button from "@/components/Button/Button";
-// import headlessui
 import { Disclosure } from "@headlessui/react";
 import Modal0 from "@/components/Modal/Modal0";
 import useSWR from "swr";
@@ -43,15 +41,6 @@ export default function Home() {
   const [createdAt, setCreatedAt] = useState<string | null>("");
   log(data, 'p', error)
   log('u', user)
-
-  const created = () => {
-    axios.get("current-user").then((response) => {
-      JSON.stringify(response.data);
-      setCreatedAt(response.data.created_at);
-    });
-    return <div>{createdAt}</div>;
-  };
-  
  
   const logoutUser = async (event) => {
     event.preventDefault();
@@ -65,8 +54,6 @@ export default function Home() {
   useEffect(() => {
     setToken(authenticatedUser);
   }, []);
-
-  if(!data && !error) return <div>Loading...</div>
   return (
     <>
       <Head>
@@ -137,9 +124,7 @@ export default function Home() {
             </div>
           ))
               }
-</div> */}
-          
-
+          </div> */}
           {data?.posts?.map((post:any, index:number) => {
             return (
               log(post.users.id, 'p'),

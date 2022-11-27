@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vote>
  */
-class CommentFactory extends Factory
+class VoteFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,11 +16,12 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+        $isUpvoteOrDownvote = $this->faker->boolean;
         return [
-            'comment' => $this->faker->text,
-            'post_id' => \App\Models\Post::factory(),
             'user_id' => \App\Models\User::factory(),
-            'parent_id' => \App\Models\Comment::factory() ?? null,
+            'post_id' => \App\Models\Post::factory(),
+             ($isUpvoteOrDownvote ? 'upvote' : 'downvote') => $isUpvoteOrDownvote,
+             
         ];
     }
 }

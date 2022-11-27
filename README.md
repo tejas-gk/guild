@@ -1,5 +1,17 @@
 # guild
 
+# screenshots
+![index page](assets/guildproj6.png)
+![dark mode](assets/guildproj4.png)
+![register page](assets/guildproj7.png)
+![user profile page](assets/guildproj2.png)
+![profile page](assets/guildproj0.png)
+![posts with comments page](assets/guildproj3.png)
+
+
+
+
+
 ## needed
 - [ ] composer
 - [ ] node
@@ -20,3 +32,5 @@
 - ./vendor/bin/pint
 - npm run lint
 ```
+
+

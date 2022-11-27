@@ -19,7 +19,9 @@ class FollowFactory extends Factory
     public function definition()
     {
         return [
-
+            'follower' => \App\Models\User::factory(),
+            'followed' => \App\Models\User::factory(),
+        
         ];
     }
 }
