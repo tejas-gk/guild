@@ -112,8 +112,7 @@ export default function Register() {
               </a>
             </Link>
 
-              <Button onClick={submitForm} className={`${styles.btn} ml-8 mb-2 dark:border dark:border-gray-100 
-              dark:text-white
+              <Button onClick={submitForm} className={`${styles.btn} ml-8 mb-2 
             `}>
               Register
               </Button>

@@ -75,16 +75,14 @@ export default function Home() {
         )}
 
         <div className='main flex flex-row justify-center gap-6'>
-            <h1>LoggedIN as   
+            <h1>Welcome  
 
               <span className='text-blue-500 ml-4'>
                     {token}
               </span>
           </h1>
-          <h1>Created at</h1>
-          {/* {created()} */}
           <div>
-           <Button onClick={logoutUser} >logout</Button>
+           {/* <Button onClick={logoutUser} >logout</Button> */}
           </div>
         </div>
     

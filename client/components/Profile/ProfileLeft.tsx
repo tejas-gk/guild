@@ -9,6 +9,22 @@ import { useAuthStore } from 'store/AuthStore';
 import Button from '../Button/Button';
 
 
+
+// Import React FilePond
+import { FilePond, registerPlugin } from "react-filepond";
+
+// Import FilePond styles
+import "filepond/dist/filepond.min.css";
+
+// Import the Image EXIF Orientation and Image Preview plugins
+// Note: These need to be installed separately
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+
+// Register the plugins
+registerPlugin();
+
 export default function ProfileLeft({
   name,
   username,
@@ -22,7 +38,7 @@ export default function ProfileLeft({
   const [followings, setFollowings] = useState();
   const [followD, setFollowD] = useState({});
   const [isFollowing, setIsFollowing] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState('');
 
   const followRef = useRef(null);
     const followRequest = async () => {
@@ -73,19 +89,19 @@ export default function ProfileLeft({
     }
     // setIsFollowing(true)
   }, [followIsClicked])
-  
   const editProfile = (e) => {
     e.preventDefault()
+
     let formData = new FormData()
     formData.append('avatar', avatar)
-    axios.post('/update-profile', formData)
-      .then(res => {
-        log(res.data)
-     })
+    axios.post(`/update-profile`, {
+      name: name,
+      bio: bio,
+      avatar: formData
+    }).then((res) => {
+      log(res.data,avatar,name,bio)
+    })
     
-    if(avatar) {
-      alrt('Profile updated successfully')
-    }
   }
   const [isEdit, setIsEdit] = useState(false)
   const editableRef = useRef(null)
@@ -107,7 +123,8 @@ export default function ProfileLeft({
   }
 
   let sprite='bottts'
-
+  const [files, setFiles] = useState([])
+ 
   return (
     <div>
       <div className="profile-left">
@@ -122,15 +139,21 @@ export default function ProfileLeft({
         <div className="profile-left__name mt-8 ml-32">
           {
             userId == id ? (
-              <div className='edit-profile hidden' ref={editableRef}>
-                <form onSubmit={editProfile} encType='multipart/form-data'>
-                  <input type="file" name="avatar" />
-                  <input type="text" name="name" defaultValue={name} />
-                  <input type="text" name="bio" defaultValue={bio} /><br/>
+              <div className='edit-profile hidden gap-4' ref={editableRef}>
+                <form onSubmit={editProfile}>
+                  {/* @ts-ignore*/}
+                  <input type='file' name='avatar' onChange={(e) => setImage(e.target.files[0])} />
+                  
+                  <input type="text" name="name" defaultValue={name}
+                    className='dark:bg-gray-800 dark:text-white dark:border-gray-800'
+                  />
+                  <input type="text" name="bio" defaultValue={bio}
+                    className='dark:bg-gray-800 dark:text-white dark:border-gray-800'
+                  /><br />
                   <button
                     type="submit"
                     className='rounded-md  bg-blue-200 px-4 py-2 text-sm font-medium text-blue-800
-                        hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 
+                        hover:bg-opacity-10 focus:outline-none focus-visible:ring-2 
                         focus-visible:ring-white focus-visible:ring-opacity-75'
                   >Update</button>
                 </form>
