@@ -78,15 +78,8 @@ export default function ProfileLeft({
     e.preventDefault()
     let formData = new FormData()
     formData.append('avatar', avatar)
-
-     axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/update-profile`, {
-       name:e.target.name.value,
-       bio: e.target.bio.value,
-      avatar: formData
-     }).then((res) => {
-       useAuthStore.setState({ token: res.data.token.user.name })
-
-       // image = res.data.user.avatar
+    axios.post('/update-profile', formData)
+      .then(res => {
         log(res.data)
      })
     
