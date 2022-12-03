@@ -28,6 +28,8 @@ export default function Card0({
     revalidateOnFocus: false, 
   });
   let sprite = 'bottts'
+
+  
   return (
     <div className=" w-[56rem]">
   <div className="comments-with-replies flex flex-row relative  w-[56rem]">
@@ -61,7 +63,10 @@ export default function Card0({
                     }</div>
               </div>
                     </a>
-                </Link>
+              </Link>
+              {
+                uid === 1 ? (
+               // TODO:only show if user is owner of post
               <div className="comment-actions flex flex-row gap-2  ml-auto cursor-pointer">
                 <span className='cursor-pointer hover:text-yellow-500'><Edit size={16} /></span>
                 <span className='cursor-pointer hover:text-red-500'>
@@ -69,14 +74,15 @@ export default function Card0({
                   onClick={() => deletePost(id)}
                 />
                 </span>
-              </div>
+                  </div>
+                ) : null
+              }
             </div>
             <Link href={`/posts/${id}`}>
               <a>
             <div className="comment-body">
                   <p className='
-                  line-clamp-4 break-words 
-
+                  line-clamp-4 break-words
               '>
                 {text}
               </p>

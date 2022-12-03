@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         ]}
       />
       <Navbar />
-  <SideBar />
+  {/* <SideBar /> */}
   <Component {...pageProps} />
     </>
   );

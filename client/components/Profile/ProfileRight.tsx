@@ -160,14 +160,22 @@ export default function ProfileRight({posts,user,votes=1,profileData,uid}) {
                                     <form onSubmit={storeProfileReadme}>
                                       <textarea
                                         name="readme"
-                                        className="w-full h-96 p-2 border-2 border-gray-300 rounded-md"
+                                              className="w-full h-96 p-2 border-2 border-gray-300 
+                                                 dark:text-black
+                                        rounded-md"
                                         placeholder="Write something about yourself"
                                         defaultValue={data?.profile?.readme}
                                       />
                                       <button
                                       type="submit"
-                                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                              className="inline-flex justify-center rounded-md 
+                                      border border-transparent bg-blue-100 px-4 py-2 
+                                      text-sm font-medium text-blue-900 hover:bg-blue-200 
+                                   
+                                      focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 
+                                      focus-visible:ring-offset-2"
                                       onClick={closeModal}  
+                                      
                                       >
                                         
                                         Save

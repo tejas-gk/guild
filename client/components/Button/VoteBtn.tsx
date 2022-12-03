@@ -55,6 +55,7 @@ export default function VoteBtn({ ucount = 0,id,dcount=0}: { ucount: number ,id:
           }}
         >
           {
+            // TODO:show color of what action user performed
             downvote ? (
               <span className="text-blue-500">
                 -

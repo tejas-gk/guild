@@ -16,6 +16,7 @@ import { Disclosure } from "@headlessui/react";
 import Modal0 from "@/components/Modal/Modal0";
 import useSWR from "swr";
 import { log } from "lib/log";
+import Loading from "@/components/Loading/Loading";
 interface Post {
   id?: number;
   post?: string;
@@ -54,6 +55,7 @@ export default function Home() {
   useEffect(() => {
     setToken(authenticatedUser);
   }, []);
+
   return (
     <>
       <Head>
@@ -102,27 +104,23 @@ export default function Home() {
           alignItems: "center",
         }}
         >
-          <div className="
+          <div className=" w-full 
           ">
-          {/* <div className="shadow-lg px-4 ml-[80rem]">
+            {(!data && !error) ? (
+            <div className="w-full">
               {
-                suggestedUser.data.suggestions.map((user) => (
-            <div key={user.id} className='
-            flex flex-row justify-start  gap-6 mb-6
-            '>
-              <div
-              className=""
-              >
-                <Link href={`/profile/${user.id}`}>
-                  <a>
-                   {user.name}
-                    </a>
-                  </Link>
-              </div>
-            </div>
-          ))
+                /* <Loading /> */
+                  Array.from(Array(5)).map((_, i) => (
+                    <div key={i} className=''>
+                      <Loading/>
+                    </div>
+                  ))
+
               }
-          </div> */}
+              </div>
+            ) : (
+              <div>  
+          
           {data?.posts?.map((post:any, index:number) => {
             return (
               log(post.users.id, 'p'),
@@ -138,7 +136,8 @@ export default function Home() {
             );
           })}
           </div>
-          
+          )}
+          </div>
       </div>
       </div>
       
