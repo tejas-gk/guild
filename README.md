@@ -7,7 +7,7 @@ Table of contents
   * [Guild](#guild)
     * [Table of contents](#table-of-contents)
     * [Introduction](#introduction)
-    * [Features](#features)
+    * [Tech](#tech)
     * [Screenshots](#screenshots)
     * [Installation](#steps)
       * [Requirements](#requirements)
@@ -17,13 +17,13 @@ Table of contents
 ## Introduction
 
 * back to [Table of contents](#table-of-contents)
-## Features
-- [x] User Authentication
-- [x] User Profiles
-- [x] User Posts
-- [x] User Comments
-- [x] User Votes
-- [x] User Follows
+## Tech
+- nextjs
+- laravel
+- typescript
+- swr
+- phpunit
+- tailwind
 * back to [Table of contents](#table-of-contents)
 
 ## Screenshots
