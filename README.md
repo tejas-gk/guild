@@ -1,4 +1,6 @@
 # Guild
+[![wakatime](https://wakatime.com/badge/github/tejas-gk/guild.svg)](https://wakatime.com/badge/github/tejas-gk/guild)
+
 A social media platform for everyone.
  
 Table of contents
